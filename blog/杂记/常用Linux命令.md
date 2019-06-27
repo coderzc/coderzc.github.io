@@ -1,0 +1,103 @@
+![shell](https://upload-images.jianshu.io/upload_images/12637001-94ce2b0bc8e55fb4.gif?imageMogr2/auto-orient/strip)
+
+#### 服务器常用
+```
+##### 统计含有空指针异常文件数
+find ~/ -name "*.log"  | xargs grep "NullPointerException" -l | wc -l
+
+##### 统计含有空指针异常行数
+find ~/ -name "*.log"  | xargs grep "NullPointerException" | wc -l
+
+##### 搜索含有空指针异常的行，并高亮
+find ~/ -name "*.log"  | xargs grep "NullPointerException" --color
+
+##### 不递归子目录搜索（深度为 1）
+find ~/ -maxdepth 1 -name ".*"
+
+##### 查看进程相应信息
+ps -ef | grep kafka
+
+##### 查看端口对应的进程号
+lsof -i:9092
+
+##### 查看最后1000行数据
+tail -n 1000 error.log
+
+##### 直接讲GBK换为utf-8并输出
+cat error.log | iconv -f GBK -t UTF-8
+
+##### 统计8080端口实时连接并发数
+netstat -na|grep ESTAB|grep 8080 | wc -l
+
+##### 通过端口号查出进程，在通过awk，拿到进程号，最后通过jmap查询对应的堆信息
+jmap -heap $(lsof -i:8080 | awk '{if(NR==2) print $2}')
+
+##### 逐行读取1.txt内容 转化为：File-->{系统时间}-->{原值+1} 写入2.txt中 
+#####   > 会重写文件，如果文件里面有内容会覆盖；>> 追加内容到文件,不会覆盖 
+##### 双引号会识别$等保留字，单引号则不会；echo > 1.txt 意思是清空 1.txt内容 
+for i in $(cat 1.txt)
+do 
+echo "File-->`date`-->$(($i+1))" >> 2.txt
+done
+
+##### grep 使用正则提取网址
+grep -ohr -E "https?://[a-zA-Z0-9\.\/_&=@$%~?#-]*" 1.txt
+
+```
+####文件合并、去重、拆分
+```bash
+##### 1. 两个文件合并 (一个文件在上，一个文件在下)
+ cat file1 file2 > file3
+
+##### 2. 两个文件合并 (一个文件在左，一个文件在右)
+ paste file1 file2 > file3
+
+##### 3. 归并连续出现的重复行
+uniq file3 > file4
+
+##### 4. 输出仅连续出现一次的行列。
+uniq -u file3 > file4
+
+##### 5. 对文本按ASCII 码 正序列排列(-r 逆序 -u相当于sort file3|uniq)
+sort -ru file3 > file4
+
+##### 6.保留原有顺序去重(awk 大法好)
+awk '!a[$0]++' file3 > file4
+
+##### 7.合并file1和file2 在去重后写入file3
+cat file1 file2| awk '!a[$0]++' > file3
+
+##### 8.以2行为单位分割file文件 生成的子文件前缀为split1_
+split -2 file split1_
+
+##### 9.以10个字节为单位分割file文件 生成的子文件前缀为split2_
+split -b 10 file split2_
+
+##### 10.以10个字节为单位分割file文件 生成的子文件前缀为split3_ ,但-C参数会尽量保持每行的完整性，
+##### 举例：一行有13个字节，那么会切割成两个文件，一个10字节，一个3字节，而-b参数会将8字节累计到下一行凑足十字节再切
+split -C 10 file split3_
+
+##### 去掉空行
+cat 1.txt |tr -s '\n'
+
+##### 并集
+sort 1.txt 2.txt | uniq
+
+##### 交集
+grep -F -f 1.txt 2.txt | sort | uniq
+
+##### 差集
+grep -F -v -f 2.txt 1.txt | sort | uniq
+
+```
+
+```
+# 查看java版本
+/usr/libexec/java_home -V
+```
+解释下 awk '!a[$0]++' file：https://blog.csdn.net/zhang_red/article/details/8585457
+
+```
+# 使用curl 分析请求时间
+curl -o /dev/null --connect-timeout 5 --max-time 10 -s -w "http_code=%{http_code},time_namelookup=%{time_namelookup},time_connect=%{time_connect},time_appconnect=%{time_appconnect},time_redirect=%{time_redirect},num_redirects=%{num_redirects},time_pretransfer=%{time_pretransfer},time_starttransfer=%{time_starttransfer},time_total=%{time_total},size_download=%{size_download},speed_download=%{speed_download}\n" 'https://www.baidu.com'
+```
