@@ -117,3 +117,7 @@ L_.str:                                 ## @.str
 * `gcc hello.s -o hello`
 
 #### hello.s 与 hello.o 都是二进制文件
+
+
+#### 直接生成可执行文件
+`gcc hello.c -o hello`
