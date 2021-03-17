@@ -30,3 +30,8 @@ epitem就跟这个socket关联起来了, 当它有状态变化时,会通过ep_po
 然后通过调用`ffd.file->f_op->poll()`再次检查每个文件描述符是否真的准备好了,然后开始拷贝资源给用户空间了
 
 拷贝资源则是先把就绪事件链表转移到中间链表,然后挨个遍历拷贝到用户空间,并且挨个判断其是否为水平触发,是的话再次插入到就绪链表
+
+[epoll 剖析](http://blog.chinaunix.net/uid-28541347-id-4273856.html)
+[epoll源码剖析](http://gityuan.com/2019/01/06/linux-epoll/)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200330014401253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70)
