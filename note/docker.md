@@ -1,0 +1,154 @@
+## 1. 什么是Docker
+
+官方解释：Package Software into Standardized Units for Development, Shipment and Deployment.
+
+![image-20210510153806631](https://gitee.com/coderzc/blogimage/raw/master/20210510153816.png)
+
+## 2. Docker namespace 隔离原理
+
+Docker通过 Namespace 实现进程隔离
+
+```c
+int clone(int (*child_func)(void *), void *child_stack, int flags, void *arg);
+```
+
+模拟隔离
+
+```shell
+# 创建一个隔离环境
+unshare --fork --pid --mount-proc bash
+```
+
+## 3. Docker 的资源配额 CGroups
+
+#### 3.1 Docker 使用CGroups实现资源的配额管理
+
+- Cgroups (control groups)
+- 2007年由谷歌工程师研发
+- 2008年并入 Linux Kernel 2.6.24
+- C语言实现
+
+#### 3.2 CGroups 限制进程的 CPU使用时间
+
+Docker中的 CPU，内存，网络的限制均通过 cgroups 实现 
+
+![cgroups层级结构示意图](https://gitee.com/coderzc/blogimage/raw/master/20210510173423.png)
+
+#### 3.3 实践
+
+```shell
+# 在宿主机上创建一个让 CPU 飙升到100%的进程： （此操作有风险，慎用）
+while : ; do : ; done &
+# 记录下 PID = 5004
+
+cd /sys/fs/cgroup/cpu
+mkdir cgroups_test
+
+# 查看配额
+cat cpu.cfs_quota_us
+
+# 设定20%cpu时间的上限
+echo 20000 > cpu.cfs_quota_us
+
+# 绑定进程号
+echo 27358 > /sys/fs/cgroup/cpu/cgroups_test/tasks
+
+# 清理该进程
+kill -9 5004
+```
+
+#### 3.4 docker 里如何加参数进行资源配额
+
+```shell
+# 分配一个50%的cpu时间配额
+docker run -it --cpus=".5" nginx /bin/sh
+
+# 查看是否有对应的cgroup
+cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
+# 配置显示 500000，证明--cpus=".5"的参数已经生效
+```
+
+## Docker 镜像
+
+#### 4.1 Docker 镜像由来与特性
+
+- 虽然 Docker 实现了运行环境的隔离，但如何将一个运行的容器快速进行启动，复制，迁移到其他的主机上运行？
+- 如果容器无法快速进行复制，迁移，那么和以 VMware 为代表的虚拟化技术相比并没有太多优势
+- Docker 镜像具备了应用运行所需要的所有依赖
+- 一次构建，处处运行
+
+- Docker 镜像的存储是基于 checksum 的去重存储，大大降低存储空间
+
+#### 4.2 编写Dockerfile
+
+```dockerfile
+FROM openjdk:8-jdk-alpine
+
+LABEL maintainer="coderzc async-nio-concurrent"
+
+VOLUME /tmp
+ADD async-nio-concurrent-0.0.1-SNAPSHOT.jar async-nio-concurrent.jar
+
+ENV mysql_hostname=mysql57
+
+# 开放容器的端口
+EXPOSE 8088 8081
+
+ENTRYPOINT ["JAVA", "-jar", "async-nio-concurrent.jar"]
+```
+
+#### 4.3 构建并上传 Docker 镜像
+
+```shell
+# 把 async-nio-concurrent-0.0.1-SNAPSHOT.jar 放到与 Dockerfile 同级目录
+> async-nio-concurrent-0.0.1-SNAPSHOT.jar  Dockerfile
+
+# 构建根据 Dockerfile 构建镜像
+docker build -t async-nio-concurrent:1.0 .
+
+# 登陆 docker hub
+docker login
+
+# 把本地镜像归入仓库
+docker tag async-nio-concurrent:1.0 czcoder/async-nio-concurrent:1.0
+
+# push
+docker push czcoder/async-nio-concurrent:1.0
+```
+
+#### 4.4 Docker run --link 运行
+
+```shell
+# 把 mysql 与 async-nio-concurrent 网络打通, 并增加一条 mysql57 的 hosts 记录
+docker run --name async-nio-concurrent -d -p 18081:8081 -p 8088:8088 --link mysql57 async-nio-concurrent:1.0
+
+# 查看日志
+docker logs async-nio-concurrent
+
+# 进入容器
+docker exec -it async-nio-concurrent /bin/bash
+```
+
+#### 4.5 外网访问
+
+[http://${宿主机ip}:18081/index.html](http://${宿主机ip}:18081/index.html)
+
+## 5. Docker 常见命令
+
+```shell
+# 查看 docker 基本信息
+docker info
+
+# 查看 docker 镜像
+docker images
+
+# 删除 docker 镜像
+docker rmi $image_name
+
+# 查看 docker 容器
+docker ps -a
+
+# 启动/停止/重启容器
+docker start/stop/restart $CONTAINER
+```
+
