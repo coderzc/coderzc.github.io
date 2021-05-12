@@ -1,7 +1,7 @@
 ![shell](https://upload-images.jianshu.io/upload_images/12637001-94ce2b0bc8e55fb4.gif?imageMogr2/auto-orient/strip)
 
 #### 服务器常用
-```
+```shell
 ##### 统计含有空指针异常文件数
 find ~/ -name "*.log"  | xargs grep "NullPointerException" -l | wc -l
 
@@ -45,7 +45,7 @@ grep -ohr -E "https?://[a-zA-Z0-9\.\/_&=@$%~?#-]*" 1.txt
 
 ```
 #### 文件合并、去重、拆分
-```bash
+```shell
 ##### 1. 两个文件合并 (一个文件在上，一个文件在下)
  cat file1 file2 > file3
 
@@ -91,13 +91,23 @@ grep -F -v -f 2.txt 1.txt | sort | uniq
 
 ```
 
-```
+```shell
 # 查看java版本
 /usr/libexec/java_home -V
 ```
 解释下 awk '!a[$0]++' file：https://blog.csdn.net/zhang_red/article/details/8585457
 
-```
+```shell
 # 使用curl 分析请求时间
 curl -o /dev/null --connect-timeout 5 --max-time 10 -s -w "http_code=%{http_code},time_namelookup=%{time_namelookup},time_connect=%{time_connect},time_appconnect=%{time_appconnect},time_redirect=%{time_redirect},num_redirects=%{num_redirects},time_pretransfer=%{time_pretransfer},time_starttransfer=%{time_starttransfer},time_total=%{time_total},size_download=%{size_download},speed_download=%{speed_download}\n" 'https://www.baidu.com'
+```
+
+```shell
+# 根据每个文件第一行第一列 给文件排序
+find ./ -maxdepth 1 -name "*.txt" -exec awk -v filename={} 'NR==1{print filename,$1}' {} \; | sort -k2 -n
+```
+
+```shell
+# 统计第二列（以空格为分隔符）含有 "B" 的行数
+cut -f 2 -d " " ./1.txt | grep "B" | wc -l
 ```
