@@ -1,12 +1,12 @@
 本SpringCloud系列文章参考《深入理解Spring Cloud与微服务构建》 这本书的作者的博客编写，感谢这位作者。      [方志朋的博客](https://blog.csdn.net/forezp)
 原文地址：https://blog.csdn.net/forezp/article/details/70148833/
 
-###一、创建服务注册中心
+### 一、创建服务注册中心
 **1.1 首先创建一个maven主工程。**
 首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.4.RELEASE，Spring Cloud版本为Finchley.SR1。
 除了SpringBoot主要引入的maven库`spring-cloud-starter-netflix-eureka-server`，这是Eureka服务端。pom文件如下：
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -67,13 +67,11 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
 
 ```
 **1.2 启动这个服务注册中心，**只需在SpringBoot启动类添加@EnableEurekaServer注解。
-```
+```java
 @SpringBootApplication
 @EnableEurekaServer
 public class EurekaServerApplication {
@@ -104,10 +102,10 @@ spring:
 [http://localhost:8761](http://localhost:8761/) ,界面如下：
 ![image.png](https://upload-images.jianshu.io/upload_images/12637001-4b7eb1baf1e235d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-###二、创建服务提供者
+### 二、创建服务提供者
 当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。
 创建过程同server类似,创建完pom.xml如下：
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -173,7 +171,6 @@ spring:
             </plugin>
         </plugins>
     </build>
-
 </project>
 
 ```
@@ -224,7 +221,6 @@ server:
 这时打开 http://localhost:8081/hi?name=springcloud ，你会在浏览器上看到 :
 >hi springcloud ,i am from port:8081
 
-
-###三、服务发现
+### 三、服务发现
 这还没很好理解，暂时引用大佬的博文
 https://blog.csdn.net/mr_seaturtle_/article/details/77618403

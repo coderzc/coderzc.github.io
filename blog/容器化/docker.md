@@ -21,20 +21,20 @@ unshare --fork --pid --mount-proc bash
 
 ## 3. Docker 的资源配额 CGroups
 
-#### 3.1 Docker 使用CGroups实现资源的配额管理
+### 3.1 Docker 使用CGroups实现资源的配额管理
 
 - Cgroups (control groups)
 - 2007年由谷歌工程师研发
 - 2008年并入 Linux Kernel 2.6.24
 - C语言实现
 
-#### 3.2 CGroups 限制进程的 CPU使用时间
+### 3.2 CGroups 限制进程的 CPU使用时间
 
 Docker中的 CPU，内存，网络的限制均通过 cgroups 实现 
 
 ![cgroups层级结构示意图](https://gitee.com/coderzc/blogimage/raw/master/20210510173423.png)
 
-#### 3.3 实践
+### 3.3 实践
 
 ```shell
 # 在宿主机上创建一个让 CPU 飙升到100%的进程： （此操作有风险，慎用）
@@ -57,7 +57,7 @@ echo 27358 > /sys/fs/cgroup/cpu/cgroups_test/tasks
 kill -9 5004
 ```
 
-#### 3.4 docker 里如何加参数进行资源配额
+### 3.4 docker 里如何加参数进行资源配额
 
 ```shell
 # 分配一个50%的cpu时间配额
@@ -70,7 +70,7 @@ cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
 
 ## Docker 镜像
 
-#### 4.1 Docker 镜像由来与特性
+### 4.1 Docker 镜像由来与特性
 
 - 虽然 Docker 实现了运行环境的隔离，但如何将一个运行的容器快速进行启动，复制，迁移到其他的主机上运行？
 - 如果容器无法快速进行复制，迁移，那么和以 VMware 为代表的虚拟化技术相比并没有太多优势
@@ -79,7 +79,7 @@ cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
 
 - Docker 镜像的存储是基于 checksum 的去重存储，大大降低存储空间
 
-#### 4.2 编写Dockerfile
+### 4.2 编写Dockerfile
 
 ```dockerfile
 FROM openjdk:8-jdk-alpine
@@ -97,7 +97,7 @@ EXPOSE 8088 8081
 ENTRYPOINT ["JAVA", "-jar", "async-nio-concurrent.jar"]
 ```
 
-#### 4.3 构建并上传 Docker 镜像
+### 4.3 构建并上传 Docker 镜像
 
 ```shell
 # 把 async-nio-concurrent-0.0.1-SNAPSHOT.jar 放到与 Dockerfile 同级目录
@@ -116,7 +116,7 @@ docker tag async-nio-concurrent:1.0 czcoder/async-nio-concurrent:1.0
 docker push czcoder/async-nio-concurrent:1.0
 ```
 
-#### 4.4 Docker run --link 运行
+### 4.4 Docker run --link 运行
 
 ```shell
 # 把 mysql 与 async-nio-concurrent 网络打通, 并增加一条 mysql57 的 hosts 记录
@@ -129,7 +129,7 @@ docker logs async-nio-concurrent
 docker exec -it async-nio-concurrent /bin/bash
 ```
 
-#### 4.5 外网访问
+### 4.5 外网访问
 
 [http://${宿主机ip}:18081/index.html](http://${宿主机ip}:18081/index.html)
 
