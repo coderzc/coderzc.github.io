@@ -183,6 +183,11 @@ systemctl daemon-reload
 systemctl enable docker 
 systemctl restart docker
 
+# 如果报网络错误可能是没有成功建立docker网卡，可以手动创建
+`failed to start daemon: Error initializing network controller: list bridge addresses failed: PredefinedLocalScopeDefaultNetworks List:`
+ip link add name docker0 type bridge
+ip addr add dev docker0 172.1.0.1/16
+
 # 安装kubelet、kubeadm、kubectl
 yum install -y kubelet-1.15.10 kubeadm-1.15.10 kubectl-1.15.10
 
@@ -211,6 +216,24 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 kubectl get node
 	NAME     STATUS   ROLES    AGE   VERSION
 	master   Ready    master   14m   v1.15.10
+	
+# 故障排查 ！！！
+# kubelet 启动失败 报错：Failed to start ContainerManager failed to get rootfs info: unable to find data in memory cache
+vim /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf 添加下面环境变量
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --feature-gates=\"LocalStorageCapacityIsolation=false,SupportNodePidsLimit=false,SupportPodPidsLimit=false\""
+
+# Failed to update stats for container "/kubepods.slice/kubepods-burstable.slice": failure - /sys/fs/cgroup/cpuacct/kubepods.slice/kubepods-burstable.slice/cpuacct.stat
+cat >/etc/systemd/system/kubelet.service.d/11-cgroups.conf<<EOF
+[Service]
+CPUAccounting=true
+MemoryAccounting=true
+EOF
+
+并在刚才那个环境变量上追加参数：
+Environment="KUBELET_CONFIG_ARGS=--runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice"
+
+# 然后重启 kubelet
+systemctl daemon-reload && systemctl restart kubelet
 ```
 
 ## 6. 初始化 WorkerNode
@@ -263,8 +286,8 @@ kubectl get nodes
 ## 7. 安装 *Kubernetes Dashboard*
 
 ```shell
-# 安装 Kubernetes Dashboard 根据 CRD
-kubectl cereate -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
+# 安装 Kubernetes Dashboard 根据 CRD，使用http免密登录
+kubectl apply -f https://github.com/coderzc/coderzc.github.io/tree/master/blog/%E5%AE%B9%E5%99%A8%E5%8C%96/recommended.yaml
 
 # 显示 admin 的 token
 kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
@@ -279,3 +302,4 @@ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-syst
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的 [Init 容器](https://kubernetes.io/zh/docs/concepts/workloads/pods/init-containers/)。 你也可以在集群中支持[临时性容器](https://kubernetes.io/zh/docs/concepts/workloads/pods/ephemeral-containers/) 的情况下，为调试的目的注入临时性容器。
 
 详细介绍：https://kubernetes.io/zh/docs/concepts/workloads/pods
+
