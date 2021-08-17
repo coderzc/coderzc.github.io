@@ -1,4 +1,7 @@
-# General
 .DS_Store
-.AppleDouble
-.LSOverride
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
