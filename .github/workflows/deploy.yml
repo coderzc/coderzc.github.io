@@ -38,7 +38,7 @@ jobs:
 
     # Deploy hexo blog website.
     - name: push
-      uses: dciborow/commit@0.0.2
+      uses: dciborow/commit@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: 'gh-pages'
