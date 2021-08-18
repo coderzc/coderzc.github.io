@@ -34,7 +34,7 @@ jobs:
       run: cd ./blog && npm clean && npm build
     
     - name: Move file
-      run: cd ./blog && rm -rf !(public) && mv public/* ./ && rm -rf public && cd ../
+      run: rm -rf blog && mv public blog
 
     # Deploy hexo blog website.
     - name: push
