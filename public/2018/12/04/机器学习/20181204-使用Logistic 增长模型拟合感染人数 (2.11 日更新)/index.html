@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"coderzc.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="最近武汉肺炎，牵动着全国人民的心，大家可能都想知道疫情什么时候才能结束，今天我使用2.2之前卫健委发布的确诊人数，按照logistic增长模型拟合了一条曲线并大概预测一下之后的疫情情况，模型的结果仅供参考。  本文基于邢翔瑞博主的文章编写，在此感谢翔瑞作者。原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_36474809&#x2F;article&#x2F;details&#x2F;104101055  什">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Logistic 增长模型拟合感染人数 (2">
+<meta property="og:url" content="https://coderzc.github.io/2018/12/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/20181204-%E4%BD%BF%E7%94%A8Logistic%20%E5%A2%9E%E9%95%BF%E6%A8%A1%E5%9E%8B%E6%8B%9F%E5%90%88%E6%84%9F%E6%9F%93%E4%BA%BA%E6%95%B0%20(2.11%20%E6%97%A5%E6%9B%B4%E6%96%B0)/index.html">
+<meta property="og:site_name" content="coderzc的博客">
+<meta property="og:description" content="最近武汉肺炎，牵动着全国人民的心，大家可能都想知道疫情什么时候才能结束，今天我使用2.2之前卫健委发布的确诊人数，按照logistic增长模型拟合了一条曲线并大概预测一下之后的疫情情况，模型的结果仅供参考。  本文基于邢翔瑞博主的文章编写，在此感谢翔瑞作者。原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_36474809&#x2F;article&#x2F;details&#x2F;104101055  什">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200201153005391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200201164636350.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200201155121796.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200202181447801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200204221101262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200204182614152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200205123347600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020020617023291.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200207173935364.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200208224824593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200211103740594.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2018-12-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-18T02:58:32.969Z">
+<meta property="article:author" content="coderzc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200201153005391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70">
+
+
+<link rel="canonical" href="https://coderzc.github.io/2018/12/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/20181204-%E4%BD%BF%E7%94%A8Logistic%20%E5%A2%9E%E9%95%BF%E6%A8%A1%E5%9E%8B%E6%8B%9F%E5%90%88%E6%84%9F%E6%9F%93%E4%BA%BA%E6%95%B0%20(2.11%20%E6%97%A5%E6%9B%B4%E6%96%B0)/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://coderzc.github.io/2018/12/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/20181204-%E4%BD%BF%E7%94%A8Logistic%20%E5%A2%9E%E9%95%BF%E6%A8%A1%E5%9E%8B%E6%8B%9F%E5%90%88%E6%84%9F%E6%9F%93%E4%BA%BA%E6%95%B0%20(2.11%20%E6%97%A5%E6%9B%B4%E6%96%B0)/","path":"2018/12/04/机器学习/20181204-使用Logistic 增长模型拟合感染人数 (2.11 日更新)/","title":"使用Logistic 增长模型拟合感染人数 (2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用Logistic 增长模型拟合感染人数 (2 | coderzc的博客</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">coderzc的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLogistic%E5%A2%9E%E9%95%BF%E6%9B%B2%E7%BA%BF%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">什么是Logistic增长曲线：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">编程实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%9F%E5%90%88%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">拟合结果：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">coderzc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/coderzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;coderzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zc1217zc@126.com" title="E-Mail → mailto:zc1217zc@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://coderzc.github.io/2018/12/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/20181204-%E4%BD%BF%E7%94%A8Logistic%20%E5%A2%9E%E9%95%BF%E6%A8%A1%E5%9E%8B%E6%8B%9F%E5%90%88%E6%84%9F%E6%9F%93%E4%BA%BA%E6%95%B0%20(2.11%20%E6%97%A5%E6%9B%B4%E6%96%B0)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="coderzc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderzc的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Logistic 增长模型拟合感染人数 (2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-04T00:00:00+08:00">2018-12-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-18 10:58:32" itemprop="dateModified" datetime="2021-08-18T10:58:32+08:00">2021-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近武汉肺炎，牵动着全国人民的心，大家可能都想知道疫情什么时候才能结束，今天我使用2.2之前卫健委发布的确诊人数，按照logistic增长模型拟合了一条曲线并大概预测一下之后的疫情情况，模型的结果仅供参考。</p>
+<blockquote>
+<p>本文基于邢翔瑞博主的文章编写，在此感谢翔瑞作者。原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36474809/article/details/104101055">https://blog.csdn.net/weixin_36474809/article/details/104101055</a></p>
+</blockquote>
+<h2 id="什么是Logistic增长曲线："><a href="#什么是Logistic增长曲线：" class="headerlink" title="什么是Logistic增长曲线："></a>什么是Logistic增长曲线：</h2><p>Logistic函数或Logistic曲线是一种常见的S形函数，它是皮埃尔·弗朗索瓦·韦吕勒在1844或1845年在研究它与人口增长的关系时命名的。广义Logistic曲线可以模仿一些情况人口增长（P）的S形曲线。起初阶段大致是指数增长；然后随着开始变得饱和，增加变慢；最后，达到成熟时增加停止。<br><img src="https://img-blog.csdnimg.cn/20200201153005391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当一个物种迁入到一个新生态系统中后，其数量会发生变化。假设该物种的起始数量小于环境的最大容纳量，则数量会增长。该物种在此生态系统中有天敌、食物、空间等资源也不足（非理想环境），则增长函数满足逻辑斯谛方程，图像呈S形，此方程是描述在资源有限的条件下种群增长规律的一个最佳数学模型。在以下内容中将具体介绍逻辑斯谛方程的原理、生态学意义及其应用。</p>
+<p><strong>Logistic方程</strong>,即常微分方程:<br><img src="https://img-blog.csdnimg.cn/20200201164636350.png" alt="在这里插入图片描述"></p>
+<p>而将上面的方程解出来，可以得到<strong>logistic函数</strong>：<br><img src="https://img-blog.csdnimg.cn/20200201155121796.png" alt="在这里插入图片描述"><br>其中为P0初始值，K为终值，r衡量曲线变化快慢，t为时间。</p>
+<h2 id="编程实现："><a href="#编程实现：" class="headerlink" title="编程实现："></a>编程实现：</h2><p>接下来我们就用python来拟合这个曲线。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">拟合2019-nCov肺炎感染确诊人数</span><br><span class="line">https://blog.csdn.net/z_ccsdn/article/details/104134358</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import datetime</span><br><span class="line"></span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">import requests</span><br><span class="line">from matplotlib.font_manager import FontProperties</span><br><span class="line">from scipy.optimize import curve_fit</span><br><span class="line">from sklearn.metrics import mean_squared_error</span><br><span class="line"></span><br><span class="line">#  引入中文字体库</span><br><span class="line"></span><br><span class="line">font = FontProperties(fname=r&quot;./simsun.ttc&quot;, size=14)</span><br><span class="line">sdate = None</span><br><span class="line">hyperparameters_r = None</span><br><span class="line">hyperparameters_K = None</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">从csv获取数据</span><br><span class="line">csv 样例：</span><br><span class="line">01.11 41 0</span><br><span class="line">01.12 41 0</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">def load_data_fromcsv(file_path):</span><br><span class="line">    data = []</span><br><span class="line">    with open(file_path, &#x27;r&#x27;) as file:</span><br><span class="line">        lines = file.readlines()</span><br><span class="line">        for line in lines:</span><br><span class="line">            line = line.strip()</span><br><span class="line">            if line:</span><br><span class="line">                line_array = line.split(&#x27; &#x27;)</span><br><span class="line">                if len(line_array) == 3:</span><br><span class="line">                    data.append(</span><br><span class="line">                        &#123;&#x27;date&#x27;: line_array[0], &#x27;confirm&#x27;: line_array[1], &#x27;suspect&#x27;: line_array[2]&#125;)</span><br><span class="line">    data.sort(key=lambda x: x[&quot;date&quot;])</span><br><span class="line">    date_temple = &#x27;%Y.%m.%d&#x27;</span><br><span class="line">    # 获取首次出现感染人数的日期</span><br><span class="line">    global sdate</span><br><span class="line">    sdate = datetime.datetime.strptime(</span><br><span class="line">        &#x27;2020.&#x27; + data[0][&#x27;date&#x27;], f&#x27;&#123;date_temple&#125;&#x27;).date()</span><br><span class="line">    x_data_history = [datetime.datetime.strptime(&#x27;2020.&#x27; + dd[&#x27;date&#x27;], f&#x27;&#123;date_temple&#125;&#x27;).date().strftime(&quot;%m-%d&quot;) for dd in</span><br><span class="line">                      data]</span><br><span class="line">    t = [datetime.datetime.strptime(</span><br><span class="line">        &#x27;2020.&#x27; + dd[&#x27;date&#x27;], f&#x27;&#123;date_temple&#125;&#x27;).date() for dd in data]</span><br><span class="line">    P_confirm = [int(dd[&#x27;confirm&#x27;]) for dd in data]</span><br><span class="line">    P_suspect = [int(dd[&#x27;suspect&#x27;]) for dd in data]</span><br><span class="line">    return np.array(t, dtype=np.datetime64), np.array(P_confirm), np.array(P_suspect), x_data_history</span><br><span class="line"></span><br><span class="line">def load_data():</span><br><span class="line">    # 拉取腾讯新闻数据</span><br><span class="line">    res = requests.get(&#x27;https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq&#x27;)</span><br><span class="line">    res_json = res.json()</span><br><span class="line">    data = res_json[&#x27;data&#x27;][&#x27;wuwei_ww_cn_day_counts&#x27;]</span><br><span class="line"></span><br><span class="line">    # 补充更早些的数据：</span><br><span class="line">    data.append(&#123;&#x27;date&#x27;: &#x27;01.11&#x27;, &#x27;confirm&#x27;: &#x27;41&#x27;, &#x27;suspect&#x27;: &#x27;0&#x27;&#125;)</span><br><span class="line">    data.append(&#123;&#x27;date&#x27;: &#x27;01.12&#x27;, &#x27;confirm&#x27;: &#x27;41&#x27;, &#x27;suspect&#x27;: &#x27;0&#x27;&#125;)</span><br><span class="line">    data.sort(key=lambda x: x[&quot;date&quot;])</span><br><span class="line"></span><br><span class="line">    # 因为21号以前并非是全国数据，数据不好要去掉</span><br><span class="line">    data = data[10:]</span><br><span class="line">    print(data)</span><br><span class="line">    # 获取首次出现感染人数的日期</span><br><span class="line">    global sdate</span><br><span class="line">    sdate = datetime.datetime.strptime(&#x27;2020.&#x27; + data[0][&#x27;date&#x27;], &#x27;%Y.%m/%d&#x27;).date()</span><br><span class="line"></span><br><span class="line">    x_data_history = [datetime.datetime.strptime(&#x27;2020.&#x27; + dd[&#x27;date&#x27;], &#x27;%Y.%m/%d&#x27;).date().strftime(&quot;%m-%d&quot;) for dd in</span><br><span class="line">                      data]</span><br><span class="line">    t = [datetime.datetime.strptime(&#x27;2020.&#x27; + dd[&#x27;date&#x27;], &#x27;%Y.%m/%d&#x27;).date() for dd in data]</span><br><span class="line">    P_confirm = [int(dd[&#x27;confirm&#x27;]) for dd in data]</span><br><span class="line">    P_suspect = [int(dd[&#x27;suspect&#x27;]) for dd in data]</span><br><span class="line">    return np.array(t, dtype=np.datetime64), np.array(P_confirm), np.array(P_suspect), x_data_history</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 计算相隔天数</span><br><span class="line">def day_delay(t):</span><br><span class="line">    t0_date = np.datetime64(sdate, &#x27;D&#x27;)</span><br><span class="line">    t_ = (t - t0_date)</span><br><span class="line">    days = (t_ / np.timedelta64(1, &#x27;D&#x27;)).astype(int)</span><br><span class="line">    return days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def logistic_increase_function(t,P0):</span><br><span class="line">    r = hyperparameters_r</span><br><span class="line">    K = hyperparameters_K</span><br><span class="line">    # t:time   t0:initial time    P0:initial_value    K:capacity  r:increase_rate</span><br><span class="line">    exp_value = np.exp(r * (t))</span><br><span class="line">    return (K * exp_value * P0) / (K + (exp_value - 1) * P0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #  日期及感染人数</span><br><span class="line">    t, P_confirm, P_suspect, x_show_data = load_data()</span><br><span class="line">    # t, P_confirm, P_suspect, x_show_data = load_data_fromcsv(&#x27;~/data.csv&#x27;)</span><br><span class="line">    x_data, y_data = day_delay(t), P_confirm</span><br><span class="line"></span><br><span class="line">    # 分隔训练测试集,将最后的30%数据作为测试集</span><br><span class="line">    x_train, x_test, y_train, y_test = x_data[:-1 * int(len(x_data) * 0.3)], x_data[-1 * int(len(x_data) * 0.3):], y_data[:-1 * int(len(x_data) * 0.3)],y_data[-1 * int(len(x_data) * 0.3):]</span><br><span class="line">    print(x_train)</span><br><span class="line">    print(x_test)</span><br><span class="line">    popt = None</span><br><span class="line">    mse = float(&quot;inf&quot;)</span><br><span class="line">    r = None</span><br><span class="line">    k = None</span><br><span class="line">    # 网格搜索来优化r和K参数</span><br><span class="line">    max_k = 50000 # 限定的最大感染人数</span><br><span class="line">    for k_ in np.arange(20000, max_k, 1):</span><br><span class="line">        hyperparameters_K = k_</span><br><span class="line">        for r_ in np.arange(0, 1, 0.01):</span><br><span class="line">            # 用最小二乘法估计拟合</span><br><span class="line">            hyperparameters_r = r_</span><br><span class="line">            popt_, pcov_ = curve_fit(logistic_increase_function, x_train, y_train)</span><br><span class="line">            # # 获取popt里面是拟合系数</span><br><span class="line">            print(&quot;K:capacity  P0:initial_value   r:increase_rate&quot;)</span><br><span class="line">            print(k_, popt_, r_)</span><br><span class="line"></span><br><span class="line">            # 计算均方误差对测试集进行验证</span><br><span class="line">            mse_ = mean_squared_error(y_test, logistic_increase_function(x_test, *popt_))</span><br><span class="line">            print(&quot;mse:&quot;, mse_)</span><br><span class="line">            if mse_ &lt;= mse:</span><br><span class="line">                mse = mse_</span><br><span class="line">                popt = popt_</span><br><span class="line">                r = r_</span><br><span class="line">                k = k_</span><br><span class="line">    hyperparameters_K = k</span><br><span class="line">    hyperparameters_r = r</span><br><span class="line">    print(&quot;----------------&quot;)</span><br><span class="line">    print(&quot;hyperparameters_K:&quot;, hyperparameters_K)</span><br><span class="line">    print(&quot;hyperparameters_r:&quot;, hyperparameters_r)</span><br><span class="line">    print(&quot;----------------&quot;)</span><br><span class="line">    popt, pcov = curve_fit(logistic_increase_function, x_data, y_data)</span><br><span class="line">    print(&quot;K:capacity  P0:initial_value   r:increase_rate&quot;)</span><br><span class="line">    print(hyperparameters_K, popt, hyperparameters_r)</span><br><span class="line"></span><br><span class="line">    # 未来预测</span><br><span class="line">    date_nums = 32 #需要预测的总天数，从第一天开始算起</span><br><span class="line">    future = np.linspace(0, date_nums, date_nums)</span><br><span class="line">    future = np.array(future)</span><br><span class="line">    future_predict = logistic_increase_function(future, *popt)</span><br><span class="line"></span><br><span class="line">    # 绘图</span><br><span class="line">    x_show_data_all = [(sdate + (datetime.timedelta(days=fu))).strftime(&quot;%m-%d&quot;) for fu in future]</span><br><span class="line">    plt.scatter(x_show_data, P_confirm, s=35, c=&#x27;green&#x27;, marker=&#x27;.&#x27;, label=&quot;确诊人数&quot;)</span><br><span class="line">    plt.plot(x_show_data_all, future_predict, &#x27;r-s&#x27;, marker=&#x27;+&#x27;, linewidth=1.5, label=&#x27;预测曲线&#x27;)</span><br><span class="line"></span><br><span class="line">    plt.tick_params(labelsize=5)</span><br><span class="line">    plt.xlabel(&#x27;时间&#x27;, FontProperties=font)</span><br><span class="line">    plt.ylabel(&#x27;感染人数&#x27;, FontProperties=font)</span><br><span class="line">    plt.xticks(x_show_data_all)</span><br><span class="line">    plt.grid()  # 显示网格</span><br><span class="line"></span><br><span class="line">    plt.legend(prop=font)  # 指定legend的位置右下角</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="拟合结果："><a href="#拟合结果：" class="headerlink" title="拟合结果："></a>拟合结果：</h2><p><img src="https://img-blog.csdnimg.cn/20200202181447801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.3日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200204221101262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.4 日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200204182614152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.5 日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200205123347600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.6 日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/2020020617023291.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.7 日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200207173935364.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.8 日更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200208224824593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.11更新拟合结果：<br><img src="https://img-blog.csdnimg.cn/20200211103740594.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/20181204-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0(ML)-%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/" rel="prev" title="机器学习(ML)-入门知识">
+                  <i class="fa fa-chevron-left"></i> 机器学习(ML)-入门知识
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/24/NIO%E4%B8%8E%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/20190624-%E5%AE%9E%E7%8E%B0%20NIO%20Socket/" rel="next" title="实现 NIO Socket">
+                  实现 NIO Socket <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coderzc</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

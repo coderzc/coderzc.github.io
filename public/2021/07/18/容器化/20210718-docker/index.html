@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"coderzc.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1. 什么是Docker 官方解释：Package Software into Standardized Units for Development, Shipment and Deployment.    2. Docker namespace 隔离原理 Docker通过 Namespace 实现进程隔离  1   int clone(int (*child_func)(void *), voi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker">
+<meta property="og:url" content="https://coderzc.github.io/2021/07/18/%E5%AE%B9%E5%99%A8%E5%8C%96/20210718-docker/index.html">
+<meta property="og:site_name" content="coderzc的博客">
+<meta property="og:description" content="1. 什么是Docker 官方解释：Package Software into Standardized Units for Development, Shipment and Deployment.    2. Docker namespace 隔离原理 Docker通过 Namespace 实现进程隔离  1   int clone(int (*child_func)(void *), voi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/coderzc/blogimage/raw/master/20210510153816.png">
+<meta property="og:image" content="https://gitee.com/coderzc/blogimage/raw/master/20210510173423.png">
+<meta property="article:published_time" content="2021-07-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-18T02:58:32.968Z">
+<meta property="article:author" content="coderzc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/coderzc/blogimage/raw/master/20210510153816.png">
+
+
+<link rel="canonical" href="https://coderzc.github.io/2021/07/18/%E5%AE%B9%E5%99%A8%E5%8C%96/20210718-docker/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://coderzc.github.io/2021/07/18/%E5%AE%B9%E5%99%A8%E5%8C%96/20210718-docker/","path":"2021/07/18/容器化/20210718-docker/","title":"docker"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker | coderzc的博客</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">coderzc的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFDocker"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Docker-namespace-%E9%9A%94%E7%A6%BB%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. Docker namespace 隔离原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Docker-%E7%9A%84%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D-CGroups"><span class="nav-number">3.</span> <span class="nav-text">3. Docker 的资源配额 CGroups</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Docker-%E4%BD%BF%E7%94%A8CGroups%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E7%9A%84%E9%85%8D%E9%A2%9D%E7%AE%A1%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Docker 使用CGroups实现资源的配额管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-CGroups-%E9%99%90%E5%88%B6%E8%BF%9B%E7%A8%8B%E7%9A%84-CPU%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 CGroups 限制进程的 CPU使用时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-docker-%E9%87%8C%E5%A6%82%E4%BD%95%E5%8A%A0%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 docker 里如何加参数进行资源配额</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">Docker 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Docker-%E9%95%9C%E5%83%8F%E7%94%B1%E6%9D%A5%E4%B8%8E%E7%89%B9%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Docker 镜像由来与特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%BC%96%E5%86%99Dockerfile"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 编写Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%9E%84%E5%BB%BA%E5%B9%B6%E4%B8%8A%E4%BC%A0-Docker-%E9%95%9C%E5%83%8F"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 构建并上传 Docker 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Docker-run-%E2%80%93link-%E8%BF%90%E8%A1%8C"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 Docker run –link 运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 外网访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Docker-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">5. Docker 常见命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">coderzc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/coderzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;coderzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zc1217zc@126.com" title="E-Mail → mailto:zc1217zc@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://coderzc.github.io/2021/07/18/%E5%AE%B9%E5%99%A8%E5%8C%96/20210718-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="coderzc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderzc的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-18T00:00:00+08:00">2021-07-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-18 10:58:32" itemprop="dateModified" datetime="2021-08-18T10:58:32+08:00">2021-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AE%B9%E5%99%A8%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">容器化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1-什么是Docker"><a href="#1-什么是Docker" class="headerlink" title="1. 什么是Docker"></a>1. 什么是Docker</h2><p>官方解释：Package Software into Standardized Units for Development, Shipment and Deployment.</p>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210510153816.png" alt="image-20210510153806631"></p>
+<h2 id="2-Docker-namespace-隔离原理"><a href="#2-Docker-namespace-隔离原理" class="headerlink" title="2. Docker namespace 隔离原理"></a>2. Docker namespace 隔离原理</h2><p>Docker通过 Namespace 实现进程隔离</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clone</span><span class="params">(<span class="keyword">int</span> (*child_func)(<span class="keyword">void</span> *), <span class="keyword">void</span> *child_stack, <span class="keyword">int</span> flags, <span class="keyword">void</span> *arg)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>模拟隔离</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个隔离环境</span></span><br><span class="line">unshare --fork --pid --mount-proc bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Docker-的资源配额-CGroups"><a href="#3-Docker-的资源配额-CGroups" class="headerlink" title="3. Docker 的资源配额 CGroups"></a>3. Docker 的资源配额 CGroups</h2><h3 id="3-1-Docker-使用CGroups实现资源的配额管理"><a href="#3-1-Docker-使用CGroups实现资源的配额管理" class="headerlink" title="3.1 Docker 使用CGroups实现资源的配额管理"></a>3.1 Docker 使用CGroups实现资源的配额管理</h3><ul>
+<li>Cgroups (control groups)</li>
+<li>2007年由谷歌工程师研发</li>
+<li>2008年并入 Linux Kernel 2.6.24</li>
+<li>C语言实现</li>
+</ul>
+<h3 id="3-2-CGroups-限制进程的-CPU使用时间"><a href="#3-2-CGroups-限制进程的-CPU使用时间" class="headerlink" title="3.2 CGroups 限制进程的 CPU使用时间"></a>3.2 CGroups 限制进程的 CPU使用时间</h3><p>Docker中的 CPU，内存，网络的限制均通过 cgroups 实现 </p>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210510173423.png" alt="cgroups层级结构示意图"></p>
+<h3 id="3-3-实践"><a href="#3-3-实践" class="headerlink" title="3.3 实践"></a>3.3 实践</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在宿主机上创建一个让 CPU 飙升到100%的进程： （此操作有风险，慎用）</span></span><br><span class="line">while : ; do : ; done &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 记录下 PID = 5004</span></span><br><span class="line"></span><br><span class="line">cd /sys/fs/cgroup/cpu</span><br><span class="line">mkdir cgroups_test</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看配额</span></span><br><span class="line">cat cpu.cfs_quota_us</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设定20%cpu时间的上限</span></span><br><span class="line">echo 20000 &gt; cpu.cfs_quota_us</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 绑定进程号</span></span><br><span class="line">echo 27358 &gt; /sys/fs/cgroup/cpu/cgroups_test/tasks</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理该进程</span></span><br><span class="line">kill -9 5004</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-docker-里如何加参数进行资源配额"><a href="#3-4-docker-里如何加参数进行资源配额" class="headerlink" title="3.4 docker 里如何加参数进行资源配额"></a>3.4 docker 里如何加参数进行资源配额</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 分配一个50%的cpu时间配额</span></span><br><span class="line">docker run -it --cpus=&quot;.5&quot; nginx /bin/sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看是否有对应的cgroup</span></span><br><span class="line">cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us</span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置显示 500000，证明--cpus=<span class="string">&quot;.5&quot;</span>的参数已经生效</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h2><h3 id="4-1-Docker-镜像由来与特性"><a href="#4-1-Docker-镜像由来与特性" class="headerlink" title="4.1 Docker 镜像由来与特性"></a>4.1 Docker 镜像由来与特性</h3><ul>
+<li><p>虽然 Docker 实现了运行环境的隔离，但如何将一个运行的容器快速进行启动，复制，迁移到其他的主机上运行？</p>
+</li>
+<li><p>如果容器无法快速进行复制，迁移，那么和以 VMware 为代表的虚拟化技术相比并没有太多优势</p>
+</li>
+<li><p>Docker 镜像具备了应用运行所需要的所有依赖</p>
+</li>
+<li><p>一次构建，处处运行</p>
+</li>
+<li><p>Docker 镜像的存储是基于 checksum 的去重存储，大大降低存储空间</p>
+</li>
+</ul>
+<h3 id="4-2-编写Dockerfile"><a href="#4-2-编写Dockerfile" class="headerlink" title="4.2 编写Dockerfile"></a>4.2 编写Dockerfile</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer=<span class="string">&quot;coderzc async-nio-concurrent&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> async-nio-concurrent-0.0.1-SNAPSHOT.jar async-nio-concurrent.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> mysql_hostname=mysql57</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开放容器的端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8088</span> <span class="number">8081</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;JAVA&quot;</span>, <span class="string">&quot;-jar&quot;</span>, <span class="string">&quot;async-nio-concurrent.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-构建并上传-Docker-镜像"><a href="#4-3-构建并上传-Docker-镜像" class="headerlink" title="4.3 构建并上传 Docker 镜像"></a>4.3 构建并上传 Docker 镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 把 async-nio-concurrent-0.0.1-SNAPSHOT.jar 放到与 Dockerfile 同级目录</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> async-nio-concurrent-0.0.1-SNAPSHOT.jar  Dockerfile</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建根据 Dockerfile 构建镜像</span></span><br><span class="line">docker build -t async-nio-concurrent:1.0 .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登陆 docker hub</span></span><br><span class="line">docker login</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把本地镜像归入仓库</span></span><br><span class="line">docker tag async-nio-concurrent:1.0 czcoder/async-nio-concurrent:1.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> push</span></span><br><span class="line">docker push czcoder/async-nio-concurrent:1.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4-Docker-run-–link-运行"><a href="#4-4-Docker-run-–link-运行" class="headerlink" title="4.4 Docker run –link 运行"></a>4.4 Docker run –link 运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 把 mysql 与 async-nio-concurrent 网络打通, 并增加一条 mysql57 的 hosts 记录</span></span><br><span class="line">docker run --name async-nio-concurrent -d -p 18081:8081 -p 8088:8088 --link mysql57 async-nio-concurrent:1.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看日志</span></span><br><span class="line">docker logs async-nio-concurrent</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器</span></span><br><span class="line">docker exec -it async-nio-concurrent /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-5-外网访问"><a href="#4-5-外网访问" class="headerlink" title="4.5 外网访问"></a>4.5 外网访问</h3><p><a target="_blank" rel="noopener" href="http://${宿主机ip}:18081/index.html">http://${宿主机ip}:18081/index.html</a></p>
+<h2 id="5-Docker-常见命令"><a href="#5-Docker-常见命令" class="headerlink" title="5. Docker 常见命令"></a>5. Docker 常见命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看 docker 基本信息</span></span><br><span class="line">docker info</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 docker 镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 docker 镜像</span></span><br><span class="line">docker rmi $image_name</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 docker 容器</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动/停止/重启容器</span></span><br><span class="line">docker start/stop/restart $CONTAINER</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/01/NIO%E4%B8%8E%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/20200601-TCP%20RST%20%E7%9B%B8%E5%85%B3%E7%90%86%E8%A7%A3/" rel="prev" title="TCP RST 相关理解">
+                  <i class="fa fa-chevron-left"></i> TCP RST 相关理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/01/%E5%AE%B9%E5%99%A8%E5%8C%96/20210801-kubernetes/" rel="next" title="kubernetes">
+                  kubernetes <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coderzc</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

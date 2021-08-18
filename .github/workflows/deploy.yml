@@ -28,13 +28,13 @@ jobs:
           ${{ runner.os }}-node-
     - name: Install Dependencies
       # if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
+      run: cd ./blog && npm ci
 
     - name: Generate
-      run: npm clean && npm build
+      run: cd ./blog && npm clean && npm build
     
     - name: Move file
-      run: rm -rf !(public) && mv public/* ./ && rm -rf public && cd ../
+      run: cd ./blog && rm -rf !(public) && mv public/* ./ && rm -rf public && cd ../
 
     # Deploy hexo blog website.
     - name: push
