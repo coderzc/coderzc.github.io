@@ -31,7 +31,7 @@ jobs:
       run: cd ./blog && npm ci
 
     - name: Generate
-      run: cd ./blog && npm clean && npm build
+      run: cd ./blog && npm run clean && npm run build
     
     - name: Move file
       run: rm -rf blog && mv public blog
