@@ -22,16 +22,16 @@ jobs:
       uses: actions/cache@v1
       id: cache
       with:
-        path: node_modules
+        path: blog/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      # if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci
 
     - name: Generate
-      run: hexo generate
+      run: npm clean && npm build
     
     - name: Move file
       run: rm -rf !(public) && mv public/* ./ && rm -rf public && cd ../
