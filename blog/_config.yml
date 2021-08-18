@@ -4,8 +4,8 @@
 
 # Site
 title: coderzc的博客
-subtitle: ''
-description: ''
+subtitle: 'Write the code. Change the world.'
+description: 'Write the code. Change the world.'
 keywords: 分布式, 容器化, linux, 操作系统
 author: coderzc
 language: zh-CN
@@ -126,3 +126,5 @@ theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+
+excerpt_length: 260 

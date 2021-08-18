@@ -16,6 +16,7 @@
     "hexo-auto-excerpt": "^1.1.2",
     "hexo-deployer-git": "^3.0.0",
     "hexo-enhancer": "^1.0.10",
+    "hexo-excerpt-block": "^1.0.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-index": "^2.0.0",
@@ -28,7 +29,6 @@
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
     "hexo-theme-landscape": "^0.0.3",
-    "hexo-word-counter": "^0.0.3",
     "hexo-wordcount": "^6.0.1",
     "prism-themes": "^1.8.0"
   }

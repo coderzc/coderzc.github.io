@@ -1,7 +1,7 @@
 ## 1. kubernetes 起源与发展
-
+<!-- block -->
 ![20210512181906](https://gitee.com/coderzc/blogimage/raw/master/20210513152302.png)
-
+<!-- block -->
 ### 1.1 kubernetes 起源
 
 - Kubernetes最初源于谷歌内部的Borg，Kubernetes 的最初目标是为应用的容器化编排部署提供一个最小化的平台，包含几个基本功能：
