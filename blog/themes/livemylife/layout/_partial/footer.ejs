@@ -220,7 +220,7 @@
 
     let jsdelivr = "<%- config.jsdelivr.jsdelivr_url %>";
     let gh = "<%- config.jsdelivr.github_username %>";
-    let ghPages = gh + ".github.io@gh-graph";
+    let ghPages = gh + ".github.io@gh-pages";
     let pagePath = "<%- page.path %>";
     let jsdelivrurl;
     if (pagePath.indexOf("index.html") != -1) {
@@ -230,8 +230,10 @@
     }
     imgUrl.forEach(item => {
       let oldUrl = item.getAttribute("src");
-      let newUrl = oldUrl.replace(oldUrl, jsdelivrurl + oldUrl).replace("..", "");
-      item.setAttribute("src", newUrl);
+      if(oldUrl.substring(0, 4) != "http"){
+          let newUrl = oldUrl.replace(oldUrl, jsdelivrurl + oldUrl).replace("..", "");
+          item.setAttribute("src", newUrl);
+      }
     });
   </script>
   <!-- CDN: jsdelivr end -->
