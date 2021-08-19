@@ -246,19 +246,19 @@
 title: Coderzc's Blog
 subtitle: 'Write the code. Change the world.'
 description: 'Write the code. Change the world.'
-keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络
+keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络, 数据库
 author: coderzc
 timezone: 'Asia/Shanghai'
 
 # Internationalization (i18n) Setting
-language: # At present, only en、cn and tw are supported. You can customize the language，refer to `languages/en.yml`.
-  - en
-  - cn
-langselect:
-  enable: false # If open, it will automatically generation lang-select button.This button can jump in articles in different languages, but the articles must have the same name.
-  options: # langselect button display options
-    en: English
-    cn: 简体中文
+#language: # At present, only en、cn and tw are supported. You can customize the language，refer to `languages/en.yml`.
+#  - en
+#  - cn
+#langselect:
+#  enable: false # If open, it will automatically generation lang-select button.This button can jump in articles in different languages, but the articles must have the same name.
+#  options: # langselect button display options
+#    en: English
+#    cn: 简体中文
     # tw: 正體中文
 
 
@@ -625,3 +625,7 @@ theme: livemylife
 #gitter:
 #  room: your-community/your-room
 highlight_theme: 'night eighties'
+
+mathjax:
+  enable: true
+  cdn: https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
