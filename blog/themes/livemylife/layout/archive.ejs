@@ -32,7 +32,7 @@ layout: page
             <a href="<%- config.root %><%- post.path %>" style="color: #0085a1">
               <span>
                 <%- post.title || "Untitled" %>
-                <% if(post.lang !== 'en'){ %>
+                <% if(post.lang && post.lang !== 'en'){ %>
                 -- <%- post.lang %>
                 <% } %>
               </span>
