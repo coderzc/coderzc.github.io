@@ -281,7 +281,7 @@ permalink_defaults:
 # Custom Setting Start
 
 # Site settings
-SEOTitle: either thin | or die
+SEOTitle: coderzc
 email: zc1217zc@126.com
 header-img: img/header_img/newhome_bg.jpg
 archives-img: img/header_img/archive_bg.jpg,img/header_img/archive_bg2.jpg,img/header_img/archive_bg3.jpg
@@ -585,7 +585,7 @@ themecolor:
 
 
 # Ribbon config
-ribbonDynamic: false
+ribbonDynamic: true
 
 
 # Line config

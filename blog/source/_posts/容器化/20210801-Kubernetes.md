@@ -111,7 +111,7 @@
 
 ## 4. 初始化基础环境
 
-```shell
+```bash
 # 下载yum 源
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 
@@ -197,7 +197,7 @@ systemctl enable kubelet && systemctl start kubelet
 
 ## 5. 初始化 Master
 
-```shell
+```bash
 # 初始化K8s主节点
 kubeadm init --kubernetes-version=1.15.10 \
 --apiserver-advertise-address=${master_ip} \
@@ -238,7 +238,7 @@ systemctl daemon-reload && systemctl restart kubelet
 
 ## 6. 初始化 WorkerNode
 
-```shell
+```bash
 # 拷贝 admin.conf 到 wokerNode
 scp /etc/kubernetes/admin.conf root@node1:/etc/kubernetes/
 
@@ -285,7 +285,7 @@ kubectl get nodes
 
 ## 7. 安装 *Kubernetes Dashboard*
 
-```shell
+```bash
 # 安装 Kubernetes Dashboard 根据 CRD，使用http免密登录
 kubectl apply -f https://github.com/coderzc/coderzc.github.io/tree/master/blog/%E5%AE%B9%E5%99%A8%E5%8C%96/recommended.yaml
 
