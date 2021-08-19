@@ -277,7 +277,7 @@ pretty_urls:
 ## If Github Pages deploy，you can ues jsdelivr settings
 #
 jsdelivr:
- jsdelivr_url: https://cdn.jsdelivr.net/gh/
+ jsdelivr_url: https://github.com.cnpmjs.org
  github_username: coderzc
 
 

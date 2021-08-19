@@ -24,7 +24,7 @@
 
 <% if (config['search']) { %>
   <% if(config['jsdelivr']) { %>
-    <script src="<%- config.jsdelivr.jsdelivr_url %><%- config.jsdelivr.github_username %>/<%- config.jsdelivr.github_username %>.github.io<%- config.root %>js/ziploader.js"></script>
+    <script src="<%- config.jsdelivr.jsdelivr_url %><%- config.jsdelivr.github_username %>/<%- config.jsdelivr.github_username %>.github.io@gh-pages<%- config.root %>js/ziploader.js"></script>
   <% } else { %>
     <script src="<%- config.root %>js/ziploader.js"></script>
   <% } %>

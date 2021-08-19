@@ -6,7 +6,7 @@
   <div id="gitalk-container"></div>
 
   <% if(config['jsdelivr']) { %>
-    <script src="<%- config.jsdelivr.jsdelivr_url %><%- config.jsdelivr.github_username %>/<%- config.jsdelivr.github_username %>.github.io<%- config.root %>js/comment/gitalk.js"></script>
+    <script src="<%- config.jsdelivr.jsdelivr_url %><%- config.jsdelivr.github_username %>/<%- config.jsdelivr.github_username %>.github.io@gh-pages<%- config.root %>js/comment/gitalk.js"></script>
   <% } else { %>
     <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
     <script src="<%- config.root %>js/comment/gitalk.js"></script>
