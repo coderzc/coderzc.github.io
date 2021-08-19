@@ -40,7 +40,7 @@ layout: page
     <h3 class="post-subtitle">
       <%- post.subtitle || "" %>
     </h3>
-    <div class="post-content-preview">
+    <div class="post-content-preview" style="word-wrap: break-word;">
       <%- truncate(strip_html(post.content), {length: 200, omission: '...'}) %>...
     </div>
   </a>

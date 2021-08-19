@@ -881,7 +881,7 @@ textarea.gt-header-textarea::placeholder {
 /* ==================================================== highlight End =================================================== */
 /* ==================================================== Search Start =================================================== */
 .local-search-popup {
-  background-color: var(--search-background-color);
+  background-color: var(--search-base-background-color);
 }
 
 .local-search-input-wrapper {
@@ -918,9 +918,9 @@ textarea.gt-header-textarea::placeholder {
 }
 
 @media (min-width: 1080px) {
-  .popup-btn-close:hover {
+  /* .popup-btn-close:hover {
     background: var(--search-btn-close-color-1080);
-  }
+  } */
 }
 
 .search-result-list p {

@@ -1,19 +1,19 @@
 <div class="popup search-popup local-search-popup">
   <span class="popup-btn-close">
-    ESC
+    <i class="fa fa-chevron-down"></i>
   </span>
   <div class="container">
     <div class="row">
       <!-- <div class="col-md-9 col-md-offset-1"> -->
-      <div class="col-lg-9 col-lg-offset-1 col-md-10 col-md-offset-1 local-search-content">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="local-search-header clearfix">
 
           <div class="local-search-input-wrapper">
-            <span class="search-icon">
+            <!-- <span class="search-icon">
               <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
-            </span>
-            <input autocomplete="off" placeholder="<%= __('Search') %>..." type="text" id="local-search-input">
+            </span> -->
+            <input autocomplete="off" placeholder="$ grep..." type="text" id="local-search-input">
           </div>
         </div>
         <div id="local-search-result"></div>
@@ -255,7 +255,7 @@
               slicesOfContent.forEach(function (slice) {
                 resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
               });
-              resultItem += "</div><div class='search-result-right'><img class='media-image' src='" + imgUrl + "' width='64px' height='48px'></img></div></a>";
+              resultItem += "</div><div class='search-result-right'></div></a>";
 
               resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
             }
