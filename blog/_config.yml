@@ -243,7 +243,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: coderzc的博客
+title: Coderzc's Blog
 subtitle: 'Write the code. Change the world.'
 description: 'Write the code. Change the world.'
 keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络
@@ -266,16 +266,19 @@ langselect:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://coderzc.github.io/blog
 root: /blog/
-permalink: :lang/:title/
+permalink: :title/
 permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: false # Set to false to remove trailing '.html' from permalinks
 
 # CDN Setting
 ## Docs: https://www.jsdelivr.com/?docs=gh
 ## If Github Pages deploy，you can ues jsdelivr settings
 #
-# jsdelivr:
-#   jsdelivr_url: https://cdn.jsdelivr.net/gh/
-#   github_username: V-Vincen
+#jsdelivr:
+# jsdelivr_url: https://cdn.jsdelivr.net/gh/
+# github_username: coderzc
 
 
 # Custom Setting Start
@@ -284,7 +287,7 @@ permalink_defaults:
 SEOTitle: coderzc
 email: zc1217zc@126.com
 header-img: img/header_img/newhome_bg.jpg
-archives-img: img/header_img/archive_bg.jpg,img/header_img/archive_bg2.jpg,img/header_img/archive_bg3.jpg
+archives-img: img/header_img/archive_bg.jpg,img/header_img/archive_bg2.jpg,img/header_img/archive_bg3.jpg,img/header_img/archive_bg4.jpg
 
 
 # Favicon settings
@@ -355,18 +358,18 @@ featured-condition-size: 0    # A tag will be featured if the size of it is more
 ## Gitalk Settings
 ## Doc:https://github.com/gitalk/gitalk/blob/master/readme-cn.md
 ##
-gitalk:
-  owner:                          # 'GitHub repo owner'
-  admin:                          # 'GitHub repo'
-  repo:                           # ['GitHub repo owner and collaborators, only these guys can initialize github issues']
-  clientID:                       # 'GitHub Application Client ID'
-  clientSecret:                   # 'GitHub Application Client Secret'
-  perPage: 10                     # Pagination size, with maximum 100.
-  pagerDirection: last            # Comment sorting direction, available values are last and first.
-  createIssueManually: false      # By default, Gitalk will create a corresponding github issue for your every single page automatically when the logined user is belong to the admin users. You can create it manually by setting this option to true
-  language: en                    # Localization language key, en, zh-CN and zh-TW are currently available.
-  maxCommentHeight: 250           # An optional number to limit comments' max height, over which comments will be folded.Default 250.
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token  # GitHub oauth request reverse proxy for CORS. For example, the demo url is 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token'.You should deploy your own proxy url as in this issue https://github.com/gitalk/gitalk/issues/429.
+#gitalk:
+#  owner: coderzc                          # 'GitHub repo owner'
+#  admin: coderzc                        # 'GitHub repo'
+#  repo:  https://github.com/coderzc/coderzc.github.io                         # ['GitHub repo owner and collaborators, only these guys can initialize github issues']
+#  clientID:                       # 'GitHub Application Client ID'
+#  clientSecret:                   # 'GitHub Application Client Secret'
+#  perPage: 10                     # Pagination size, with maximum 100.
+#  pagerDirection: last            # Comment sorting direction, available values are last and first.
+#  createIssueManually: false      # By default, Gitalk will create a corresponding github issue for your every single page automatically when the logined user is belong to the admin users. You can create it manually by setting this option to true
+#  language: en                    # Localization language key, en, zh-CN and zh-TW are currently available.
+#  maxCommentHeight: 250           # An optional number to limit comments' max height, over which comments will be folded.Default 250.
+#  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token  # GitHub oauth request reverse proxy for CORS. For example, the demo url is 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token'.You should deploy your own proxy url as in this issue https://github.com/gitalk/gitalk/issues/429.
 
 
 ## Gitment Settings
@@ -507,6 +510,12 @@ markdown:
     linkify: true
     typographer: true
     quotes: '“”‘’'
+  plugins:
+   - markdown-it-abbr
+   - markdown-it-footnote
+   - markdown-it-ins
+   - markdown-it-sub
+   - markdown-it-sup
 
 
 # Build Settings
@@ -521,7 +530,7 @@ top: true
 ## Dependencies: https://github.com/willin/hexo-wordcount
 ## Docs: https://www.npmjs.com/package/hexo-wordcount
 ##
-wordcount: true
+wordcount: false
 
 
 # Busuanzi Settings
@@ -536,8 +545,8 @@ scroll: true
 
 # Tip
 tip:
-  enable: true
-  # copyright: If you like this blog or find it useful for you, you are welcome to comment on it. You are also welcome to share this blog, so that more people can participate in it. If the images used in the blog infringe your copyright, please contact the author to delete them. Thank you !
+  enable: false
+#  copyright: 如果你喜欢这个博客或者觉得它对你有用，欢迎你评论。也欢迎大家分享这个博客，让更多的人参与进来。如果博客中使用的图片侵犯了您的版权，请联系作者删除。谢谢 !
 
 
 # Social Share Post
@@ -615,3 +624,4 @@ theme: livemylife
 ##
 #gitter:
 #  room: your-community/your-room
+highlight_theme: 'night eighties'

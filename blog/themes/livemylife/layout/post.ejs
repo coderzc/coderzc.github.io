@@ -32,17 +32,11 @@ layout: layout
         <!-- tip end -->
         <% } %>
 
-        <% if(config['socialshare']) { %>
-        <!-- Sharing Srtart -->
-        <%- partial('_partial/socialshare') %>
-        <!-- Sharing End -->
-        <% } %>
         <hr>
 
         <!-- comments start -->
         <%- partial('_partial/comment',{cache: true}) %>
         <!-- comments end -->
-        <hr>
 
       </div>
 
@@ -69,6 +63,13 @@ layout: layout
           </div>
         </section>
         <% }%>
+
+        <% if(config['socialshare']) { %>
+        <hr>
+        <!-- Sharing Srtart -->
+        <%- partial('_partial/socialshare') %>
+        <!-- Sharing End -->
+        <% } %>
 
         <!-- Friends Blog -->
         <% if(config.friends) { %>
