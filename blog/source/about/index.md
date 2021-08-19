@@ -1,5 +1,7 @@
 ---
-title: about
-date: 2021-08-18 04:36:02
+layout: "about"
+title: "About"
+date: 2021-08-19 16:48:33
+description: ""
+header-img: "img/scenery/about_bg.jpg"
 ---
-## 自我介绍

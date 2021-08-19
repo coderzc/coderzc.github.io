@@ -1,5 +1,6 @@
 ---
-title: categories
-date: 2021-08-18 04:35:51
-type: "categories"
+layout: "categories"
+title: "Categories"
+description: "Hi , here is Categories ...."
+header-img: "img/header_img/categories_bg.jpg"
 ---

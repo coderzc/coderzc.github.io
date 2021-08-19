@@ -6,3 +6,4 @@ blog/node_modules/
 blog/public/
 blog/.deploy*/
 public/
+.idea/
