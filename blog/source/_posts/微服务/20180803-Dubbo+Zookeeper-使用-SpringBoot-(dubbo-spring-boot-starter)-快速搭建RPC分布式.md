@@ -3,7 +3,7 @@
 
 ### 二.创建公共接口
 1. 新建一个maven项目
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-cf697b2473f0b77b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160153.png)
 
 2. 创建接口：
 
@@ -16,8 +16,8 @@ public interface DemoService {
 
 ```
 3. 把项目打包成jar包
-![打包](https://upload-images.jianshu.io/upload_images/12637001-e38c5f50cafa5ed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![jar包](https://upload-images.jianshu.io/upload_images/12637001-0af0fa356e257b47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![打包](https://gitee.com/coderzc/blogimage/raw/master/20210820160201.png)
+![jar包](https://gitee.com/coderzc/blogimage/raw/master/20210820160206.png)
 
 
 ### 三.创建服务提供者
@@ -30,7 +30,7 @@ public interface DemoService {
         </dependency>
 ```
 2. 导入之前生成的公共接口jar包（不会导入自行百度）
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-09287d9d3319f8c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160210.png)
 
 3.实现公共接口，并添加dubbo的@service**（注意不是spring的service注解，看导包）**
 实现类：
@@ -158,7 +158,7 @@ public class DubboConsumerApplication {
 }
 ```
 6. 启动消费者，并访问 http://localhost:8080/sayHello?name=dubbo
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-f00c6289ceab1d43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160236.png)
 
 **成功调用到生产者的服务**
 
@@ -166,4 +166,4 @@ public class DubboConsumerApplication {
 请查看这篇博文，就是个管理界面，搭起来然后把服务注册中心地址换成自己的就行了https://www.jianshu.com/p/3d619740883c
 
 这是最终效果，生产者和消费者都能看到了
-![dubbo-admin.png](https://upload-images.jianshu.io/upload_images/12637001-eaf08772ee35efba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![dubbo-admin.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160241.png)

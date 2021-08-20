@@ -383,6 +383,5 @@ theme: livemylife
 #  room: your-community/your-room
 highlight_theme: 'night eighties'
 
-mathjax:
-  enable: true
-  cdn: https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+# mathjax:
+#   version: "v3"

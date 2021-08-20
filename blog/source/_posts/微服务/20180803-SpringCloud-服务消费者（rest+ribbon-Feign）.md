@@ -16,8 +16,8 @@ ribbon 已经默认实现了这些配置bean：
 ### 二、建一个服务消费者端
 **2.1** 这一篇文章基于上一篇文章的工程，启动eureka-server 工程；启动service-hi工程，它的端口为8081；将service-hi的配置文件的端口改为8082,并启动，这时你会发现：service-hi在eureka-server注册了2个实例，这就相当于一个小的集群。
 
-![idea多实例.png](https://upload-images.jianshu.io/upload_images/12637001-a7a59e025b490e65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![服务注册多实例.png](https://upload-images.jianshu.io/upload_images/12637001-de903327ce913c4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![idea多实例.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160318.png)
+![服务注册多实例.png](https://gitee.com/coderzc/blogimage/raw/master/20210820162759.png)
 
 **2.2** 重新新建一个spring-boot工程，取名为：eureka-consumer;
 在它的pom.xml和上一个差不多，多引一个`spring-cloud-starter-netflix-ribbon`库即可
@@ -88,7 +88,7 @@ public class HelloController {
 这说明当我们通过调用restTemplate.getForObject(“[http://SERVICE-HI/hi?name=](http://service-hi/hi?name=)“+name,String.class)方法时，已经做了负载均衡，访问了不同的端口的服务实例。
 
 ### 三、此时架构
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-da915fb52c27dd2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160331.png)
 
 ### 四、Feign简介
 Feign是一个声明式的伪Http客户端，它使得写Http客户端变得更简单。使用Feign，只需要创建一个接口并注解。它具有可插拔的注解特性，可使用Feign 注解和JAX-RS注解。Feign支持可插拔的编码器和解码器。Feign默认集成了Ribbon，并和Eureka结合，默认实现了负载均衡的效果。

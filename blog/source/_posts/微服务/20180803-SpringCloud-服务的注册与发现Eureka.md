@@ -100,7 +100,7 @@ spring:
 
 **2.5 eureka server 监控界面**，启动工程,打开浏览器访问： 
 [http://localhost:8761](http://localhost:8761/) ,界面如下：
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-4b7eb1baf1e235d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820160258.png)
 
 ### 二、创建服务提供者
 当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。
@@ -215,7 +215,7 @@ server:
 
 **需要指明spring.application.name,这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name ,然后你能看到注册中心我写了三个这是因为，我开了三个eurekaserver它们之间还要相互注册**
 启动工程，打开[http://localhost:8761](http://localhost:8761/) ，即eureka server 的网址：
-![](https://upload-images.jianshu.io/upload_images/12637001-d5a12c70726ce86f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://gitee.com/coderzc/blogimage/raw/master/20210820160306.png)
 你会发现一个服务已经注册在服务中了，服务名为SERVICE-HI ,端口为8081
 
 这时打开 http://localhost:8081/hi?name=springcloud ，你会在浏览器上看到 :

@@ -1,4 +1,5 @@
 ####题目描述
+
 >给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
 你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
 
@@ -9,7 +10,7 @@
 
 ####分析：
 这是第一题很简单，就是两层for循环然后一个一个去试，结果代码倒是通过了，可是一看时间分析比大佬的代码慢好多，于是又看了第一名的代码，果然列害，通过HashMap以值为key如果发现与存在key正好匹配的数则返回，只遍历了一遍即可。
-![image.png](https://upload-images.jianshu.io/upload_images/12637001-afb77ebd9864a649.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://gitee.com/coderzc/blogimage/raw/master/20210820163718.png)
 
 ####代码：
 
