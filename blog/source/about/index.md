@@ -1,7 +1,6 @@
 ---
 layout: "about"
 title: "About"
-date: 2021-08-19 16:48:33
-description: ""
+description: "Write the code. Change the world."
 header-img: "img/scenery/about_bg.jpg"
 ---

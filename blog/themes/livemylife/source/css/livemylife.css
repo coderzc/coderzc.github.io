@@ -353,20 +353,20 @@ li.archive-list-item:hover a {
 }
 
 /* 滚动条背景与宽度 */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 6px;
   background: none;
   height: 6px;
-}
+} */
 
 /* 滚动条轨道样式 */
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2) inset;
   -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2) inset;
   border-radius: 0px;
   background: white;
   border: 0px solid transparent;
-}
+} */
 
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
@@ -380,21 +380,62 @@ li.archive-list-item:hover a {
 }
 
 /* 当前窗口未激活的情况下 */
-::-webkit-scrollbar-thumb:window-inactive {
+/* ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(157, 165, 183, 0.4);
-}
+} */
 
 /* hover到滚动条上 */
-::-webkit-scrollbar-thumb:vertical:hover {
+/* ::-webkit-scrollbar-thumb:vertical:hover {
   background: rgba(157, 165, 183, 0.7);
-}
+} */
 
 /* 滚动条按下 */
-::-webkit-scrollbar-thumb:vertical:active {
+/* ::-webkit-scrollbar-thumb:vertical:active {
   background: rgba(157, 165, 183, 0.7);
-}
+} */
 
 /* 滚动条边角样式 */
-::-webkit-scrollbar-corner {
+/* ::-webkit-scrollbar-corner {
   background: white;
+} */
+
+.post-container .pager li.previous {
+  float: left;
+}
+
+.post-container .pager li {
+  width: 48%;
+}
+
+.post-container .pager li>a>span {
+  color: #a3a3a3;
+  font-weight: 400;
+  letter-spacing: .5px;
+}
+
+.pager li>a:hover>span, .pager li>a:focus>span {
+  color: #fff;
+}
+
+.pager li>a, .pager li>span {
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","Microsoft JhengHei","Source Han Sans SC","Noto Sans CJK SC","Source Han Sans CN","Noto Sans SC","Source Han Sans TC","Noto Sans CJK TC","WenQuanYi Micro Hei",SimSun,sans-serif;
+  line-height: 1.7;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 0;
+}
+
+.highlighter-rouge .highlight .table-responsive {
+  margin: 0;
+  border: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .table-responsive {
+    border: 0;
+  }
 }

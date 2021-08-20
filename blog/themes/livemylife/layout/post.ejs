@@ -16,12 +16,18 @@ layout: layout
         <ul class="pager">
           <% if (page.prev){ %>
           <li class="previous">
-            <a href="<%- config.root %><%- page.prev.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.prev.title %>">&larr; Previous Post</a>
+            <a href="<%- config.root %><%- page.prev.path %>"  data-placement="top" title="<%- page.prev.title %>">&larr; Previous
+              <br/>
+              <span><%- page.prev.title %></span>
+            </a>
           </li>
           <% } %>
           <% if (page.next){ %>
           <li class="next">
-            <a href="<%- config.root %><%- page.next.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.next.title %>">Next Post &rarr;</a>
+            <a href="<%- config.root %><%- page.next.path %>"  data-placement="top" title="<%- page.next.title %>">Next &rarr;
+              <br/>
+              <span><%- page.next.title %></span>
+            </a>
           </li>
           <% } %>
         </ul>
@@ -44,10 +50,7 @@ layout: layout
       <%- partial('_partial/catalog') %>
 
       <!-- Sidebar Container -->
-      <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-10 col-md-offset-1
-                sidebar-container">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
 
         <!-- Featured Tags -->
         <% if(config['featured-tags']) { %>
@@ -64,8 +67,9 @@ layout: layout
         </section>
         <% }%>
 
-        <% if(config['socialshare']) { %>
         <hr>
+        
+        <% if(config['socialshare']) { %>
         <!-- Sharing Srtart -->
         <%- partial('_partial/socialshare') %>
         <!-- Sharing End -->

@@ -7,7 +7,7 @@
 title: Coderzc's Blog
 subtitle: 'Write the code. Change the world.'
 description: 'Write the code. Change the world.'
-keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络, 数据库
+keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络, 数据库, java, go, rust, python
 author: coderzc
 timezone: 'Asia/Shanghai'
 
@@ -37,19 +37,18 @@ pretty_urls:
 ## Docs: https://www.jsdelivr.com/?docs=gh
 ## If Github Pages deploy，you can ues jsdelivr settings
 #
-# jsdelivr:
-#  jsdelivr_url: https://cdn.jsdelivr.net/gh/
-#  github_username: coderzc
+jsdelivr:
+  jsdelivr_url: https://cdn.jsdelivr.net/gh/
+  github_username: coderzc
 
 
 # Custom Setting Start
 
 # Site settings
-SEOTitle: coderzc
+SEOTitle: coderzc's blog
 email: zc1217zc@126.com
 header-img: img/header_img/newhome_bg.jpg
-archives-img: img/header_img/archive_bg.jpg,img/header_img/archive_bg2.jpg,img/header_img/archive_bg3.jpg,img/header_img/archive_bg4.jpg
-
+archives-img: img/header_img/post2.jpg,img/header_img/post3.jpg,img/header_img/post.jpg,img/header_img/post4.jpg,img/header_img/post5.jpg,img/header_img/post6.jpg
 
 # Favicon settings
 favicon: img/avatar/coderzc.png
@@ -298,7 +297,7 @@ busuanzi: true
 
 
 # top scroll progress
-scroll: true
+scroll: false
 
 
 # Tip
@@ -310,7 +309,7 @@ tip:
 # Social Share Post
 ## Docs:https://github.com/overtrue/share.js
 ##
-socialshare: true
+socialshare: false
 
 
 # Viewer config
