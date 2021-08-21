@@ -13,9 +13,9 @@ function getHashCode(str,caseSensitive){
     return  (hash & 0x7FFFFFFF);
 }
 if (is_post() || is_page()) {
-var autoArchivesImgs = config["archives-img"].split(",")
+var autoArchivesImgs = config["archives-img"].split(",").filter(item => item != '');
 var hashcode = getHashCode(page["title"], true)
-var autoArchivesImg = autoArchivesImgs[hashcode % autoArchivesImgs.length]
+var autoArchivesImg = autoArchivesImgs[hashcode % autoArchivesImgs.length].trim()
 }
 %>
 <% if(config['jsdelivr']) { %>
