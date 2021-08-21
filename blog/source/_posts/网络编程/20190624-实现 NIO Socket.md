@@ -1,14 +1,12 @@
----
-description: 使用 NIO 实现客户端和服务端的例子
----
+### 这是一个使用 NIO 实现 echo 客户端和 echo 服务端的例子
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190625131344804.jpeg#pic_center)
-<!--more-->
+
 <div align=center>
 <img src="https://img-blog.csdnimg.cn/20210112235240968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pfY2NzZG4=,size_12,color_FFFFFF,t_70"/>
 </div>
 
-## 服务端
+#### 服务端
 ```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -193,7 +191,7 @@ public class NioSocketServer {
     }
 ```
 
-## 客户端 (支持断线自动重连)
+#### 客户端 (支持断线自动重连)
 ```java
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -7,7 +7,7 @@
 title: Coderzc's Blog
 subtitle: 'Write the code. Change the world.'
 description: 'Write the code. Change the world.'
-keywords: 分布式, 容器化, linux, 操作系统, 锁, 高并发, 机器学习, 网络, 数据库, java, go, rust, python
+keywords: 分布式,容器化,linux,操作系统,高并发,机器学习,网络,数据库,java,golang,rust,python
 author: coderzc
 timezone: 'Asia/Shanghai'
 
@@ -37,9 +37,9 @@ pretty_urls:
 ## Docs: https://www.jsdelivr.com/?docs=gh
 ## If Github Pages deploy，you can ues jsdelivr settings
 #
-jsdelivr:
-  jsdelivr_url: https://cdn.jsdelivr.net/gh/
-  github_username: coderzc
+# jsdelivr:
+#   jsdelivr_url: https://cdn.jsdelivr.net/gh/
+#   github_username: coderzc
 
 
 # Custom Setting Start
@@ -47,8 +47,19 @@ jsdelivr:
 # Site settings
 SEOTitle: coderzc blog
 email: zc1217zc@126.com
-header-img: img/header_img/newhome_bg.jpg
-archives-img: img/header_img/post2.jpg,img/header_img/post3.jpg,img/header_img/post.jpg,img/header_img/post4.jpg,img/header_img/post5.jpg,img/header_img/post6.jpg
+header-img: http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim
+#archives-img: img/header_img/post2.jpg,img/header_img/post3.jpg,img/header_img/post.jpg,img/header_img/post4.jpg,img/header_img/post5.jpg,img/header_img/post6.jpg
+archives-img: >-
+  https://gitee.com/coderzc/blogimage/raw/master/post4.jpg,
+  http://h2.ioliu.cn/bing/FreshSalt_ZH-CN12818759319_1920x1080.jpg?imageslim,
+  http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim,
+  https://gitee.com/coderzc/blogimage/raw/master/post3.jpg,
+  https://h2.ioliu.cn/bing/BulgariaPerseids_EN-AU11585904087_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/MundoFalls_ROW9309097946_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/MilkyWayLadakh_ZH-CN7734727282_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/LuciolaCruciata_ZH-CN9063767400_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/MalhamStars_ZH-CN4163177154_1920x1080.jpg?imageslim,
 
 # Favicon settings
 favicon: img/avatar/coderzc.png
