@@ -906,7 +906,7 @@ textarea.gt-header-textarea::placeholder {
   background-color: var(--search-result-background-color-hovor);
 }
 
-.popup-btn-close {
+/* .popup-btn-close {
   color: var(--search-btn-close-color);
   background-color: var(--search-base-background-color);
 }
@@ -915,7 +915,7 @@ textarea.gt-header-textarea::placeholder {
   span.popup-btn-close:hover {
     background-color: var(--search-result-background-color-hovor);
   }
-}
+} */
 
 @media (min-width: 1080px) {
   /* .popup-btn-close:hover {
