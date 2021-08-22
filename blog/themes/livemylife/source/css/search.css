@@ -44,7 +44,7 @@
 
 .search-result-title {
   font-size: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   font-weight: 500;
 }
 
@@ -176,6 +176,8 @@ a.search-result {
 .search-result-list a {
   color: #151515 !important;
   text-decoration: none;
+  margin-bottom: 15px;
+  display: inline-block;
 }
 
 .search-result-list a:hover {

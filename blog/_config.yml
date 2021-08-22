@@ -71,7 +71,7 @@ signature-img: img/signature/vincent-white.png
 
 
 # Wave settings
-wave: false
+wave: true
 
 
 # SNS Settings
