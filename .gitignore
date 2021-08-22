@@ -7,3 +7,4 @@ blog/public/
 blog/.deploy*/
 public/
 .idea/
+.history/
