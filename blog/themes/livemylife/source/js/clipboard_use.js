@@ -10,10 +10,10 @@ var initCopyCode = function(){
     clipboard.on('success', function(e) {
         e.clearSelection();
         e.trigger.getElementsByTagName("i")[0].className = 'fa fa-clipboard';
-        e.trigger.getElementsByTagName("i")[0].innerText = ' 复制成功'
+        e.trigger.getElementsByTagName("i")[0].innerText = ' Copyied'
         setTimeout(()=> {
             e.trigger.getElementsByTagName("i")[0].className = 'fa fa-copy';
-            e.trigger.getElementsByTagName("i")[0].innerText = ' 复制'
+            e.trigger.getElementsByTagName("i")[0].innerText = ' Copy'
         }, 1000)
     });
 }

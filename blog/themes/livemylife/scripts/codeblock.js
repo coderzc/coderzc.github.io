@@ -17,7 +17,7 @@ var attributes = [
         return `
           <div class="highlight-wrap" ${attributesStr}data-rel='${language.toUpperCase()}'>
           <div class="btn-copy">
-          <i class="fa fa-copy"> 复制</i>
+          <i class="fa fa-copy"> Copy</i>
           </div>
           ${lastMatch}
           </div>
