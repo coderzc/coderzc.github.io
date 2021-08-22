@@ -14,7 +14,14 @@ var attributes = [
         var language = RegExp.$1 || 'plain'
         var lastMatch = RegExp.lastMatch
         lastMatch = lastMatch.replace(/<figure class="highlight /, '<figure class="iseeu highlight /')
-        return '<div class="highlight-wrap"' + attributesStr + 'data-rel="' + language.toUpperCase() + '">' + lastMatch + '</div>'
+        return `
+          <div class="highlight-wrap" ${attributesStr}data-rel='${language.toUpperCase()}'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> 复制</i>
+          </div>
+          ${lastMatch}
+          </div>
+          `
       })
     }
     return data

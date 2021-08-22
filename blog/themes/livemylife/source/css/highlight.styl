@@ -113,9 +113,7 @@ $code-border-radius = 4px
 $code-block {
   overflow: auto;
   //margin: 20px 0;
-  padding: 12px;
-  padding-top 8px;
-  padding-bottom 6px;
+  padding: 8px 12px 5px 12px;
   font-size $code-font-size;
   //color: $highlight-foreground;
   //background: $highlight-background;
@@ -296,16 +294,14 @@ $code-block {
     height: 30px;
     line-height: 30px;
     background: #1a1a1a;
-    color: #90a4ae;
+    color: #808080;
     font-size: 14px;
-    font-weight 700;
-    position: absolute;
+    font-weight 600;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: bold;
-    padding: 0px 80px;
+    padding: 0 80px;
     text-indent: 15px;
     float: left;
   }
@@ -326,45 +322,24 @@ $code-block {
   }
 }
 
-/*  这是原代码块 */
-//pre .css~* .id, pre .id {
-//  color:#fd971f
-//}
-
 /* 代码块复制按钮 */
-//.highlight {
-//  /* 方便copy代码按钮（btn-copy）的定位 */
-//  position: relative;
-//}
 .btn-copy {
   display: inline-block;
   cursor: pointer;
-  //background-color: #eee;
-  //background-image: linear-gradient(#fcfcfc, #eee);
-
   background: #1a1a1a;
   color: #90a4ae;
-
   border: 0px;
-  //border-radius: 3px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-appearance: none;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 20px;
-  //color: #4d4d4d;
-  -webkit-transition: opacity .3s ease-in-out;
-  -o-transition: opacity .3s ease-in-out;
-  transition: opacity .3s ease-in-out;
+  font-size: 13px;
+  font-weight: 700;
   padding: 2px 6px;
   position: absolute;
-  right: 5px;
-  top: 3px;
+  right: 0.2em;
   opacity: 1;
-  //box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 2px 4px rgb(0 0 0 / 5%);
 }
 .btn-copy span {
   margin-left: 5px;
@@ -374,6 +349,7 @@ $code-block {
 }
 /* 代码块复制按钮 */
 
-.table-responsive {
-  margin-top: 33px;
+.post-container pre, .post-container .highlight .table-responsive {
+  margin: 0;
 }
+
