@@ -1,0 +1,24 @@
+<!-- Table of Contents -->
+<% if (page.catalog || true) { %>
+    <% if (is_post()){ %>
+
+
+      <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <%- topic %>
+        </nav>
+    </aside>
+
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><%= __('contents') %></strong>
+        <% if (toc(page.content) != ""){ %>
+          <%- toc(page.content, { "class": "post-toc" , "list_number" : false}) %>
+        <% } else { %>
+          <ol class="nav"><%= __('none') %></ol>
+        <% } %>
+        </div>
+      </aside>
+    <% } %>
+<% } %>

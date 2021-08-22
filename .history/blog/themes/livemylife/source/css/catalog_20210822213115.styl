@@ -1,0 +1,151 @@
+/*toc*/
+.toc-article
+  position: absolute
+  border-left: rgba(88,88,88,0.1) 1px solid
+  padding 1em 1em 0 1em
+  margin-left: 1em
+
+.toc-title
+  font-size 120%
+  &:before
+    font-family: "FontAwesome"
+    content: "\f02e"
+    margin-right: .5em
+
+@media screen and (max-width: 1100px)
+  #toc
+    display: none
+
+#toc
+  width: inherit
+  line-height 1em
+  font-size 0.9em
+  float left
+  overflow: auto
+  @media mq-mobile
+    display: none
+  @media mq-tablet
+    display: none
+
+.toc-fixed
+  position: fixed;
+  top: 60px;
+  margin-top: 0;
+  max-height: 81%;
+  overflow: hidden;
+  z-index: 1;
+
+.toc-nav
+  padding 0
+  margin 1em
+  line-height 1.8em
+  li
+    list-style-type: none
+    a:hover
+      background-color: transparent !important
+  .active > a
+    color: color-theme
+
+.toc-nav-link
+  font-family: "futura-pt", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif;
+  color: color-link
+  padding 1px !important
+  &:hover
+    color: color-theme
+
+.toc-nav-child
+  margin-left -1em
+
+#sidebar
+  display: inline;
+  float: left;
+  padding-left: 12px;
+
+
+
+
+.post-toc-wrap {
+    position: fixed;
+    overflow-x: hidden;
+    width: 20%;
+    &.fixed {
+        top: @headerH + 20px;
+        bottom: 140px;
+        overflow-y: auto;
+    }
+
+    ol,
+    ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    h4 {
+        padding: 0 0 10px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #727272;
+    }
+}
+.post-toc-child {
+    padding-left: 10px;
+}
+.post-toc {
+    display: inline-block;
+    padding: 0;
+    font-size: 13px;
+    >.post-toc-item {
+        position: relative;
+    }
+}
+.post-toc-item {
+    font-weight: 400;
+    color: @secondaryTextColor;
+
+    &.active {
+        >.post-toc-link {
+            font-weight: 600;
+            color: @primaryColor;
+            &:before {
+                background: rgba(0, 0, 0, .06);
+            }
+
+            &:after {
+                border-left: 3px solid @primaryColor;
+            }
+        }
+    }
+}
+.post-toc-link {
+    position: relative;
+    z-index: 2;
+    display: block;
+    padding: 3px 20px;
+    line-height: 1.5rem;
+    color: inherit;
+    word-break: break-all;
+
+    &:hover {
+        opacity: .8;
+    }
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.post-toc-shrink {
+    height: 0;
+    overflow-y: hidden;
+}
+
+.post-toc-expand {
+    height: auto;
+}
