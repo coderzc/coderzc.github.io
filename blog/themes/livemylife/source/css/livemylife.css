@@ -439,3 +439,23 @@ li.archive-list-item:hover a {
     border: 0;
   }
 }
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pager li>a {
+  width: 100%;
+}
+
+.header-anchor {
+  color: #337ab7;
+  opacity: 0;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header-anchor:hover {
+  opacity: 1;
+}

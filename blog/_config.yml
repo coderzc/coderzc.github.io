@@ -27,7 +27,7 @@ timezone: 'Asia/Shanghai'
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://coderzc.github.io/blog
 root: /blog/
-permalink: :title/
+permalink: :year/:abbrlink.html
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -281,23 +281,37 @@ archive_generator:
 ## Markdown-it config
 ### Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki
 markdown:
- render:
-   html: true
-   xhtmlOut: false
-   breaks: true
-   linkify: true
-   typographer: true
-   quotes: '“”‘’'
- plugins:
-   - markdown-it-abbr
-   - markdown-it-footnote
-   - markdown-it-ins
-   - markdown-it-sub
-   - markdown-it-sup
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  plugins:
+    - markdown-it-abbr
+    - markdown-it-footnote
+    - markdown-it-ins
+    - markdown-it-sub
+    - markdown-it-sup
+  anchors:
+    #创建 ID 的最低级别。(例如 h2 到 h6) 
+    level : 1 
+    #如果 ID 重复，则附加到给定数字的后缀。
+    collisionSuffix : ' '            
+    #如果 `true`，则创建一个锚标签，除了标题之外还有一个固定链接。
+    permalink : true               
+    #用于永久链接锚标记的类。
+    permalinkClass : header-anchor 
+    #设置为 'right' 以在标题后添加
+    permalinkSide : ' left ' 
+    #用于制作永久
+    permalinkSymbol :  ❡
+    #将锚点转换为 (1) 小写；（2）上壳体
 
 
 # Build Settings
-anchorjs: true    # if you want to customize anchor. check out line:26 of `anchorjs.ejs`
+anchorjs: false    # if you want to customize anchor. check out line:26 of `anchorjs.ejs`
 
 
 # article top
