@@ -70,10 +70,6 @@ signature: true # show signature
 signature-img: img/signature/vincent-white.png
 
 
-# Wave settings
-wave: true
-
-
 # SNS Settings
 # RSS: true
 github_username: coderzc
@@ -221,15 +217,6 @@ prismjs:
   preprocess: true
   line_number: true
   tab_replace: ''
-hljs:
-  enable: true #true to enable the plugin
-  trim_indent: backend # trim the indent of code block to prettify output. backend or front-end (recommend)
-  copy_code: true # show copy code in caption.
-  label:
-    left: Code
-    right: ':'
-    copy: Copy Code
-
 
 # Category & Tag
 default_category: uncategorized
@@ -386,11 +373,15 @@ themecolor:
 
 
 # Ribbon config
-ribbonDynamic: true
+ribbonDynamic: false
 
 
 # Line config
 bglinecanvas: false  # The special effects will take up a lot of cpu resorces, please open it carefully.
+
+
+# Wave settings
+wave: true
 
 
 # Search Setting
