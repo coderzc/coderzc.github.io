@@ -108,28 +108,28 @@ var autoArchivesImg = autoArchivesImgs[hashcode % autoArchivesImgs.length].trim(
       <% if(config['header-img'].substr(0, 4) == 'http') { %>
       --intro-header-background-image-url-home: url('<%= config["header-img"] %>');
       <% } else  { %>
-      --intro-header-background-image-url-home: url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root + config["header-img"] %>');
+      --intro-header-background-image-url-home: url('<%= config.root + config["header-img"] %>');
       <% } %> 
       <% if(!(page["header-img"] && page["header-img"].substr(0, 4) != 'http')) { %>
       --intro-header-background-image-url-post: url('<%= page["header-img"] || autoArchivesImg %>');
       --intro-header-background-image-url-page: url('<%= page["header-img"] || autoArchivesImg %>');
       <% } else  { %>
-      --intro-header-background-image-url-post: url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
-      --intro-header-background-image-url-page: url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
+      --intro-header-background-image-url-post: url('<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
+      --intro-header-background-image-url-page: url('<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
       <% } %>
     }
     .body--dark {
       <% if(config['header-img'].substr(0, 4) == 'http') { %>
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config["header-img"] %>');
       <% } else  { %>
-      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root + config["header-img"] %>');
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.root + config["header-img"] %>');
       <% } %> 
       <% if(!(page["header-img"] && page["header-img"].substr(0, 4) != 'http')) { %>
       --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= page["header-img"] || autoArchivesImg %>');
       --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= page["header-img"] || autoArchivesImg %>');
       <% } else  { %>
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.jsdelivr.jsdelivr_url + config.jsdelivr.github_username + "/" + config.jsdelivr.github_username %>.github.io@gh-pages<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('<%= config.root %><%= page["header-img"] || autoArchivesImg %>');
       <% } %>
     }
 
