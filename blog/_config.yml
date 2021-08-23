@@ -31,7 +31,7 @@ permalink: :year/:abbrlink.html
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: false # Set to false to remove trailing '.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
 
 # CDN Setting
 ## Docs: https://www.jsdelivr.com/?docs=gh

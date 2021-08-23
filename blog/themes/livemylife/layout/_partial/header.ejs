@@ -1,20 +1,52 @@
 <!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 <%
-function getHashCode(str,caseSensitive){
-    if(!caseSensitive){
-        str = str.toLowerCase();
+function CRC32(str, radix = 10) {
+  const Utf8Encode = function(string) {
+    string = string.replace(/\r\n/g, "\n");
+    let text = "";
+    for (let n = 0; n < string.length; n++) {
+      const c = string.charCodeAt(n);
+      if (c < 128) {
+        text += String.fromCharCode(c);
+      } else if ((c > 127) && (c < 2048)) {
+        text += String.fromCharCode((c >> 6) | 192);
+        text += String.fromCharCode((c & 63) | 128);
+      } else {
+        text += String.fromCharCode((c >> 12) | 224);
+        text += String.fromCharCode(((c >> 6) & 63) | 128);
+        text += String.fromCharCode((c & 63) | 128);
+      }
     }
-    var hash  =   1315423911,i,ch;
-    for (i = str.length - 1; i >= 0; i--) {
-        ch = str.charCodeAt(i);
-        hash ^= ((hash << 5) + ch + (hash >> 2));
+    return text;
+  }
+
+  const makeCRCTable = function(){
+    let c;
+    const crcTable = [];
+    for(let n =0; n < 256; n++){
+      c = n;
+      for(let k =0; k < 8; k++){
+        c = ((c&1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1));
+      }
+      crcTable[n] = c;
     }
-    return  (hash & 0x7FFFFFFF);
-}
+    return crcTable;
+  }
+
+  const crcTable = makeCRCTable();
+  const strUTF8 = Utf8Encode(str);
+  let crc = 0 ^ (-1);
+  for (let i = 0; i < strUTF8.length; i++ ) {
+    crc = (crc >>> 8) ^ crcTable[(crc ^ strUTF8.charCodeAt(i)) & 0xFF];
+  }
+  crc = (crc ^ (-1)) >>> 0;
+  return crc.toString(radix);
+};
+
 if (is_post() || is_page()) {
 var autoArchivesImgs = config["archives-img"].split(",").filter(item => item != '');
-var hashcode = getHashCode(page["title"], true)
+var hashcode = CRC32(page["title"])
 var autoArchivesImg = autoArchivesImgs[hashcode % autoArchivesImgs.length].trim()
 }
 %>
