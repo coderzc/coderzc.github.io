@@ -463,3 +463,12 @@ li.archive-list-item:hover a {
 .header-anchor:hover {
   opacity: 1;
 }
+
+.categorieTag {
+  float: right;
+}
+
+.categorieTag a:link {
+  text-decoration:none;
+  color: inherit;
+}

@@ -55,9 +55,15 @@ layout: layout
       <!-- Catalog: Tabe of Content -->
       <%- partial('_partial/catalog') %>
 
+
       <!-- Sidebar Container -->
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
-
+       
+        <div class="categorieTag">
+          <% var categorieName = page.categories.data[0]["name"] %>
+          <a href="<%= config.root %>categories/#<%= categorieName %>" title="<%= categorieName %>">
+            <i class="fa fa-bookmark"></i> <%= categorieName %></a>
+        </div>
         <!-- Featured Tags -->
         <% if(config['featured-tags']) { %>
         <section>
