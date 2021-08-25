@@ -1,5 +1,3 @@
-
-
 ### 安装 etcd CRD 和 hugegraph-computer CRD
 
 ```bash
