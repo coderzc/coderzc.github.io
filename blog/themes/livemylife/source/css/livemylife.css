@@ -411,6 +411,7 @@ li.archive-list-item:hover a {
   color: #a3a3a3;
   font-weight: 400;
   letter-spacing: .5px;
+  text-transform: none;
 }
 
 .pager li>a:hover>span, .pager li>a:focus>span {
