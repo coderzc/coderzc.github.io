@@ -7,7 +7,7 @@
 title: Coderzc's Blog
 subtitle: 'Write the code. Change the world.'
 description: 'Write the code. Change the world.'
-keywords: 分布式,容器化,Linux,操作系统,高并发,机器学习,网络,数据库,Java,Golang,Rust,Python,云计算
+keywords: 分布式,容器化,Linux,操作系统,高并发,机器学习,网络,数据库,Java,Golang,Rust,Python,云计算,微服务,大数据,数据结构,计算机基础
 author: coderzc
 timezone: 'Asia/Shanghai'
 
@@ -54,12 +54,12 @@ archives-img: >-
   http://h2.ioliu.cn/bing/FreshSalt_ZH-CN12818759319_1920x1080.jpg?imageslim,
   http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim,
   https://gitee.com/coderzc/blogimage/raw/master/post3.jpg,
-  https://h2.ioliu.cn/bing/BulgariaPerseids_EN-AU11585904087_1920x1080.jpg?imageslim,
-  https://h2.ioliu.cn/bing/MundoFalls_ROW9309097946_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/MountTaranaki_ZH-CN1962085466_1920x1080.jpg?imageslim,
   https://h2.ioliu.cn/bing/MilkyWayLadakh_ZH-CN7734727282_1920x1080.jpg?imageslim,
   https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim,
-  https://h2.ioliu.cn/bing/LuciolaCruciata_ZH-CN9063767400_1920x1080.jpg?imageslim,
-  https://h2.ioliu.cn/bing/MalhamStars_ZH-CN4163177154_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/ElkValleyVideo_EN-AU7645555683_1920x1080.jpg?imageslim,
+  https://h2.ioliu.cn/bing/RedRocksArches_ZH-CN5664546697_1920x1080.jpg?imageslim,
 
 # Favicon settings
 favicon: img/avatar/coderzc.png
@@ -88,7 +88,6 @@ widgets:
   - featured-tags
   - short-about
   - recent-posts
-  - friends-blog
   - archive
   - category
 
