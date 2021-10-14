@@ -1,5 +1,4 @@
-name: release version
-
+name: manual action
 on:
   workflow_dispatch:
 
