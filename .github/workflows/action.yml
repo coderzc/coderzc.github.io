@@ -1,0 +1,11 @@
+name: release version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: test
+        run: echo 'hello actions'
