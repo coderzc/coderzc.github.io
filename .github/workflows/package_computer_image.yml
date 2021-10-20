@@ -1,0 +1,76 @@
+name: Package hugegraph-computer image
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository_url:
+        required: true
+        default: 'hugegraph/hugegraph-computer'
+      repository_branch:
+        required: true
+        default: 'master'
+      project_version:
+        required: true
+        default: '0.1.0'
+      framework_image_url:
+        required: true
+      algorithm_image_url:
+        required: true
+      docker_registry_url:
+        required: false
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: docker-practice/actions-setup-docker@master
+      - run: |
+          set -x
+          docker version
+
+      - name: Install JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.inputs.repository_url }}
+          ref: ${{ github.event.inputs.repository_branch }}
+          fetch-depth: 2      
+        
+      - name: Build Project
+        run: bash computer-dist/builddocker.sh
+        
+      - name: Docker build
+        run: |
+          docker tag hugegraph/hugegraph-computer-framework:${{ github.event.inputs.project_version }} ${{ github.event.inputs.framework_image_url }}
+
+          echo "FROM ${{ github.event.inputs.framework_image_url }}
+          LABEL maintainer='HugeGraph Docker Maintainers <hugegraph@googlegroups.com>'
+          COPY target/computer-algorithm-*.jar /opt/jars/computer-algorithm-based.jar
+          ENV JAR_FILE_PATH=/opt/jars/computer-algorithm-based.jar" | \
+          docker build -t ${{ github.event.inputs.algorithm_image_url }} -f - ./computer-algorithm
+        
+      - name: Docker images
+        run: docker images
+
+      - name: Save image
+        run: |
+          mkdir target
+          docker save -o ./target/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
+          docker save -o ./target/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
+      - uses: actions/download-artifact@v2
+        with:
+          name: computer-images
+          path: ./target     
