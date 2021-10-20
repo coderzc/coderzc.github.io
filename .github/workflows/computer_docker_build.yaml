@@ -52,7 +52,7 @@ jobs:
           fetch-depth: 2      
       
       - name: pwd
-        run: -|
+        run: |
           pwd
           ls
         
@@ -60,7 +60,7 @@ jobs:
         run: bash computer-dist/builddocker.sh
         
       - name: Docker build
-        run: -|
+        run: |
           docker tag hugegraph/hugegraph-computer-framework:${{ github.event.project_version }} ${{ github.event.framework_image_url }}
 
           echo "FROM ${{ github.event.framework_image_url }}
