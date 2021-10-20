@@ -52,7 +52,9 @@ jobs:
           fetch-depth: 2      
       
       - name: pwd
-        run: pwd
+        run: -|
+          pwd
+          ls
         
       - name: Build and Compile
         run: bash computer-dist/builddocker.sh
