@@ -56,7 +56,7 @@ jobs:
         
       - name: Docker build
         run: -|
-          docker tag hugegraph/hugegraph-computer-framework:${{ project_version }} ${{ github.event.framework_image_url }}
+          docker tag hugegraph/hugegraph-computer-framework:${{ github.event.project_version }} ${{ github.event.framework_image_url }}
 
           echo "FROM ${{ github.event.framework_image_url }}
           LABEL maintainer="HugeGraph Docker Maintainers <hugegraph@googlegroups.com>"
