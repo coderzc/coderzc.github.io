@@ -24,10 +24,8 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: docker-practice/actions-setup-docker@master
-      - run: |
-          set -x
-          docker version
+#       - uses: docker-practice/actions-setup-docker@master
+      - run: docker version       
 
       - name: Install JDK 8
         uses: actions/setup-java@v2
@@ -67,10 +65,10 @@ jobs:
 
       - name: Save image
         run: |
-          mkdir target
-          docker save -o ./target/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
-          docker save -o ./target/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
+          mkdir artifacts
+          docker save -o ./artifacts/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
+          docker save -o ./artifacts/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
       - uses: actions/download-artifact@v2
         with:
           name: computer-images
-          path: ./target     
+          path: ./artifacts     
