@@ -43,12 +43,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
           
-      - uses: actions/checkout@v2
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: 'hugegraph/hugegraph-computer'
-          ref: ${{ github.event.repository_branch }}
+          repository: ${{ github.event.inputs.repository_url }}
+          ref: ${{ github.event.inputs.repository_branch }}
           fetch-depth: 2      
       
       - name: pwd
@@ -61,13 +60,13 @@ jobs:
         
       - name: Docker build
         run: |
-          docker tag hugegraph/hugegraph-computer-framework:${{ github.event.project_version }} ${{ github.event.framework_image_url }}
+          docker tag hugegraph/hugegraph-computer-framework:${{ github.event.inputs.project_version }} ${{ github.event.inputs.framework_image_url }}
 
-          echo "FROM ${{ github.event.framework_image_url }}
+          echo "FROM ${{ github.event.inputs.framework_image_url }}
           LABEL maintainer="HugeGraph Docker Maintainers <hugegraph@googlegroups.com>"
           COPY target/computer-algorithm-*.jar /opt/jars/computer-algorithm-based.jar
           ENV JAR_FILE_PATH=/opt/jars/computer-algorithm-based.jar" | \
-          docker build -t ${{ github.event.algorithm_image_url }} -f - ./computer-algorithm
+          docker build -t ${{ github.event.inputs.algorithm_image_url }} -f - ./computer-algorithm
         
       - name: Docker images
         run: docker images
