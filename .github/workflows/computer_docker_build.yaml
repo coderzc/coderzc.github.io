@@ -9,9 +9,6 @@ on:
       repository_branch:
         required: true
         default: 'master'
-      docker_registry_url:
-        required: false
-        default: ''
       project_version:
         required: true
         default: '0.1.0'
@@ -19,6 +16,9 @@ on:
         required: true
       algorithm_image_url:
         required: true
+      docker_registry_url:
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: ${{ github.event.repository_url }}
+          repository: 'hugegraph/hugegraph-computer'
           ref: ${{ github.event.repository_branch }}
           fetch-depth: 2      
       
