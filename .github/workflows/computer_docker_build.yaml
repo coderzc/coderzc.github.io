@@ -1,4 +1,4 @@
-name: build-hugegraph-computer
+name: Build hugegraph-computer Image
 
 on:
   workflow_dispatch:
