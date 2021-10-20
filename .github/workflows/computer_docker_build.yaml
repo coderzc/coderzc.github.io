@@ -49,13 +49,8 @@ jobs:
           repository: ${{ github.event.inputs.repository_url }}
           ref: ${{ github.event.inputs.repository_branch }}
           fetch-depth: 2      
-      
-      - name: pwd
-        run: |
-          pwd
-          ls
         
-      - name: Build and Compile
+      - name: Build Project
         run: bash computer-dist/builddocker.sh
         
       - name: Docker build
@@ -63,7 +58,7 @@ jobs:
           docker tag hugegraph/hugegraph-computer-framework:${{ github.event.inputs.project_version }} ${{ github.event.inputs.framework_image_url }}
 
           echo "FROM ${{ github.event.inputs.framework_image_url }}
-          LABEL maintainer="HugeGraph Docker Maintainers <hugegraph@googlegroups.com>"
+          LABEL maintainer='HugeGraph Docker Maintainers <hugegraph@googlegroups.com>'
           COPY target/computer-algorithm-*.jar /opt/jars/computer-algorithm-based.jar
           ENV JAR_FILE_PATH=/opt/jars/computer-algorithm-based.jar" | \
           docker build -t ${{ github.event.inputs.algorithm_image_url }} -f - ./computer-algorithm
