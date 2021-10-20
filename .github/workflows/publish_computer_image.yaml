@@ -1,4 +1,4 @@
-name: Build hugegraph-computer Image
+name: Publish hugegraph-computer image
 
 on:
   workflow_dispatch:
@@ -65,3 +65,10 @@ jobs:
         
       - name: Docker images
         run: docker images
+
+      - name: Publish
+        run: |
+          docker push ${{ github.event.inputs.framework_image_url }}
+          docker push ${{ github.event.inputs.algorithm_image_url }}   
+        
+        
