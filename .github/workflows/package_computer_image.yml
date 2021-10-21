@@ -86,11 +86,13 @@ jobs:
 #         with:
 #           name: computer-algorithm
 #           path: ./artifacts/hugegraph-computer-algorithm.tar  
-      - name: Tag and Release
-        uses: dothq/tag-and-release-and-upload@master
+      - name: Upload
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Use the version from the previous step
-          version: ${{ github.event.inputs.tag }}
-          assets: '[ "artifacts/hugegraph-computer-framework.tar", "artifacts/hugegraph-computer-algorithm.tar" ]'
-          overwrite: false  
+          file: "./artifacts/*"
+          tags: true
+          draft: true
+          tag_name: ${{ github.event.inputs.tag }}
+
