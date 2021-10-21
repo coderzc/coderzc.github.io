@@ -45,7 +45,15 @@ jobs:
         with:
           repository: ${{ github.event.inputs.repository_url }}
           ref: ${{ github.event.inputs.repository_branch }}
-          fetch-depth: 2      
+          fetch-depth: 2    
+          
+      - name: Replace jar
+        if: github.event.inputs.repository_url == 'starhugegraph/hugegraph-computer'
+        env:
+          TRAVIS_DIR: computer-dist/src/assembly/travis
+        run: |
+          mvn install:install-file -Dfile=$TRAVIS_DIR/lib/hugegraph-client-1.9.7.jar -DgroupId=com.baidu.hugegraph -DartifactId=hugegraph-client -Dversion=1.9.7 -Dpackaging=jar -DpomFile=$TRAVIS_DIR/lib/client-pom.xml
+          mvn install:install-file -Dfile=$TRAVIS_DIR/lib/hugegraph-common-1.8.9.jar -DgroupId=com.baidu.hugegraph -DartifactId=hugegraph-common -Dversion=1.8.9 -Dpackaging=jar -DpomFile=$TRAVIS_DIR/lib/common-pom.xml           
         
       - name: Build Project
         run: bash computer-dist/builddocker.sh
