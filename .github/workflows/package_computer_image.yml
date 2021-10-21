@@ -9,16 +9,10 @@ on:
       repository_branch:
         required: true
         default: 'master'
-      project_version:
-        required: true
-        default: '0.1.0'
       framework_image_url:
         required: true
       algorithm_image_url:
         required: true
-      docker_registry_url:
-        required: false
-        default: ''
 
 jobs:
   build:
@@ -71,6 +65,7 @@ jobs:
           mkdir artifacts
           docker save -o ./artifacts/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
           docker save -o ./artifacts/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
+          
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
