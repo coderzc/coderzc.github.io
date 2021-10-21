@@ -73,8 +73,8 @@ jobs:
       - name: Save image
         run: |
           mkdir artifacts
-          docker save -o ./artifacts/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
-          docker save -o ./artifacts/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
+          docker save -o ./hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
+          docker save -o ./hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
           
 #       - name: Upload artifact
 #         uses: actions/upload-artifact@v2
@@ -91,5 +91,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Use the version from the previous step
           version: ${{ github.event.inputs.tag }}
-          assets: '[ "${{ env.GITHUB_WORKSPACE }}/artifacts/hugegraph-computer-framework.tar", "${{ env.GITHUB_WORKSPACE }}/artifacts/hugegraph-computer-algorithm.tar" ]'
+          assets: '[ "hugegraph-computer-framework.tar", "hugegraph-computer-algorithm.tar" ]'
           overwrite: false  
