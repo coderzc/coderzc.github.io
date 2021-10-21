@@ -16,6 +16,9 @@ on:
       docker_registry_url:
         required: false
         default: ''
+      build_operator:
+        required: true
+        default: 'false'
 
 jobs:
   build:
@@ -72,6 +75,10 @@ jobs:
           COPY target/computer-algorithm-*.jar /opt/jars/computer-algorithm-based.jar
           ENV JAR_FILE_PATH=/opt/jars/computer-algorithm-based.jar" | \
           docker build -t ${{ github.event.inputs.algorithm_image_url }} -f - ./computer-algorithm
+          
+      - name: Docker build operator
+        if: github.event.inputs.build_operator == 'true'
+        run: docker build -t hugegraph/hugegraph-computer-operator:latest -f computer-k8s-operator/Dockerfile ./computer-k8s-operator
         
       - name: Docker images
         run: docker images
@@ -79,5 +86,9 @@ jobs:
       - name: Publish
         run: |
           docker push ${{ github.event.inputs.framework_image_url }}
-          docker push ${{ github.event.inputs.algorithm_image_url }}   
+          docker push ${{ github.event.inputs.algorithm_image_url }}
+      
+      - name: Publish operator
+        if: github.event.inputs.build_operator == 'true'
+        run: docker push hugegraph/hugegraph-computer-operator:latest
         
