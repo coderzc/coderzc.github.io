@@ -9,9 +9,6 @@ on:
       repository_branch:
         required: true
         default: 'master'
-      project_version:
-        required: true
-        default: '0.1.0'
       framework_image_url:
         required: true
       algorithm_image_url:
@@ -55,7 +52,11 @@ jobs:
         
       - name: Docker build
         run: |
-          docker tag hugegraph/hugegraph-computer-framework:${{ github.event.inputs.project_version }} ${{ github.event.inputs.framework_image_url }}
+          PROJECT_VERSION=$(mvn -f "./pom.xml" -q -N \
+          org.codehaus.mojo:exec-maven-plugin:1.3.1:exec \
+          -Dexec.executable='echo' -Dexec.args='${project.version}')
+          
+          docker tag hugegraph/hugegraph-computer-framework:${PROJECT_VERSION} ${{ github.event.inputs.framework_image_url }}
 
           echo "FROM ${{ github.event.inputs.framework_image_url }}
           LABEL maintainer='HugeGraph Docker Maintainers <hugegraph@googlegroups.com>'
@@ -70,5 +71,4 @@ jobs:
         run: |
           docker push ${{ github.event.inputs.framework_image_url }}
           docker push ${{ github.event.inputs.algorithm_image_url }}   
-        
         
