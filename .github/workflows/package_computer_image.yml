@@ -13,6 +13,8 @@ on:
         required: true
       algorithm_image_url:
         required: true
+      tag:
+        required: true
 
 jobs:
   build:
@@ -84,10 +86,10 @@ jobs:
 #           name: computer-algorithm
 #           path: ./artifacts/hugegraph-computer-algorithm.tar  
       - name: Tag and Release
-        uses: jasondavis303/tag-and-release-and-upload@v1.2.0
+        uses: jasondavis303/tag-and-release-and-upload@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Use the version from the previous step
-          version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
+          version: ${{ github.event.inputs.tag }}
           assets: '[ "./artifacts/hugegraph-computer-framework.tar", "./artifacts/hugegraph-computer-algorithm.tar" ]'
           overwrite: false  
