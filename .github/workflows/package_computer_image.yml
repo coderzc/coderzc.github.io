@@ -13,7 +13,7 @@ on:
         required: true
       algorithm_image_url:
         required: true
-      tag:
+      release_tag:
         required: true
 
 jobs:
@@ -95,5 +95,5 @@ jobs:
           tags: true
           draft: false
           overwrite: true
-          tag_name: ${{ github.event.inputs.tag }}
+          tag_name: ${{ github.event.inputs.release_tag }}
 
