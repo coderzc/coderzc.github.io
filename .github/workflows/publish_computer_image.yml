@@ -11,8 +11,13 @@ on:
         default: 'master'
       framework_image_url:
         required: true
+        default: 'hugegraph/hugegraph-computer-framework:latest'
       algorithm_image_url:
         required: true
+        default: 'hugegraph/hugegraph-computer-based-algorithm:latest'
+      operator_image_url:
+        required: true
+        default: 'hugegraph/hugegraph-computer-operator:latest'
       docker_registry_url:
         required: false
         default: ''
@@ -78,7 +83,7 @@ jobs:
           
       - name: Docker build operator
         if: github.event.inputs.build_operator == 'true'
-        run: docker build -t hugegraph/hugegraph-computer-operator:latest -f computer-k8s-operator/Dockerfile ./computer-k8s-operator
+        run: docker build -t ${{ github.event.inputs.operator_image_url }} -f computer-k8s-operator/Dockerfile ./computer-k8s-operator
         
       - name: Docker images
         run: docker images
@@ -90,5 +95,4 @@ jobs:
       
       - name: Publish operator
         if: github.event.inputs.build_operator == 'true'
-        run: docker push hugegraph/hugegraph-computer-operator:latest
-        
+        run: docker push ${{ github.event.inputs.operator_image_url }}
