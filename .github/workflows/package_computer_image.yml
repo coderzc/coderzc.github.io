@@ -94,5 +94,6 @@ jobs:
           file: "./artifacts/*"
           tags: true
           draft: true
+          overwrite: true
           tag_name: ${{ github.event.inputs.tag }}
 
