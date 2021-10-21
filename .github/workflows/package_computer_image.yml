@@ -91,5 +91,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Use the version from the previous step
           version: ${{ github.event.inputs.tag }}
-          assets: '[ "./artifacts/hugegraph-computer-framework.tar", "./artifacts/hugegraph-computer-algorithm.tar" ]'
+          assets: '[ "${{ env.GITHUB_ACTION_PATH }}/artifacts/hugegraph-computer-framework.tar", "${{ env.GITHUB_ACTION_PATH }}/artifacts/hugegraph-computer-algorithm.tar" ]'
           overwrite: false  
