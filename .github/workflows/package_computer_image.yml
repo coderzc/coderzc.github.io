@@ -74,12 +74,20 @@ jobs:
           docker save -o ./artifacts/hugegraph-computer-framework.tar ${{ github.event.inputs.framework_image_url }}
           docker save -o ./artifacts/hugegraph-computer-algorithm.tar ${{ github.event.inputs.algorithm_image_url }}
           
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: computer-framework
+#           path: ./artifacts/hugegraph-computer-framework.tar
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: computer-algorithm
+#           path: ./artifacts/hugegraph-computer-algorithm.tar  
+      - name: Tag and Release
+        uses: jasondavis303/tag-and-release-and-upload@v1.2.0
         with:
-          name: computer-framework
-          path: ./artifacts/hugegraph-computer-framework.tar
-      - uses: actions/upload-artifact@v2
-        with:
-          name: computer-algorithm
-          path: ./artifacts/hugegraph-computer-algorithm.tar  
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Use the version from the previous step
+          version: v${{ steps.get_version.outputs.ASSEMBLY_VERSION }}
+          assets: '[ "./artifacts/hugegraph-computer-framework.tar", "./artifacts/hugegraph-computer-algorithm.tar" ]'
+          overwrite: false  
