@@ -30,7 +30,7 @@ jobs:
       - name: Docker build
         run: |
           wget -c ${{ github.event.inputs.docker_file_url }} -O Dockerfile
-          docker build -t hugegraph/hugegraph:latest -f ./Dockerfile
+          docker build -t ${{ github.event.inputs.image_url }} .
         
       - name: Docker images
         run: docker images
