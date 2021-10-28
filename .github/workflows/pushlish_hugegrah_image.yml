@@ -6,6 +6,8 @@ on:
       docker_file_url:
         required: true
         default: 'https://raw.githubusercontent.com/hugegraph/hugegraph/master/Dockerfile'
+      server_version:
+        required: true
       image_url:
         required: true
         default: 'hugegraph/hugegraph:latest'
@@ -30,6 +32,7 @@ jobs:
       - name: Docker build
         run: |
           wget -c ${{ github.event.inputs.docker_file_url }} -O Dockerfile
+          sed -i "s/^ENV\ SERVER_VERSION.*/ENV\ SERVER_VERSION\ ${{ github.event.inputs.server_version }}/g" ./Dockerfile
           docker build -t ${{ github.event.inputs.image_url }} .
         
       - name: Docker images
