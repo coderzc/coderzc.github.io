@@ -14,7 +14,7 @@ on:
         default: 'hugegraph/hugegraph-computer-framework:latest'
       algorithm_image_url:
         required: true
-        default: 'hugegraph/hugegraph-computer-based-algorithm:latest'
+        default: 'hugegraph/hugegraph-builtin-algorithms:latest'
       operator_image_url:
         required: true
         default: 'hugegraph/hugegraph-computer-operator:latest'
