@@ -11,13 +11,13 @@ on:
         default: 'master'
       framework_image_url:
         required: true
-        default: 'coderzc/hugegraph-computer-framework:test'
+        default: 'czcoder/hugegraph-computer-framework:test'
       algorithm_image_url:
         required: true
-        default: 'coderzc/hugegraph-builtin-algorithms:test'
+        default: 'czcoder/hugegraph-builtin-algorithms:test'
       operator_image_url:
         required: true
-        default: 'coderzc/hugegraph-computer-operator:test'
+        default: 'czcoder/hugegraph-computer-operator:test'
       docker_registry_url:
         required: false
         default: ''
