@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag (contains Google-Analytics、Baidu-Tongji)-->
+<head>
+
+<!-- 代码块复制功能 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="/blog/js/clipboard_use.js"></script>
+
+  <!-- Google Analytics -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxx-xx"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-xxxxxx-xx');
+    </script>
+  
+
+  <!-- Baidu Tongji -->
+  
+    <script type="text/javascript">
+      // Originial
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  <!-- Baidu Push -->
+  
+    <script>
+      (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <meta name="google-site-verification" content="lxDfCplOZbIzjhG34NuQBgu2gdyRlAtMB4utP5AgEBc"/>
+  <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Write the code. Change the world."/>
+  <meta name="keyword" content=""/>
+  <link rel="shortcut icon" href="/blog/img/avatar/coderzc.png"/>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/blog/css/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/beantech.min.css"/>
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/blog/css/highlight.css"/>
+    <link rel="stylesheet" href="/blog/css/widget.css"/>
+    <link rel="stylesheet" href="/blog/css/rocket.css"/>
+    <link rel="stylesheet" href="/blog/css/signature.css"/>
+    <link rel="stylesheet" href="/blog/css/catalog.css"/>
+    <link rel="stylesheet" href="/blog/css/livemylife.css"/>
+
+    
+      <!-- wave start -->
+      <link rel="stylesheet" href="/blog/css/wave.css"/>
+      <!-- wave end -->
+    
+
+    
+      <!-- top start (article top hot config) -->
+      <link rel="stylesheet" href="/blog/css/top.css"/>
+      <!-- top end -->
+    
+
+    
+
+    
+      <!-- viewer start (Picture preview) -->
+      <link rel="stylesheet" href="/blog/css/viewer.min.css"/>
+      <!-- viewer end -->
+    
+
+    
+      <!-- Search start -->
+      <link rel="stylesheet" href="/blog/css/search.css"/>
+      <!-- Search end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/blog/css/themecolor.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+
+    
+  
+
+  <!-- Custom Fonts -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <!-- Hux change font-awesome CDN to qiniu -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Hux Delete, sad but pending in China <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> <link
+  href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/ css'> -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+
+  <!-- ga & ba script hoook -->
+  <link rel="canonical" href="https://coderzc.github.io/blog/blog/2018/297HGTR/">
+  <title>
+    
+      数据结构-排序 - coderzc blog
+    
+  </title>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" type="text/css" href="/blog/css/injector/main.css" /><link rel="preload" as="style" href="/blog/css/injector/light.css" /><link rel="preload" as="style" href="/blog/css/injector/dark.css" /></head>
+
+
+<!-- hack iOS CSS :active style -->
+
+	<body ontouchstart="" class="body--light body--light">
+
+
+		<!-- ThemeColor -->
+		
+		<!-- ThemeColor -->
+<style type="text/css">
+  .body--light {
+    --light-mode: none;
+    --dark-mode: block;
+  }
+  .body--dark {
+    --light-mode: block;
+    --dark-mode: none;
+  }
+  i.mdui-icon.material-icons.light-mode {
+    display: var(--light-mode);
+  }
+  i.mdui-icon.material-icons.dark-mode {
+    display: var(--dark-mode);
+  }
+</style>
+<div class="toggle" onclick="document.body.classList.toggle('body--dark')">
+  <i class="mdui-icon material-icons light-mode"></i>
+  <i class="mdui-icon material-icons dark-mode"></i>
+</div>
+<script>
+  //getCookieValue
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b
+      ? b.pop()
+      : '';
+  }
+  let themeMode = 'light';
+  if (getCookieValue('sb-color-mode') && (getCookieValue('sb-color-mode') !== themeMode)) {
+    let dbody = document.body.classList;
+    themeMode === 'dark' ? dbody.remove('body--dark') : dbody.add('body--dark');
+  }
+
+  //setCookieValue
+  var toggleBtn = document.querySelector(".toggle");
+  toggleBtn.addEventListener("click", function () {
+    var e = document.body.classList.contains("body--dark");
+    var cookieString = e
+      ? "dark"
+      : "light";
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+    document.cookie = "sb-color-mode=" + cookieString + ";expires=" + exp.toGMTString() + ";path=/";
+  });
+</script>
+
+		
+
+		<!-- Gitter -->
+		
+
+		<!-- Navigation (contains search)-->
+		<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/blog/">Coderzc&#39;s Blog</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Known Issue, found by Hux: <nav>'s height woule be hold on by its content. so, when navbar scale out, the <nav> will cover tags. also mask any touch event of tags, unfortunately. -->
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/blog/">HOME</a>
+          </li>
+
+          
+          
+          
+          
+          <li>
+            <a href="/blog/about/">
+              
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/blog/archive/">
+              
+              ARCHIVES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/blog/categories/">
+              
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/blog/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a class="popup-trigger">
+              <span class="search-icon"></span><i class="fa fa-search" style="font-size: 13px;"></i></a>
+          </li>
+          
+
+          <!-- LangSelect -->
+          
+        </ul>
+      </div>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- progress -->
+<div id="progress">
+  <div class="line" style="width: 0%;"></div>
+</div>
+
+<script>
+  // Drop Bootstarp low-performance Navbar Use customize navbar with high-quality material design animation in high-perf jank-free CSS3 implementation
+  var $body = document.body;
+  var $toggle = document.querySelector('.navbar-toggle');
+  var $navbar = document.querySelector('#huxblog_navbar');
+  var $collapse = document.querySelector('.navbar-collapse');
+
+  $toggle.addEventListener('click', handleMagic)
+  // $collapse.addEventListener('click', handleMagic)
+
+  function handleMagic(e) {
+    if ($navbar.className.indexOf('in') > 0) {
+      // CLOSE
+      $navbar.className = " ";
+      // wait until animation end.
+      setTimeout(function() {
+        // prevent frequently toggle
+        if ($navbar.className.indexOf('in') < 0) {
+          $collapse.style.height = "0px"
+        }
+      }, 400)
+    } else {
+      // OPEN
+      $collapse.style.height = "auto"
+      $navbar.className += " in";
+    }
+  }
+</script>
+
+
+		<!-- Post Header (contains intro-header、signature、wordcount、busuanzi、waveoverlay) -->
+		<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+
+
+  <style type="text/css">
+    .body--light {
+      
+      --intro-header-background-image-url-home: url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
+       
+      
+      --intro-header-background-image-url-post: url('https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: url('https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim');
+      
+    }
+    .body--dark {
+      
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
+       
+      
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim');
+      
+    }
+
+    header.intro-header {
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('/blog/https://h2.ioliu.cn/bing/LochLeum_ZH-CN9620588759_1920x1080.jpg?imageslim'); */
+      
+    }
+
+    
+      #signature {/*signature*/
+        background-image: url('/blog/img/signature/vincent-white.png');
+      }
+    
+  </style>
+
+
+
+
+
+<header class="intro-header">
+  <!-- Signature -->
+  <div id="signature">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
+              
+            </div>
+            <h1>数据结构-排序</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by coderzc on
+              2018-08-14
+            </span>
+
+            
+            
+            <!-- 不蒜子统计 start -->
+            <!-- <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span> -->
+            <!-- 不蒜子统计 end -->
+            
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- waveoverlay start -->
+  <div class="preview-overlay">
+    <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="preview-parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--gentle-wave1)></use>
+        <use xlink:href="#gentle-wave" x="48" y="3" fill=var(--gentle-wave2)></use>
+        <use xlink:href="#gentle-wave" x="48" y="5" fill=var(--gentle-wave3)></use>
+        <use xlink:href="#gentle-wave" x="48" y="7" fill=var(--gentle-wave)></use>
+      </g>
+    </svg>
+  </div>
+  <!-- waveoverlay end -->
+  
+
+</header>
+
+
+
+		<!-- Main Content (Post contains
+	Pager、
+	tip、
+	socialshare、
+	gitalk、gitment、disqus-comment、
+	Catalog、
+	Sidebar、
+	Featured-Tags、
+	Friends Blog、
+	anchorjs、
+	) -->
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+
+        <h4 id="排序算法总览"><a class="header-anchor" href="#排序算法总览">❡</a>排序算法总览</h4>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133137.png" alt="排序算法"></p>
+<h4 id="冒泡排序（Bubble-Sort）"><a class="header-anchor" href="#冒泡排序（Bubble-Sort）">❡</a>冒泡排序（Bubble Sort）</h4>
+<blockquote>
+<p>从前往后两两比较相邻元素的值，若为逆序则交换他们，直到（n-1+i），若某次遍历未发现有逆序情况证明已经有序则应该直接返回。<br>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133150.gif" alt="Bubble Sort"></p>
+</blockquote>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 1.冒泡排序</span><br><span class="hljs-comment"> * 每次在0～(n-1-i)中将最大的一步一步冒泡到最后</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bubbleSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = arr.length;<br>    <span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">false</span>;<span class="hljs-comment">//是否已经正序</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; !flag; i++) &#123;<br>        flag = <span class="hljs-keyword">true</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n - <span class="hljs-number">1</span> - i; j++) &#123;<br>            <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>]) &#123;<br>                swap(arr, j, j + <span class="hljs-number">1</span>);<br>                flag = <span class="hljs-keyword">false</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(1)<br>
+时间复杂度：O(n^2)<br>
+稳定性：由于对于相等元素不会交换所以 =&gt; 稳定</p>
+</blockquote>
+<h4 id="选择排序-（Selection-Sort）"><a class="header-anchor" href="#选择排序-（Selection-Sort）">❡</a>选择排序 （Selection Sort）</h4>
+<blockquote>
+<p>每次找出i~(n-1) 最小值 与第i位交换</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133143.gif" alt="Selection Sort"></p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 2.选择排序</span><br><span class="hljs-comment"> * 每次从i～(n-1)找出最小元素放在最前面</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = arr.length;<br>    <span class="hljs-keyword">int</span> minIndex = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        minIndex = i;<span class="hljs-comment">//假定最小元素是第i个</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; n; j++) &#123;<br>            <span class="hljs-keyword">if</span> (arr[j] &lt; arr[minIndex])<br>                minIndex = j;<br>        &#125;<br>        swap(arr, minIndex, i);<span class="hljs-comment">//把i～n中最小元素和第i位交换</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(1)<br>
+时间复杂度：O(n^2)<br>
+稳定性：由于最小值元素会直接与i位元素互换所以可能造成相同元素次序改变 =&gt; 不稳定<br>
+同样适用于链式存储结构</p>
+</blockquote>
+<h4 id="直接插入排序（Insertion-Sort）"><a class="header-anchor" href="#直接插入排序（Insertion-Sort）">❡</a>直接插入排序（Insertion Sort）</h4>
+<blockquote>
+<p>从第二个元素开始每次从向前 0～(i-1) 有序序列倒叙依次尝试自己合适的位置，直到比前一个元素大</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133154.gif" alt="Insertion Sort"></p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 3.直接插入排序</span><br><span class="hljs-comment"> * 从第二个元素开始每次从向前 0～(i-1) 有序序列倒叙依次尝试自己合适的位置，直到比前一个元素大</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertionSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = arr.length;<br>    <span class="hljs-keyword">int</span> temp;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        temp = arr[i];<span class="hljs-comment">//待插入的元素</span><br>        <span class="hljs-keyword">int</span> j = i;<br>        <span class="hljs-keyword">for</span> (; j &gt; <span class="hljs-number">0</span> &amp;&amp; temp &lt; arr[j - <span class="hljs-number">1</span>]; j--) &#123;<br>            arr[j] = arr[j - <span class="hljs-number">1</span>];<br>        &#125;<br>        arr[j] = temp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(1)<br>
+时间复杂度：O(n^2)<br>
+稳定性：由于都是向前先比较在插入小于等于当前元素不会移动 =&gt; 稳定</p>
+</blockquote>
+<h4 id="希尔排序（Shell-Sort）"><a class="header-anchor" href="#希尔排序（Shell-Sort）">❡</a>希尔排序（Shell Sort）</h4>
+<blockquote>
+<p>希尔排序，又称缩小增量排序，是插入排序变形，基于插入排序适用于基本有序和数据量小的基本思想：按照增量序列函数每次按增量提取出相差h的元素组成待排序列进行直接插入排序，然后缩小增量后在排序知道增量变为1完成最后一次排序</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133158.gif" alt="Shell Sort"></p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">shellSort2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = arr.length;<br><br>    <span class="hljs-keyword">int</span> h = n / <span class="hljs-number">2</span>;<span class="hljs-comment">//初始增序起始</span><br>    <span class="hljs-keyword">while</span> (h &gt;= <span class="hljs-number">1</span>) &#123;<span class="hljs-comment">//获得增序序列并不断缩小h</span><br><br>        <span class="hljs-keyword">int</span> temp;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h; i &lt; n; i++) &#123;<span class="hljs-comment">//从第一个h位元素开始，每次和所有前面与它相差h的元素序列做插入排序</span><br>            temp = arr[i];<span class="hljs-comment">//待插入的元素</span><br>            <span class="hljs-keyword">int</span> j = i;<br>            <span class="hljs-keyword">for</span> (; j &gt;= h &amp;&amp; temp &lt; arr[j - h]; j -= h) &#123;<span class="hljs-comment">//这里的h是 最大值而不是准确数字但该序列第二位一定大于等于h</span><br>                arr[j] = arr[j - h];<br>            &#125;<br>            arr[j] = temp;<br>        &#125;<br><br>        h = h / <span class="hljs-number">2</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(1)<br>
+时间复杂度：O(n^2)<br>
+稳定性：由于每次划分子序列再排序可能改变相同元素的相对次序 =&gt; 不稳定</p>
+</blockquote>
+<h4 id="归并排序（Merge-Sort）"><a class="header-anchor" href="#归并排序（Merge-Sort）">❡</a>归并排序（Merge Sort）</h4>
+<blockquote>
+<p>基本思想：将多个有序序列组合成一个新的有序表，自底向上归并应该是先2个元素合并，然后2个长度为2的元素合并，然后2个长度为4的元素合并直到直到子序列长度&gt;=n</p>
+</blockquote>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> basicAlgorithm.sort;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 归并排序</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MergeSort</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] aux;<span class="hljs-comment">//辅助函数</span><br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将[l...r-1]与[r..rEnd]归并</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> l</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> r</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rEnd</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[], <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> rEnd)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> temp = l;<br>        <span class="hljs-keyword">int</span> lEnd = r - <span class="hljs-number">1</span>;<br><br>        <span class="hljs-comment">//先将待排序两组子序列复制到辅助数组中</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = l; i &lt;= rEnd; i++) &#123;<br>            aux[i] = arr[i];<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (l &lt;= lEnd &amp;&amp; r &lt;= rEnd) &#123;<br>            <span class="hljs-keyword">if</span> (aux[l] &lt; aux[r]) &#123;<br>                arr[temp++] = aux[l++];<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                arr[temp++] = aux[r++];<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">//将另一边剩下的复制到原数组</span><br><br>        <span class="hljs-keyword">while</span> (l &lt;= lEnd) &#123;<br>            arr[temp++] = aux[l++];<br>        &#125;<br><br>        <span class="hljs-comment">// (右边的不用复制吧,本来就在原数组)</span><br>        <span class="hljs-keyword">while</span> (r&lt;=rEnd)&#123;<br>            arr[temp++]=aux[r++];<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自底向上的归并排序(递归写法)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> L</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> R</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[], <span class="hljs-keyword">int</span> L, <span class="hljs-keyword">int</span> R)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (L &gt;= R) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">int</span> mid = (L + R) / <span class="hljs-number">2</span>;<br>        mergeSort(arr, L, mid);<br>        mergeSort(arr, mid + <span class="hljs-number">1</span>, R);<br>        <span class="hljs-keyword">if</span> (arr[mid] &gt; arr[mid + <span class="hljs-number">1</span>]) &#123;<span class="hljs-comment">//如果左右已经有序则不归并</span><br>            merge(arr, L, mid + <span class="hljs-number">1</span>, R);<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自底向上的归并排序(迭代写法)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> arr</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeSortBU</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[])</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> n = arr.length;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> size = <span class="hljs-number">1</span>; size &lt; n; size = <span class="hljs-number">2</span>*size) &#123; <span class="hljs-comment">//size 表示每次将2个size大小的序列归并成一个序列</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i + size &lt; n; i = i + (size * <span class="hljs-number">2</span>)) &#123;<br>                merge(arr, i, i + size, Math.min(i + (size * <span class="hljs-number">2</span>) - <span class="hljs-number">1</span>, n - <span class="hljs-number">1</span>));<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> array[] = &#123;<span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>, <span class="hljs-number">6</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>&#125;;<br><br>        <span class="hljs-comment">//初始化辅助数组</span><br>        aux = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[array.length];<br><br><span class="hljs-comment">//        mergeSort(array, 0, array.length - 1);</span><br><br>        mergeSortBU(array);<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a : array) &#123;<br>            System.out.println(a);<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(n)  辅助数组<br>
+时间复杂度：O(nlogn)<br>
+稳定性：因为依此合并没有交换操作所以 =&gt; 稳定</p>
+</blockquote>
+<h4 id="快速排序（Quick-Sort）"><a class="header-anchor" href="#快速排序（Quick-Sort）">❡</a>快速排序（Quick Sort）</h4>
+<blockquote>
+<p>号称21世纪最优化的算法来了，快排也是分治思想的应用,基本思想就是先设一个基准点然后将序列小于基准点的部分放到基准点左面小于基准点的部分放到基准点右面，然后在递归的处理左面和右面。快排有很多版本我下面代码的是最常见双路快排版</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133203.gif" alt="Quick Sort"></p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//双路快排</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort2</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] array, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    swap(array, l, ((<span class="hljs-keyword">int</span>) (Math.random() * (r - l)) + l));<br>    <span class="hljs-keyword">int</span> pivote = array[l];<span class="hljs-comment">//基点放到最左边</span><br><br>    <span class="hljs-keyword">int</span> i = l + <span class="hljs-number">1</span>;<span class="hljs-comment">//左边比基点小的标志位</span><br>    <span class="hljs-keyword">int</span> j = r;<span class="hljs-comment">//右边比基点大的标志位</span><br>    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>        <span class="hljs-keyword">while</span> (i &lt;= r &amp;&amp; array[i] &lt; pivote) &#123;<br>            i++;<br>        &#125;<br>        <span class="hljs-keyword">while</span> (j &gt;= l + <span class="hljs-number">1</span> &amp;&amp; array[j] &gt; pivote) &#123;<br>            j--;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (i &gt;= j) <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">else</span> swap(array, i++, j--);<br><br>    &#125;<br><br>    swap(array, l, j);<br><br>    quickSort2(array, l, j - <span class="hljs-number">1</span>);<br>    quickSort2(array, j + <span class="hljs-number">1</span>, r);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] array)</span> </span>&#123;<br>    quickSort2(array, <span class="hljs-number">0</span>, array.length - <span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p>空间复杂度:O(logn)  由于快排要借助递归实现所以要消耗额外系统栈空间平均情况下栈深log2(n)<br>
+时间复杂度:O(nlogn)<br>
+稳定性：因为选取基准点的过程中可能会改变相同元素次序 =&gt; 不稳定<br>
+另外序列越无序越随机快排效率越高，而现实中的序列大多是随机分布的所以快排广泛应用</p>
+</blockquote>
+<h4 id="堆排序（Heap-Sort）"><a class="header-anchor" href="#堆排序（Heap-Sort）">❡</a>堆排序（Heap Sort）</h4>
+<blockquote>
+<p>堆是一种树形结构，是一颗完全二叉树，并满足任意节点都大于他的子结点（大根堆）<br>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133207.png" alt="image.png"></p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133210.gif" alt="Heap Sort"></p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sink</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] array, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<span class="hljs-comment">//下沉</span><br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">2</span> * k + <span class="hljs-number">1</span> &lt;= n - <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span> * k + <span class="hljs-number">1</span>;<span class="hljs-comment">//左孩子索引</span><br>        <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt;= n - <span class="hljs-number">1</span> &amp;&amp; array[j + <span class="hljs-number">1</span>] &gt; array[j]) j++;<span class="hljs-comment">//如果有右孩子并且右孩子比左孩子大 j 换成右孩子索引</span><br><br>        <span class="hljs-keyword">if</span> (array[j] &gt; array[k]) &#123;<br>            swap(array, j, k);<br>            k = j;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] array)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = array.length;<br><br>    <span class="hljs-comment">//heapify 大根堆建成</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = (n - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>        sink(array, n, i);<br>    &#125;<br><br>    <span class="hljs-comment">//排序</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = n - <span class="hljs-number">1</span>; j &gt; <span class="hljs-number">0</span>; j--) &#123;<br>        swap(array, <span class="hljs-number">0</span>, j);<span class="hljs-comment">//把最大的和最后以为交换</span><br>        sink(array, j, <span class="hljs-number">0</span>);<span class="hljs-comment">//缩小对的</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<blockquote>
+<p><em>BuildHeap</em> 时间复杂度O(nlogn)<br>
+<em>heapify</em> 时间复杂度O(n)<br>
+稳定性：=&gt; 不稳定<br>
+空间复杂度：O(1)</p>
+</blockquote>
+<h4 id="计数排序（Counting-Sort）"><a class="header-anchor" href="#计数排序（Counting-Sort）">❡</a>计数排序（Counting Sort）</h4>
+<blockquote>
+<p>计数排序的核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133213.gif" alt="Insertion Sort"></p>
+<h4 id="桶排序（Bucket-Sort）"><a class="header-anchor" href="#桶排序（Bucket-Sort）">❡</a>桶排序（Bucket Sort）</h4>
+<blockquote>
+<p>桶排序是计数排序的升级版。它利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。为了使桶排序更加高效，我们需要做到这两点：</p>
+</blockquote>
+<ol>
+<li>在额外空间充足的情况下，尽量增大桶的数量</li>
+<li>使用的映射函数能够将输入的N个数据均匀的分配到K个桶中</li>
+</ol>
+<h4 id="基数排序（Radix-Sort）"><a class="header-anchor" href="#基数排序（Radix-Sort）">❡</a>基数排序（Radix Sort）</h4>
+<blockquote>
+<p>分为 MSD(最高位优先) 和 LSD(最低位优先)</p>
+</blockquote>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133219.gif" alt="LSD"></p>
+<h4 id="基数排序-vs-计数排序-vs-桶排序"><a class="header-anchor" href="#基数排序-vs-计数排序-vs-桶排序">❡</a>基数排序 vs 计数排序 vs 桶排序</h4>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133225.png" alt="image.png"></p>
+<p>其中, d 表示位数， k 在基数排序中表示 k 进制，在桶排序中表示桶的个数， maxV 和 minV 表示元<br>
+素最大值和最小值。</p>
+<ul>
+<li>首先，基数排序和计数排序都可以看作是桶排序。</li>
+<li>计数排序本质上是一种特殊的桶排序，当桶的个数取最大( maxV-minV+1 )的时候，就变成了计数排序。</li>
+<li>基数排序也是一种桶排序。桶排序是按值区间划分桶，基数排序是按数位来划分；基数排序可以看做是多轮桶排序，每个数位上都进行一轮桶排序。</li>
+<li>当用最大值作为基数时，基数排序就退化成了计数排序。</li>
+<li>当使用2进制时， k=2 最小，位数 d 最大，时间复杂度 O(nd) 会变大，空间复杂度 O(n+k) 会变小。当用最大值作为基数时， k=maxV 最大， d=1 最小，此时时间复杂度 O(nd) 变小，但是空间复杂度 O(n+k) 会急剧增大，此时基数排序退化成了计数排序。</li>
+</ul>
+<h4 id="总结"><a class="header-anchor" href="#总结">❡</a>总结</h4>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210819133230.png" alt="排序算法"></p>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/blog/2018/Z24PA1/"  data-placement="top" title="Java并发编程">&larr; Previous
+              <br/>
+              <span>Java并发编程</span>
+            </a>
+          
+          </li>
+          
+          <li class="next">
+            <a href="/blog/2018/1DH5E51/"  data-placement="top" title="数据结构-线性表">Next &rarr;
+              <br/>
+              <span>数据结构-线性表</span>
+            </a>
+          
+          </li>
+        </ul>
+
+        
+
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88"><span class="toc-nav-text">排序算法总览</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%88Bubble-Sort%EF%BC%89"><span class="toc-nav-text">冒泡排序（Bubble Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F-%EF%BC%88Selection-Sort%EF%BC%89"><span class="toc-nav-text">选择排序 （Selection Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88Insertion-Sort%EF%BC%89"><span class="toc-nav-text">直接插入排序（Insertion Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%EF%BC%88Shell-Sort%EF%BC%89"><span class="toc-nav-text">希尔排序（Shell Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%EF%BC%88Merge-Sort%EF%BC%89"><span class="toc-nav-text">归并排序（Merge Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%88Quick-Sort%EF%BC%89"><span class="toc-nav-text">快速排序（Quick Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F%EF%BC%88Heap-Sort%EF%BC%89"><span class="toc-nav-text">堆排序（Heap Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%EF%BC%88Counting-Sort%EF%BC%89"><span class="toc-nav-text">计数排序（Counting Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F%EF%BC%88Bucket-Sort%EF%BC%89"><span class="toc-nav-text">桶排序（Bucket Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%EF%BC%88Radix-Sort%EF%BC%89"><span class="toc-nav-text">基数排序（Radix Sort）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F-vs-%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F-vs-%E6%A1%B6%E6%8E%92%E5%BA%8F"><span class="toc-nav-text">基数排序 vs 计数排序 vs 桶排序</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-text">总结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+
+      <!-- Sidebar Container -->
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
+       
+        <div class="categorieTag">
+          
+          <a href="/blog/categories/#计算机基础" title="计算机基础">
+            <i class="fa fa-bookmark"></i> 计算机基础</a>
+        </div>
+        <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/blog/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
+            
+          </div>
+        </section>
+        
+
+        <hr>
+        
+        
+
+        <!-- Friends Blog -->
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+		<!-- Footer (contains ThemeColor、viewer) -->
+		<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          
+
+          
+            <li>
+              <a target="_blank" href="https://github.com/coderzc">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+        </ul>
+        <p class="copyright text-muted">
+          Copyright &copy;
+          coderzc
+          2022
+          <br>
+          Theme by
+          <a target="_blank" rel="noopener" href="https://huangxuan.me">Hux Blog</a>
+          <span style="display: inline-block; margin: 0 5px;">
+            <i class="fa fa-heart"></i>
+          </span>
+          re-Ported by
+          <a href="https://coderzc.github.io/">Coderzc</a>
+          |
+          <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=coderzc&repo=coderzc.github.io&type=star&count=false"></iframe>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a id="rocket" href="#top" class=""><i class="fa fa-angle-double-up"></i></a>
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="/blog/js/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/javascript" src="/blog/js/bootstrap.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="/blog/js/hux-blog.min.js"></script>
+  <!-- catalog -->
+  <script async="true" type="text/javascript" src="/blog/js/catalog.js"></script>
+  <!-- totop(rocket) -->
+  <script async="true" type="text/javascript" src="/blog/js/totop.js"></script>
+
+  
+    <!-- Busuanzi JavaScript -->
+    <script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+  <!-- viewer start -->
+  <!-- viewer start (Picture preview) -->
+  
+    <script async="async" type="text/javascript" src="/blog/js/viewer/viewer.min.js"></script>
+    <script async="async" type="text/javascript" src="/blog/js/viewer/pic-viewer.js"></script>
+  
+
+  <!-- viewer end -->
+
+
+<script>
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function (e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  // fastClick.js
+  async ("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    var $nav = document.querySelector("nav");
+    if ($nav)
+      FastClick.attach($nav);
+    }
+  )
+</script>
+
+<!-- Because of the native support for backtick-style fenced code blocks right within the Markdown is landed in Github Pages, From V1.6, There is no need for Highlight.js, so Huxblog drops it officially. -
+https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0 - https://help.github.com/articles/creating-and-highlighting-code-blocks/ -->
+<!-- <script> async ("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function () { hljs.initHighlightingOnLoad(); }) </script> <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet"> -->
+
+<!-- jquery.tagcloud.js -->
+<!-- <script> // only load tagcloud.js in tag.html if ($('#tag_cloud').length !== 0) { async ("https://coderzc.github.io/blog/blog/js/jquery.tagcloud.js", function () { $.fn.tagcloud.defaults = { // size: { start: 1, end: 1, unit: 'em' }, color: {
+start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </script> -->
+
+
+		<!-- Search -->
+		
+		<div class="popup search-popup local-search-popup">
+  <span class="popup-btn-close">
+    <i class="fa fa-chevron-down"></i>
+  </span>
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-9 col-md-offset-1"> -->
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+        <div class="local-search-header clearfix">
+
+          <div class="local-search-input-wrapper">
+            <!-- <span class="search-icon">
+              <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
+            </span> -->
+            <input autocomplete="off" placeholder="$ grep..." type="text" id="local-search-input">
+          </div>
+        </div>
+        <div id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <script src="/blog/js/ziploader.js"></script>
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+    // get search zip version
+    $.get('/blog/searchVersion.json?t=' + (+new Date()), function (res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson() {
+      initLoad(['/blog/search.flv'], {
+        loadOptions: {
+          success: function (obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function (e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions: {
+          'json': 'application/json'
+        }
+      })
+    }
+    // search function;
+    var searchFunc = function (search_id, content_id) {
+      'use strict';
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      // console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function () {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function (data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title
+              ? data.title.trim()
+              : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content
+              ? data.content.trim().replace(/<[^>]+>/g, "")
+              : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+
+            var date = data.date;
+            var dateTime = date.replace(/T/, " ").replace(/.000Z/, "");
+            var imgUrl = data.header_img;
+            
+
+
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function (keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0,
+                  position = [],
+                  index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+            // show search results
+            if (isMatch) {
+              // sort index by position of keyword
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+              // merge hits into slices
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+                  // move to next position of hit
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {hits: hits, start: start, end: end, searchTextCount: searchTextCountInSlice};
+              }
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if (start < 0) {
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if (end > content.length) {
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+              // sort slices in content by search text's count and hits' count
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+              // select top N slices in content
+              var upperBound = parseInt('1');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+              // highlight title and content
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+              var resultItem = '';
+
+              // if (slicesOfTitle.length != 0) {   resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>"; } else {   resultItem += "<li><a target='_blank' href='" +
+              // articleUrl + "' class='search-result-title'>" + title + "</a>"; } slicesOfContent.forEach(function (slice) {   resultItem += "<a target='_blank' href='" + articleUrl + "'><p class=\"search-result\">" + highlightKeyword(content, slice) +
+              // "...</p></a>"; }); resultItem += "</li>";
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              } else {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + title + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              }
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+              resultItem += "</div><div class='search-result-right'></div></a>";
+
+              resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
+            }
+          })
+        };
+
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<div class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</div>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+      // remove loading animation
+      $('body').css('overflow', '');
+      proceedsearch();
+    }
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+      $navbar.className = " ";
+    });
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      var _con = document.querySelector(".local-search-content");
+      if (_con) {
+        if (!_con.contains(e.target)) {
+          onPopupClose();
+        }
+      }
+    });
+  </script>
+
+
+		
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

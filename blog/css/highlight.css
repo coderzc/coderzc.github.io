@@ -1,0 +1,144 @@
+/*https://github.com/chriskempson/tomorrow-theme*/
+.post-container pre,
+.post-container .highlight {
+  overflow: auto;
+  padding: 8px 12px 5px 12px;
+  font-size: 14px;
+  line-height: $line-height-code-block;
+}
+/*pre, code { 
+  font-family: $code-font-family;
+}*/
+/*
+.post-container code {
+  padding: 2px 4px;
+  word-break: break-all;
+  color: $code-foreground;
+  background: $code-background;
+  border-radius: $code-border-radius;
+  font-size $code-font-size;
+}*/
+.post-container pre code {
+  padding: 0;
+  color: #ccc;
+  background: none;
+  text-shadow: none;
+}
+.post-container .highlight pre {
+  border: none;
+  margin: 0;
+  padding: 1px;
+}
+.post-container .highlight table {
+  margin: 0;
+  width: auto;
+  border: none;
+}
+.post-container .highlight td {
+  border: none !important;
+  padding: 0;
+}
+.post-container .highlight figcaption {
+  zoom: 1;
+  font-size: 1em;
+  color: #ccc;
+  line-height: 1em;
+  margin-bottom: 1em;
+}
+.post-container .highlight figcaption:before,
+.post-container .highlight figcaption:after {
+  content: "";
+  display: table;
+}
+.post-container .highlight figcaption:after {
+  clear: both;
+}
+.post-container .highlight figcaption a {
+  float: right;
+  color: #ccc;
+}
+.post-container .highlight figcaption a:hover {
+  border-bottom-color: #ccc;
+}
+.post-container .highlight .gutter pre {
+  color: #666;
+  text-align: right;
+  padding-right: 20px;
+}
+.post-container .highlight .line {
+  height: 20px;
+}
+.post-container .gist table {
+  width: auto;
+}
+.post-container .gist table td {
+  border: none;
+}
+.highlight-wrap[data-rel] {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px 0px rgba(0,0,0,0.4);
+  margin: 35px 0;
+}
+.highlight-wrap[data-rel]::before {
+  content: attr(data-rel);
+  height: 30px;
+  line-height: 30px;
+  background: #1a1a1a;
+  color: #808080;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 80px;
+  text-indent: 15px;
+  float: left;
+}
+.highlight-wrap[data-rel]::after {
+  content: ' ';
+  position: absolute;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #fc625d;
+  width: 12px;
+  height: 12px;
+  top: 0.55em;
+  left: 1.2em;
+  -webkit-box-shadow: 20px 0px #fdbc40, 40px 0px #35cd4b;
+  box-shadow: 20px 0px #fdbc40, 40px 0px #35cd4b;
+  z-index: 3;
+}
+/* 代码块复制按钮 */
+.btn-copy {
+  display: inline-block;
+  cursor: pointer;
+  background: #1a1a1a;
+  color: #90a4ae;
+  border: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 6px;
+  position: absolute;
+  top: 0.15em;
+  right: 0.2em;
+  opacity: 1;
+}
+.btn-copy span {
+  margin-left: 5px;
+}
+.highlight:hover .btn-copy {
+  opacity: 1;
+}
+/* 代码块复制按钮 */
+.post-container pre,
+.post-container .highlight .table-responsive {
+  margin: 0;
+}

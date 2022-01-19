@@ -1,0 +1,69 @@
+.body--light {
+  --rocket-background-url: url("images/beside_up.png") no-repeat 50% 0;
+}
+.body--dark {
+  --rocket-background-url: url("images/beside_up_white.png") no-repeat 50% 0;
+}
+#rocket {
+  position: fixed;
+  right: 50px;
+  bottom: 40px;
+  display: block;
+  visibility: hidden;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background-color: #f6f9fc;
+/* border: 1px solid; */
+  border-radius: 50%;
+  padding: 0px;
+/* font-weight: 100; */
+  color: #8c92a4;
+  font-size: 20px;
+  box-shadow: 1px 1px 5px #888;
+  line-height: 40px;
+  opacity: 0;
+  z-index: 999;
+}
+@media mq-mobile {
+  #rocket {
+    right: 12px;
+    bottom: 20px;
+  }
+}
+#rocket i {
+  -webkit-transition: -webkit-transform 0.2s;
+  -moz-transition: -moz-transform 0.2s;
+  transition: transform 0.2s;
+  -webkit-transform-origin: 50% 0;
+  -moz-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+#rocket:hover {
+  background-position: 50% -44px !important;
+}
+#rocket:hover i {
+  background-position: 50% 100%;
+  -webkit-animation: flaming 0.7s infinite;
+  -moz-animation: flaming 0.7s infinite;
+  animation: flaming 0.7s infinite;
+}
+#rocket.show {
+  visibility: visible;
+  opacity: 1;
+}
+#rocket.launch {
+  background-position: 50% -44px;
+  opacity: 0;
+  -webkit-transform: translateY(-500px);
+  -moz-transform: translateY(-500px);
+  -ms-transform: translateY(-500px);
+  transform: translateY(-500px);
+  pointer-events: none;
+}
+#rocket.launch i {
+  background-position: 50% 100%;
+  -webkit-transform: scale(1.4, 3.2);
+  -moz-transform: scale(1.4, 3.2);
+  transform: scale(1.4, 3.2);
+}
