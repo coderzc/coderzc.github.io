@@ -39,16 +39,16 @@ jobs:
 
     # Deploy hexo blog website.
     - name: push
-      uses: dciborow/commit@master
+      uses: EndBug/add-and-commit@v9
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: 'gh-pages'
-        commit-message: 'publish'
-        force-add: 'true'
-        force-push: 'true'
-        files: ./*
-        name: coderzc
-        email: zc1217zc@126.com
+        add: ./*
+        new_branch: gh-pages
+        committer_name: github actions
+        committer_email: zc1217zc@126.com
+        message: 'publish'
+        push: 'origin gh-pages -f'
 
     - name: Sync to Gitee
       uses: x-dr/sync-repo-to-gitee@master
