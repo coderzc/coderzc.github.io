@@ -45,7 +45,7 @@ jobs:
       with:
         add: ./*
         new_branch: gh-pages
-        committer_name: github actions
+        committer_name: coderzc
         committer_email: zc1217zc@126.com
         message: 'publish'
         push: 'origin gh-pages -f'
