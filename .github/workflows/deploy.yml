@@ -38,25 +38,19 @@ jobs:
       run: rm -rf blog && mv public blog
 
     # Deploy hexo blog website.
-    - name: push
-      uses: EndBug/add-and-commit@v9
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        add: ./*
-        new_branch: gh-pages
-        committer_name: coderzc
-        committer_email: zc1217zc@126.com
-        message: 'publish'
-        push: 'origin gh-pages -f'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
 
-    - name: Sync to Gitee
-      uses: x-dr/sync-repo-to-gitee@master
-      env:
-          # 在 Settings->Secrets 配置 GITEE_KEY
-          SSH_KEY: ${{ secrets.GITEE_KEY }}
-      with:
-          # 注意替换为你的 GitHub 源仓库地址
-          github-repo: "git@github.com:coderzc/coderzc.github.io.git"
-          # 注意替换为你的 Gitee 目标仓库地址
-          gitee-repo: "git@gitee.com:coderzc/coderzc.github.io.git"
+#     - name: Sync to Gitee
+#       uses: x-dr/sync-repo-to-gitee@master
+#       env:
+#           # 在 Settings->Secrets 配置 GITEE_KEY
+#           SSH_KEY: ${{ secrets.GITEE_KEY }}
+#       with:
+#           # 注意替换为你的 GitHub 源仓库地址
+#           github-repo: "git@github.com:coderzc/coderzc.github.io.git"
+#           # 注意替换为你的 Gitee 目标仓库地址
+#           gitee-repo: "git@gitee.com:coderzc/coderzc.github.io.git"
