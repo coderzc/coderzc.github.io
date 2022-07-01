@@ -146,7 +146,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" type="text/css" href="/blog/css/injector/main.css" /><link rel="preload" as="style" href="/blog/css/injector/light.css" /><link rel="preload" as="style" href="/blog/css/injector/dark.css" /></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" type="text/css" href="/blog/css/injector/main.css" /><link rel="preload" as="style" href="/blog/css/injector/light.css" /><link rel="preload" as="style" href="/blog/css/injector/dark.css" /></head>
 
 
 <!-- hack iOS CSS :active style -->
@@ -515,7 +515,7 @@
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c">LinkList&lt;DataType&gt;::LinkList(DataType a[], <span class="hljs-keyword">int</span> n)<br>&#123;<br>    first = <span class="hljs-keyword">new</span> Node&lt;DataType&gt;;<br>    Node&lt;DataType&gt; *r = first;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>    &#123;<br>        Node&lt;DataType&gt; *s = <span class="hljs-keyword">new</span> Node&lt;DataType&gt;;<br>        s-&gt;data = a[i];<br>        r-&gt;next = s;<br>        r = s;<br>    &#125;<br>    r-&gt;next = <span class="hljs-literal">NULL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c">LinkList&lt;DataType&gt;::LinkList(DataType a[], <span class="hljs-type">int</span> n)<br>&#123;<br>    first = new Node&lt;DataType&gt;;<br>    Node&lt;DataType&gt; *r = first;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>    &#123;<br>        Node&lt;DataType&gt; *s = new Node&lt;DataType&gt;;<br>        s-&gt;data = a[i];<br>        r-&gt;next = s;<br>        r = s;<br>    &#125;<br>    r-&gt;next = <span class="hljs-literal">NULL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
           </div>
           
 <p><img src="https://gitee.com/coderzc/blogimage/raw/master/20210820163756.png" alt="image.png"></p>
