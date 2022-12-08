@@ -22,6 +22,13 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.inputs.repository_urll }}
+          ref: ${{ github.event.inputs.repository_branch }}
+          fetch-depth: 2    
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -29,13 +36,6 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.inputs.repository_urll }}
-          ref: ${{ github.event.inputs.repository_branch }}
-          fetch-depth: 2
           
       - name: Import GPG key
         id: import_gpg
