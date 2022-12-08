@@ -31,7 +31,7 @@ jobs:
           
       - name: Update Trust = Trust myself
         run: |
-          echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key 8DCAED849C4180E
+          echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key 28DCAED849C4180E
           
       - name: Checkout
         uses: actions/checkout@v3
