@@ -28,7 +28,7 @@ jobs:
         with:
           repository: ${{ github.event.inputs.repository_urll }}
           ref: ${{ github.event.inputs.repository_branch }}
-          fetch-depth: 2    
+          fetch-depth: 2       
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -49,4 +49,3 @@ jobs:
         
       - name: Release to svn
         run: computer-dist/scripts/apache-release.sh $ {{ github.event.inputs.release_version }}
-          
