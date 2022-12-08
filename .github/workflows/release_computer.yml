@@ -29,6 +29,10 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }} 
           
+      - name: Update Trust = Trust myself
+        run: |
+          echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key 0xDEADBEEF
+          
       - name: Checkout
         uses: actions/checkout@v3
         with:
