@@ -15,7 +15,7 @@ on:
         
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: macos-12
     steps:
       - name: Install JDK 11
         uses: actions/setup-java@v3
@@ -27,11 +27,7 @@ jobs:
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v5
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }} 
-          
-      - name: Update Trust = Trust myself
-        run: |
-          echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key ${{ secrets.GPG_PUBLICK_KEY }}
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           
       - name: Checkout
         uses: actions/checkout@v3
