@@ -47,4 +47,4 @@ jobs:
         run: mvn clean package -am -DskipTests -ntp
         
       - name: Release to svn
-        run: computer-dist/scripts/apache-release.sh ${{ github.event.inputs.release_version }}
+        run: computer-dist/scripts/apache-release.sh ${{ github.event.inputs.release_version }} ${{ secrets.RELEASE_USERNAME }} ${{ secrets.RELEASE_PASSWORD }}
