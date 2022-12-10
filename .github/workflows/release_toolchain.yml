@@ -1,0 +1,59 @@
+name: Release Apache Hugegraph-Toolchain
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository_url:
+        required: true
+        default: 'apache/hugegraph-toolchain'
+      repository_branch:
+        required: true
+        default: 'before-release'
+      release_version:
+        required: true
+        default: '1.0.0'
+        
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          server-id: apache.snapshots.https
+          server-username: ${{ secrets.RELEASE_USERNAME }}
+          server-password: ${{ secrets.RELEASE_PASSWORD }}
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+       
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.inputs.repository_url }}
+          ref: ${{ github.event.inputs.repository_branch }}
+          fetch-depth: 2
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+          
+      - name: Replace maven settings
+        run: mkdir -p ~/.m2 && echo '${{ secrets.M2_SETTINGS }}' > ~/.m2/settings.xml
+        
+      - name: Package & Release to maven
+        #run: export GPG_TTY=$(tty) && echo $GPG_TTY && mvn clean install -Papache-release -DskipTests -ntp
+        #run: echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf && cat ~/.gnupg/gpg.conf && mvn clean install -Papache-release -DskipTests -ntp
+        run: mvn clean install -Papache-release -DskipTests -ntp -e -X
+        
+      - name: Release to svn
+        run: hugegraph-dist/scripts/apache-release.sh ${{ github.event.inputs.release_version }} ${{ secrets.RELEASE_USERNAME }} ${{ secrets.RELEASE_PASSWORD }}
