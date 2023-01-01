@@ -14,7 +14,7 @@ on:
         default: '1.0.0'
       deploy_maven:
         required: true
-        default: false
+        default: 'false'
         
 jobs:
   build:
@@ -73,11 +73,11 @@ jobs:
         run: mkdir -p ~/.m2 && echo '${{ secrets.M2_SETTINGS }}' > ~/.m2/settings.xml
 
       - name: Package Only
-        if: github.event.inputs.deploy_maven == false
+        if: github.event.inputs.deploy_maven == 'false'
         run: echo "just building" && mvn clean package -Papache-release -DskipTests -ntp -e || exit
 
       - name: Package & Release to maven
-        if: github.event.inputs.deploy_maven == true
+        if: github.event.inputs.deploy_maven == 'true'
         #run: export GPG_TTY=$(tty) && echo $GPG_TTY && mvn clean install -Papache-release -DskipTests -ntp
         #run: echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf && cat ~/.gnupg/gpg.conf && mvn clean install -Papache-release -DskipTests -ntp
         run: echo "deploy to maven" && mvn clean deploy -Papache-release -DskipTests -ntp -e || exit
