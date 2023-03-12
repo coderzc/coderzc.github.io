@@ -61,7 +61,7 @@ jobs:
         with:
           repository: ${{ github.event.inputs.repository_url }}
           ref: ${{ github.event.inputs.repository_branch }}
-          fetch-depth: 2
+          fetch-depth: 1
 
       - name: Cache Maven packages
         uses: actions/cache@v3
