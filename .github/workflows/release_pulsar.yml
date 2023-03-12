@@ -21,6 +21,9 @@ on:
       deploy_svn:
         required: true
         default: 'false'
+      deploy_docker:
+        required: true
+        default: 'false'  
         
 jobs:
   build:
@@ -57,7 +60,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         
       - name: Package
-        run: mvn clean install -DskipTests
+        run: mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
         
       - name: Release to maven
         if: github.event.inputs.deploy_maven == 'true'
@@ -80,5 +83,13 @@ jobs:
           ../../pulsar/src/stage-release.sh .
           svn add *
           svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
+          
+      - name: Release to docker
+        if: github.event.inputs.deploy_docker == 'true'
+        run: |
+          cd ./docker
+          ./build.sh
+          docker images
+          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./publish.sh       
           
           
