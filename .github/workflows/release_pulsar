@@ -1,0 +1,68 @@
+name: Release pulsar
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository_url:
+        required: true
+        default: 'apache/pulsar'
+      repository_branch:
+        required: true
+        default: 'branch-2.9'
+      release_version:
+        required: true
+        default: '2.9.5-candidate-1'
+      release_version2:
+        required: true
+        default: '2.9.5'        
+        
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+       
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          
+      - name: Update Trust = Trust myself
+        run: |
+          echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key ${{ secrets.GPG_PUBLICK_KEY }}          
+          
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.inputs.repository_url }}
+          ref: ${{ github.event.inputs.repository_branch }}
+          fetch-depth: 2
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+        
+      - name: Package & Release to maven
+        # run: mvn clean deploy -Papache-release -DskipTests
+        run: mvn clean install -DskipTests
+        
+      - name: Release to svn
+        run: |
+          export GPG_TTY=$(tty)
+          cd ../ && svn co https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
+          svn delete pulsar-${{ github.event.inputs.release_version }}
+          svn mkdir pulsar-${{ github.event.inputs.release_version }}
+          cd pulsar-${{ github.event.inputs.release_version }}
+          ../../pulsar/src/stage-release.sh .
+          svn add *
+          svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.PASSWORD }}"
+          
+          
