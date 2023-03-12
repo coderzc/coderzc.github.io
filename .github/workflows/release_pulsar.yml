@@ -14,7 +14,13 @@ on:
         default: '2.9.5-candidate-1'
       release_version2:
         required: true
-        default: '2.9.5'        
+        default: '2.9.5'
+      deploy_maven:
+        required: true
+        default: 'false'
+      deploy_svn:
+        required: true
+        default: 'false'
         
 jobs:
   build:
@@ -50,11 +56,21 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
         
-      - name: Package & Release to maven
-        # run: mvn clean deploy -Papache-release -DskipTests
+      - name: Package
         run: mvn clean install -DskipTests
         
+      - name: Release to maven
+        if: github.event.inputs.deploy_maven == 'true'
+        run: |
+          export GPG_TTY=$(tty)
+          export APACHE_USER=${{ secrets.RELEASE_USERNAME }}
+          export APACHE_PASSWORD=${{ secrets.RELEASE_PASSWORD }}
+          curl -s -o /tmp/mvn-apache-settings.xml https://raw.githubusercontent.com/apache/pulsar/master/src/settings.xml
+          mvn deploy -DskipTests -Papache-release --settings /tmp/mvn-apache-settings.xml
+          mvn deploy -DskipTests -Papache-release --settings /tmp/mvn-apache-settings.xml -f tests/pom.xml -pl org.apache.pulsar.tests:tests-parent,org.apache.pulsar.tests:integration
+        
       - name: Release to svn
+        if: github.event.inputs.deploy_svn == 'true'
         run: |
           export GPG_TTY=$(tty)
           cd ../ && svn co https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
