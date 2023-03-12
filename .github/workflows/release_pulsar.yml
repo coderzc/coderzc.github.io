@@ -48,12 +48,10 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
+          root-reserve-mb: '4096'
           remove-dotnet: 'true'
           remove-android: 'true'
-      - name: Cat space
-        run: |
-          echo "Free space:"
-          df -h
+          remove-haskell: 'true'
           
       - name: Checkout
         uses: actions/checkout@v3
