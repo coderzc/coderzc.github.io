@@ -45,23 +45,20 @@ jobs:
         run: |
           echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key ${{ secrets.GPG_PUBLICK_KEY }}
           
-#       - name: Maximize build space
-#         uses: easimon/maximize-build-space@master
-#         with:
-#           root-reserve-mb: '5000'
-#           remove-dotnet: 'true'
-#           remove-android: 'true'
-#           remove-haskell: 'true'
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: '5000'
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
           
       - name: Checkout
         uses: actions/checkout@v3
         with:
           repository: ${{ github.event.inputs.repository_url }}
           ref: ${{ github.event.inputs.repository_branch }}
-          fetch-depth: 1
-          
-      - name: Action path
-        run: echo "${GITHUB_ACTION_PATH}"         
+          fetch-depth: 1      
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -91,7 +88,7 @@ jobs:
           svn up pulsar-${{ github.event.inputs.release_version }}
           mkdir pulsar-${{ github.event.inputs.release_version }}
           cd pulsar-${{ github.event.inputs.release_version }}
-          ${GITHUB_ACTION_PATH}/src/stage-release.sh .
+          ../../../pulsar/src/stage-release.sh .
           svn add *
           svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
           
