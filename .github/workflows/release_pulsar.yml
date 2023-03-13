@@ -60,12 +60,12 @@ jobs:
           ref: ${{ github.event.inputs.repository_branch }}
           fetch-depth: 1
 
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+#       - name: Cache Maven packages
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.m2/repository
+#           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#           restore-keys: ${{ runner.os }}-m2
         
       - name: Package
         run: mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
