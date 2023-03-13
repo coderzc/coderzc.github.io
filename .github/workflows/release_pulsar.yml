@@ -68,7 +68,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         
       - name: Package
-        run: echo "${{ GITHUB_ACTION_PATH }}" && mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
+        run: echo "$GITHUB_ACTION_PATH" && mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
         
       - name: Release to maven
         if: github.event.inputs.deploy_maven == 'true'
