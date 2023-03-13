@@ -96,7 +96,6 @@ jobs:
         if: github.event.inputs.deploy_docker == 'true'
         run: |
           export GPG_TTY=$(tty)
-          export DOCKER_REGISTRY=https://registry.hub.docker.com
           cd ./docker
           ./build.sh
           docker images
