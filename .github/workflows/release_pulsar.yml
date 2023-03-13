@@ -84,10 +84,12 @@ jobs:
         if: github.event.inputs.deploy_svn == 'true'
         run: |
           export GPG_TTY=$(tty)
+          pwd
           cd ../ && svn co --depth=empty https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
           svn up pulsar-${{ github.event.inputs.release_version }}
           mkdir pulsar-${{ github.event.inputs.release_version }}
           cd pulsar-${{ github.event.inputs.release_version }}
+          pwd
           ../../../pulsar/src/stage-release.sh .
           svn add *
           svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
