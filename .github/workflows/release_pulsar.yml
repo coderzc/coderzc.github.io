@@ -59,6 +59,9 @@ jobs:
           repository: ${{ github.event.inputs.repository_url }}
           ref: ${{ github.event.inputs.repository_branch }}
           fetch-depth: 1
+          
+      - name: Action path
+        run: echo ${{ github.action_path }}          
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -68,7 +71,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         
       - name: Package
-        run: echo "$GITHUB_ACTION_PATH" && mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
+        run: mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
         
       - name: Release to maven
         if: github.event.inputs.deploy_maven == 'true'
