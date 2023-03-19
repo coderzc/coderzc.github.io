@@ -86,7 +86,7 @@ jobs:
           export GPG_TTY=$(tty)
           cd ../ && svn co --depth=empty https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
           svn up pulsar-${{ github.event.inputs.release_version }}
-          mkdir pulsar-${{ github.event.inputs.release_version }}
+          mkdir -p pulsar-${{ github.event.inputs.release_version }}
           cd pulsar-${{ github.event.inputs.release_version }}
           $GITHUB_WORKSPACE/src/stage-release.sh .
           cd ../
