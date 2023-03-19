@@ -89,6 +89,7 @@ jobs:
           mkdir -p pulsar-${{ github.event.inputs.release_version }}
           cd pulsar-${{ github.event.inputs.release_version }}
           $GITHUB_WORKSPACE/src/stage-release.sh .
+          cat *.sha512
           cd ../
           svn add --parents pulsar-${{ github.event.inputs.release_version }}/*
           svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
