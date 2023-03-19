@@ -88,6 +88,7 @@ jobs:
           svn up pulsar-${{ github.event.inputs.release_version }}
           mkdir -p pulsar-${{ github.event.inputs.release_version }}
           cd pulsar-${{ github.event.inputs.release_version }}
+          svn delete *
           $GITHUB_WORKSPACE/src/stage-release.sh .
           cat *.sha512
           cd ../
