@@ -96,7 +96,6 @@ jobs:
         run: |
           export GPG_TTY=$(tty)
           cd ../ && svn co --depth=empty https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
-          svn up pulsar-${{ github.event.inputs.release_candidate_version }}
           mkdir -p pulsar-${{ github.event.inputs.release_candidate_version }}
           cd pulsar-${{ github.event.inputs.release_candidate_version }}
           svn delete *
