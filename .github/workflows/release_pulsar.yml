@@ -98,7 +98,6 @@ jobs:
           cd ../ && svn co --depth=empty https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
           mkdir -p pulsar-${{ github.event.inputs.release_candidate_version }}
           cd pulsar-${{ github.event.inputs.release_candidate_version }}
-          svn delete *
           $GITHUB_WORKSPACE/src/stage-release.sh .
           cat *.sha512
           cd ../
