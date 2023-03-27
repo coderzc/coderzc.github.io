@@ -9,10 +9,10 @@ on:
       repository_branch:
         required: true
         default: 'branch-2.9'
-      release_version:
+      release_candidate_version:
         required: true
         default: '2.9.5-candidate-1'
-      release_version2:
+      release_version:
         required: true
         default: '2.9.5'
       deploy_maven:
@@ -71,6 +71,15 @@ jobs:
         run: |
           mvn -v
           mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
+          
+      - name: Check
+        run: |
+         src/check-binary-license.sh distribution/server/target/apache-pulsar-${{ github.event.inputs.release_version }}-bin.tar.gz
+         tar -xvzf target/apache-pulsar-${{ github.event.inputs.release_version }}-src.tar.gz
+         cd apache-pulsar-${{ github.event.inputs.release_version }}-src
+         mvn apache-rat:check
+         cd ../
+         rm -rf apache-pulsar-${{ github.event.inputs.release_version }}-src
         
       - name: Release to maven
         if: github.event.inputs.deploy_maven == 'true'
@@ -87,15 +96,15 @@ jobs:
         run: |
           export GPG_TTY=$(tty)
           cd ../ && svn co --depth=empty https://dist.apache.org/repos/dist/dev/pulsar pulsar-dist-dev && cd pulsar-dist-dev
-          svn up pulsar-${{ github.event.inputs.release_version }}
-          mkdir -p pulsar-${{ github.event.inputs.release_version }}
-          cd pulsar-${{ github.event.inputs.release_version }}
+          svn up pulsar-${{ github.event.inputs.release_candidate_version }}
+          mkdir -p pulsar-${{ github.event.inputs.release_candidate_version }}
+          cd pulsar-${{ github.event.inputs.release_candidate_version }}
           svn delete *
           $GITHUB_WORKSPACE/src/stage-release.sh .
           cat *.sha512
           cd ../
-          svn add --parents pulsar-${{ github.event.inputs.release_version }}/*
-          svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version2 }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
+          svn add --parents pulsar-${{ github.event.inputs.release_candidate_version }}/*
+          svn ci -m 'Staging artifacts and signature for Pulsar release ${{ github.event.inputs.release_version }}' --username "${{ secrets.RELEASE_USERNAME }}" --password "${{ secrets.RELEASE_PASSWORD }}"
           
       - name: Release to docker
         if: github.event.inputs.deploy_docker == 'true'
