@@ -24,6 +24,9 @@ on:
       deploy_docker:
         required: true
         default: 'false'  
+      release_svn:
+        required: true
+        default: 'false'        
         
 jobs:
   build:
@@ -111,6 +114,10 @@ jobs:
           cd ./docker
           ./build.sh
           docker images
-          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./publish.sh       
+          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./publish.sh
           
+      - name: Release artifacts svn
+        if: github.event.inputs.release_svn == 'true'
+        run: |
+          svn move -m "Release Apache Pulsar ${{ github.event.inputs.release_version }}" https://dist.apache.org/repos/dist/dev/pulsar/pulsar-${{ github.event.release_candidate_version }} https://dist.apache.org/repos/dist/release/pulsar/pulsar-${{ github.event.inputs.release_version }}
           
