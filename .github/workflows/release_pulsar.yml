@@ -64,6 +64,7 @@ jobs:
           fetch-depth: 1      
 
       - name: Cache Maven packages
+        if: github.event.inputs.release_svn != 'true'
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -71,6 +72,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         
       - name: Package
+        if: github.event.inputs.release_svn != 'true'
         run: |
           mvn -v
           mvn clean install -DskipTests | grep -v "Downloading\|Downloaded\|Progress"
