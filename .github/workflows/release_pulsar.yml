@@ -32,10 +32,10 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Install JDK 17
+      - name: Install JDK 8
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '8'
           distribution: 'temurin'
        
       - name: Import GPG key
@@ -47,14 +47,6 @@ jobs:
       - name: Update Trust = Trust myself
         run: |
           echo -e "trust\n5\ny" | gpg --batch --no-tty --command-fd 0 --edit-key ${{ secrets.GPG_PUBLICK_KEY }}
-          gpg --armor --export-secret-key zhaocong@apache.org > /tmp/1.txt
-          head -c 5 /tmp/1.txt
-      
-      - name: Step 3 - Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
-        with: 
-          name: assets-for-download
-          path: /tmp/1.txt
           
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
@@ -85,7 +77,7 @@ jobs:
           
       - name: Check
         run: |
-         src/check-binary-license.sh distribution/server/target/apache-pulsar-${{ github.event.inputs.release_version }}-bin.tar.gz
+         src/check-binary-license distribution/server/target/apache-pulsar-${{ github.event.inputs.release_version }}-bin.tar.gz
          tar -xvzf target/apache-pulsar-${{ github.event.inputs.release_version }}-src.tar.gz
          cd apache-pulsar-${{ github.event.inputs.release_version }}-src
          mvn apache-rat:check
