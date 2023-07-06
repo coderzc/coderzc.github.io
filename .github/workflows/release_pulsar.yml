@@ -11,10 +11,10 @@ on:
         default: 'branch-2.9'
       release_candidate_version:
         required: true
-        default: '2.9.5-candidate-1'
+        default: '3.0.0-candidate-1'
       release_version:
         required: true
-        default: '2.9.5'
+        default: '3.0.0'
       deploy_maven:
         required: true
         default: 'false'
@@ -32,10 +32,10 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Install JDK 8
+      - name: Install JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '8'
+          java-version: '17'
           distribution: 'temurin'
        
       - name: Import GPG key
