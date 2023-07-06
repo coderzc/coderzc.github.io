@@ -8,7 +8,7 @@ on:
         default: 'apache/pulsar'
       repository_branch:
         required: true
-        default: 'branch-2.9'
+        default: 'master'
       release_candidate_version:
         required: true
         default: '3.0.0-candidate-1'
