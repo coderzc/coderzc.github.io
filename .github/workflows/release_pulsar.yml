@@ -123,7 +123,7 @@ jobs:
           -DskipTests \
           -Pmain,docker -Pdocker-push \
           -Ddocker.platforms=linux/amd64,linux/arm64 \
-          -Ddocker.organization=cbornet \
+          -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
           -pl docker/pulsar,docker/pulsar-all
           docker images
           DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./publish.sh
