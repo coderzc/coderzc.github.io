@@ -121,7 +121,7 @@ jobs:
           export GPG_TTY=$(tty)
           mvn install -DUBUNTU_MIRROR=http://azure.archive.ubuntu.com/ubuntu/ \
           -DskipTests \
-          -Pmain,docker -Pdocker-push\
+          -Pdocker\
           -Ddocker.platforms=linux/amd64,linux/arm6 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
           -pl docker/pulsar,docker/pulsar-all
