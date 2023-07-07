@@ -122,11 +122,10 @@ jobs:
           mvn install -DUBUNTU_MIRROR=http://azure.archive.ubuntu.com/ubuntu/ \
           -DskipTests \
           -Pmain,docker -Pdocker-push\
-          -Ddocker.platforms=linux/amd64 \
+          -Ddocker.platforms=linux/amd64,linux/arm6 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
           -pl docker/pulsar,docker/pulsar-all
           docker images
-          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./docker/publish.sh
           
       - name: Release artifacts svn
         if: github.event.inputs.release_svn == 'true'
