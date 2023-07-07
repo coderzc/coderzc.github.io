@@ -126,7 +126,7 @@ jobs:
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
           -pl docker/pulsar,docker/pulsar-all
           docker images
-          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./publish.sh
+          DOCKER_USER=${{ secrets.DOCKERHUB_USERNAME }} DOCKER_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }} DOCKER_ORG=${{ secrets.DOCKERHUB_USERNAME }} ./docker/publish.sh
           
       - name: Release artifacts svn
         if: github.event.inputs.release_svn == 'true'
