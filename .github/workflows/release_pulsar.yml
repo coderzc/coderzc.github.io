@@ -119,12 +119,12 @@ jobs:
         if: github.event.inputs.deploy_docker == 'true'
         run: |
           export GPG_TTY=$(tty)
-          mvn install -DUBUNTU_MIRROR=http://azure.archive.ubuntu.com/ubuntu/ \
+          mvn install \
           -DskipTests \
-          -Pdocker,docker-push \
           -Ddocker.platforms=linux/amd64,linux/arm64 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
-          -pl docker/pulsar,docker/pulsar-all
+          -Pdocker \
+          -am -pl docker/pulsar,docker/pulsar-all
           docker images
           
       - name: Release artifacts svn
