@@ -123,7 +123,7 @@ jobs:
           -DskipTests \
           -Ddocker.platforms=linux/amd64,linux/arm64 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
-          -Pdocker \
+          -Pdocker -Pdocker-push \
           -am -pl docker/pulsar
           docker images
           
