@@ -119,7 +119,7 @@ jobs:
         if: github.event.inputs.deploy_docker == 'true'
         run: |
           export GPG_TTY=$(tty)
-          mvn install \
+          mvn install -DUBUNTU_MIRROR=http://azure.archive.ubuntu.com/ubuntu/ \
           -DskipTests \
           -Ddocker.platforms=linux/amd64,linux/arm64 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
