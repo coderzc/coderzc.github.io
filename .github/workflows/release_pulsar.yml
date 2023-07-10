@@ -124,7 +124,7 @@ jobs:
           -Ddocker.platforms=linux/amd64,linux/arm64 \
           -Ddocker.organization=${{ secrets.DOCKERHUB_USERNAME }} \
           -Pdocker \
-          -am -pl docker/pulsar,docker/pulsar-all
+          -am -pl docker/pulsar
           docker images
           
       - name: Release artifacts svn
