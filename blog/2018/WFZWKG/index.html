@@ -148,6 +148,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" type="text/css" href="/blog/css/injector/main.css" /><link rel="preload" as="style" href="/blog/css/injector/light.css" /><link rel="preload" as="style" href="/blog/css/injector/dark.css" /></head>
 
+<script>
+  var link="";
+  var a = document.getElementsByTagName('img');
+  for(i=0; i<a.length; i++){
+        if((a[i].src).indexOf("gitee") > 0){
+        a[i].referrerPolicy='no-referrer';
+        link = a[i].src;
+        a[i].src = link+'?t='+Math.random();
+        }
+  }
+</script>
 
 <!-- hack iOS CSS :active style -->
 
@@ -486,11 +497,11 @@
           
 <p>配置文件如下：</p>
 
-          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='AWK'>
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='DTS'>
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">eureka:<br>  client:<br>    serviceUrl:<br>      defaultZone: http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8761</span><span class="hljs-regexp">/eureka/</span>,http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8762</span><span class="hljs-regexp">/eureka/</span>,http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8763</span><span class="hljs-regexp">/eureka/</span><br>server:<br>  port: <span class="hljs-number">8083</span><br>spring:<br>  application:<br>    name: service-ribbon<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">eureka:</span><br><span class="hljs-symbol">  client:</span><br><span class="hljs-symbol">    serviceUrl:</span><br><span class="hljs-symbol">      defaultZone:</span> http:<span class="hljs-comment">//localhost:8761/eureka/,http://localhost:8762/eureka/,http://localhost:8763/eureka/</span><br><span class="hljs-symbol">server:</span><br><span class="hljs-symbol">  port:</span> <span class="hljs-number">8083</span><br><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  application:</span><br><span class="hljs-symbol">    name:</span> service-ribbon<br></code></pre></td></tr></table></figure>
           </div>
           
 <p><strong>2.4</strong> 写一个服务类HelloService，通过之前注入ioc容器的restTemplate来消费service-hi服务的“/hi”接口，在这里我们直接用的程序名替代了具体的url地址，在ribbon中它会根据服务名来选择具体的服务实例，根据服务实例在请求的时候会用具体的url替换掉服务名，代码如下：</p>

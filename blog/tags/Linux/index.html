@@ -148,6 +148,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" type="text/css" href="/blog/css/injector/main.css" /><link rel="preload" as="style" href="/blog/css/injector/light.css" /><link rel="preload" as="style" href="/blog/css/injector/dark.css" /></head>
 
+<script>
+  var link="";
+  var a = document.getElementsByTagName('img');
+  for(i=0; i<a.length; i++){
+        if((a[i].src).indexOf("gitee") > 0){
+        a[i].referrerPolicy='no-referrer';
+        link = a[i].src;
+        a[i].src = link+'?t='+Math.random();
+        }
+  }
+</script>
 
 <!-- hack iOS CSS :active style -->
 
