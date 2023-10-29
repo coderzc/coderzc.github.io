@@ -136,7 +136,7 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="https://coderzc.github.io/blog/blog/">
+  <link rel="canonical" href="https://coderzc.github.io/blog/blog/tags/消息队列/">
   <title>
     
       coderzc blog
@@ -358,9 +358,9 @@
     }
 
     header.intro-header {
-       /*config*/
-        background-image: var(--intro-header-background-image-url-home);
-        /* background-image: url('/blog/http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim'); */
+       /*page*/
+        background-image: var(--intro-header-background-image-url-page);
+        /* background-image: url('/blog/'); */
       
     }
 
@@ -442,459 +442,316 @@
             ">
 
       <!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
+      <!-- 归档列表 -->
 
-
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2023/15J18E5/">
-    <h2 class="post-title">
-      New Delayed Message In Pulsar 3
-    </h2>
-    <h3 class="post-subtitle">
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡New Delayed Message In Pulsar 3.0
-❡什么是延迟消息
-我们先考虑这样一个场景，在电商系统中，当用户下单后我们希望如果30分钟未支付自动关闭订单，那么我应该如何实现这个需求呢，一个很容易想到的方案是轮询，我们可以创建一个定时任务每隔1分钟去扫描订单表，查出那些超过30分钟未支付的订单，然后关闭它们。这个方案有两个问题，一是定时任务有一个1分钟的时间间隔，所有关......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2023-10-29
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Java" title="Java">Java</a>
-    
-    <a href="/blog/tags/#数据库" title="数据库">数据库</a>
-    
-    <a href="/blog/tags/#消息队列" title="消息队列">消息队列</a>
-    
-    <a href="/blog/tags/#Pulsar" title="Pulsar">Pulsar</a>
-    
-  </div>
-  
 
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2021/3HR80D1/">
-    <h2 class="post-title">
-      Google论文、开源与云计算
-    </h2>
-    <h3 class="post-subtitle">
+      <!-- 归档列表 -->
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      
-本文转载自：https://zhuanlan.zhihu.com/p/85808754
-
-❡1. Google论文与开源
-自1998年成立，至今Google已走过20个年头。在这20年里，Google不断地发表一些对于自己来说已经过时甚至不再使用的技术的论文，但是发表之后总会有类似系统被业界实现出来，也足以说明google的技术至少领先业界数年。在Amazon不断引领全球云计算浪潮开发出一......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2021-08-17
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Linux" title="Linux">Linux</a>
-    
-    <a href="/blog/tags/#Java" title="Java">Java</a>
-    
-    <a href="/blog/tags/#分布式" title="分布式">分布式</a>
-    
-    <a href="/blog/tags/#网络" title="网络">网络</a>
-    
-    <a href="/blog/tags/#数据库" title="数据库">数据库</a>
-    
-    <a href="/blog/tags/#云计算" title="云计算">云计算</a>
-    
-    <a href="/blog/tags/#大数据" title="大数据">大数据</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2021/2DCNJR0/">
-    <h2 class="post-title">
-      Kubernetes
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡1. kubernetes 起源与发展
-
-❡1.1 kubernetes 起源
-
-Kubernetes最初源于谷歌内部的Borg，Kubernetes 的最初目标是为应用的容器化编排部署提供一个最小化的平台，包含几个基本功能：
-
-将应用水平扩容到多个集群
-为扩容的实例提供负载均衡的策略
-提供基本的健康检查和自愈能力
-实现任务的统一调度
-
-
-
-❡1.2 kubernetes 发展
-
-2014......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2021-08-01
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Linux" title="Linux">Linux</a>
-    
-    <a href="/blog/tags/#网络" title="网络">网络</a>
-    
-    <a href="/blog/tags/#数据库" title="数据库">数据库</a>
-    
-    <a href="/blog/tags/#云计算" title="云计算">云计算</a>
-    
-    <a href="/blog/tags/#容器化" title="容器化">容器化</a>
-    
-    <a href="/blog/tags/#高并发" title="高并发">高并发</a>
-    
-    <a href="/blog/tags/#微服务" title="微服务">微服务</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2021/3TZKYMV/">
-    <h2 class="post-title">
-      Docker
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡1. 什么是Docker
-官方解释：Package Software into Standardized Units for Development, Shipment and Deployment.
-
-❡2. Docker namespace 隔离原理
-Docker通过 Namespace 实现进程隔离
-
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2023">
+          <span class="tag-text">2023</span>
+        </span>
+        <ul>
           
+          <li>
+            10-29
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2023/15J18E5/" style="color: #0085a1">
+              <span>
+                New Delayed Message In Pulsar 3
+                
+              </span>
+            </a>
+          </li>
           
-           Copy
-   ......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2021-07-18
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Linux" title="Linux">Linux</a>
-    
-    <a href="/blog/tags/#Java" title="Java">Java</a>
-    
-    <a href="/blog/tags/#网络" title="网络">网络</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2020/1JFQ5HA/">
-    <h2 class="post-title">
-      EPOLL 执行过程
-    </h2>
-    <h3 class="post-subtitle">
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡主要函数功能
-❡1、epoll_create
-从slab缓存中创建一个eventpoll对象,并且创建一个匿名的fd跟fd对应的file对象,而eventpoll对象保存在struct file结构的private指针中,并且返回,
-该fd对应的file operations只是实现了poll跟release操作，创建eventpoll对象的初始化操作
-获取当前用户信息,是不是root,最......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2020-06-01
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Linux" title="Linux">Linux</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2020/2KZ34QF/">
-    <h2 class="post-title">
-      TCP RST 相关理解
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
+          <span class="tag-text">2021</span>
+        </span>
+        <ul>
+          
+          <li>
+            08-17
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2021/3HR80D1/" style="color: #0085a1">
+              <span>
+                Google论文、开源与云计算
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-01
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2021/2DCNJR0/" style="color: #0085a1">
+              <span>
+                Kubernetes
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            07-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2021/3TZKYMV/" style="color: #0085a1">
+              <span>
+                Docker
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡一、出现 RST 包的情况
-1、连接请求到达时，目的端口不存在情况
-2、向一个已经关闭的连接发送数据
-3、向一个已经崩溃的对端发送数据（连接之前已经被建立）
-4、请求超时。 使用setsockopt的SO_RCVTIMEO选项设置recv的超时时间。接收数据超时时，会发送RST包
-5、close(sockfd)时，直接丢弃接收缓冲区未读取的数据，并给对方发一个RST。这个是由SO_LING......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2020-06-01
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#网络" title="网络">网络</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2020/24D45T0/">
-    <h2 class="post-title">
-      计算机编码
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2020">
+          <span class="tag-text">2020</span>
+        </span>
+        <ul>
+          
+          <li>
+            06-01
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2020/2KZ34QF/" style="color: #0085a1">
+              <span>
+                TCP RST 相关理解
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-01
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2020/1JFQ5HA/" style="color: #0085a1">
+              <span>
+                EPOLL 执行过程
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            04-20
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2020/24D45T0/" style="color: #0085a1">
+              <span>
+                计算机编码
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            02-02
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2020/SG7KWP/" style="color: #0085a1">
+              <span>
+                使用 Logistic 增长模型拟合感染人数
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡整理一下计算机编码 主要涉及三个基本数据类型 byte、int、char
-❡以16进制表示查看二进制文件
-
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+          <span class="tag-text">2019</span>
+        </span>
+        <ul>
           
+          <li>
+            06-24
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2019/32AM12Q/" style="color: #0085a1">
+              <span>
+                实现 NIO Socket
+                
+              </span>
+            </a>
+          </li>
           
-           Copy
+          <li>
+            01-13
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2019/GG8C81/" style="color: #0085a1">
+              <span>
+                机器学习简介
+                
+              </span>
+            </a>
+          </li>
           
-          1xxd file
+          <li>
+            01-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2019/2YN1BBW/" style="color: #0085a1">
+              <span>
+                机器学习利器之Numpy
+                
+              </span>
+            </a>
+          </li>
           
-          
-❡反码、补码：
-https://www.cnblogs.com/zhangziqiu/archive/......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2020-04-20
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Java" title="Java">Java</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2020/SG7KWP/">
-    <h2 class="post-title">
-      使用 Logistic 增长模型拟合感染人数
-    </h2>
-    <h3 class="post-subtitle">
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      最近武汉肺炎，牵动着全国人民的心，大家可能都想知道疫情什么时候才能结束，今天我使用2.2之前卫健委发布的确诊人数，按照logistic增长模型拟合了一条曲线并大概预测一下之后的疫情情况，模型的结果仅供参考。
-
-本文基于邢翔瑞博主的文章编写，在此感谢翔瑞作者。原文地址：https://blog.csdn.net/weixin_36474809/article/details/104101055......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2020-02-02
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Python" title="Python">Python</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2019/32AM12Q/">
-    <h2 class="post-title">
-      实现 NIO Socket
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+          <span class="tag-text">2018</span>
+        </span>
+        <ul>
+          
+          <li>
+            11-13
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/329MKZ0/" style="color: #0085a1">
+              <span>
+                常用Linux命令
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            10-13
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/26EK0PC/" style="color: #0085a1">
+              <span>
+                Python-数据类型
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-30
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/Z24PA1/" style="color: #0085a1">
+              <span>
+                Java并发编程
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-14
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/1DH5E51/" style="color: #0085a1">
+              <span>
+                数据结构-线性表
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-14
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/297HGTR/" style="color: #0085a1">
+              <span>
+                数据结构-排序
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-13
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/E4XA1K/" style="color: #0085a1">
+              <span>
+                数据结构-基本概念
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/24PYFWQ/" style="color: #0085a1">
+              <span>
+                什么是微服务
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/1P6JEC4/" style="color: #0085a1">
+              <span>
+                SpringCloud-服务的注册与发现Eureka
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/WFZWKG/" style="color: #0085a1">
+              <span>
+                SpringCloud-服务消费者（rest+ribbon-Feign）
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/3SFB1K1/" style="color: #0085a1">
+              <span>
+                Dubbo+Zookeeper-使用-SpringBoot-(dubbo-spring-boot-starter)-快速搭建RPC分布式
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            07-11
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/2SD06TA/" style="color: #0085a1">
+              <span>
+                按值传递、按指针传递、按引用传递
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/J7QVYJ/" style="color: #0085a1">
+              <span>
+                c 编译过程
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡这是一个使用 NIO 实现 echo 客户端和 echo 服务端的例子
-
-
-
-
-❡服务端
-
-          
-          
-           Copy
-          
-          1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950......
     </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2019-06-24
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#Java" title="Java">Java</a>
-    
   </div>
-  
-
 </div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/blog/2019/GG8C81/">
-    <h2 class="post-title">
-      机器学习简介
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview" style="word-wrap: break-word;">
-      ❡ML知识概括：
-
-❡ML常用公式
-
-❡我的机器学习相关代码
-https://nbviewer.jupyter.org/github/coderzc/machine_learning/tree/master/jupyter/
-❡基本术语
-
-特征向量(feature vector)/样本(sample)：用多个维度来描述一件事物有叫做“样本”也叫做“特征向量”
-训练(training)：从数据......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by coderzc on
-    2019-01-13
-  </p>
-  <div class="tags">
-    
-    <a href="/blog/tags/#机器学习" title="机器学习">机器学习</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-
-  <!-- Pager -->
-  <ul class="pager">
-    
-      <li class="previous" style="visibility:hidden;">
-        <a><span></span></a>
-        </li>
-    
-    
-    <li class="next">
-      <a href="/blog/archives/2/">NEXT &rarr;</a>
-    </li>
-    
-  </ul>
 
 
       <!-- 如果开启评论功能 -->
