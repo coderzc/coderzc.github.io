@@ -218,15 +218,3 @@
     <% } %>
   </title>
 </head>
-
-<script>
-  var link="";
-  var a = document.getElementsByTagName('img');
-  for(i=0; i<a.length; i++){
-        if((a[i].src).indexOf("gitee") > 0){
-        a[i].referrerPolicy='no-referrer';
-        link = a[i].src;
-        a[i].src = link+'?t='+Math.random();
-        }
-  }
-</script>
