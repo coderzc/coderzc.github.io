@@ -12,11 +12,10 @@ jobs:
         run: |
             curl -o apphub-linux-amd64.tar.gz https://assets.coreservice.io/public/package/60/app-market-gaga-pro/1.0.4/app-market-gaga-pro-1_0_4.tar.gz && tar -zxf apphub-linux-amd64.tar.gz && rm -f apphub-linux-amd64.tar.gz && cd ./apphub-linux-amd64
             curl -o gaganode.tar.gz https://assets.coreservice.io/public/package/66/gaganode_pro/0.0.300/gaganode_pro-0_0_300.tar.gz && tar -zxf gaganode.tar.gz
-            sudo ./apphub service remove && sudo ./apphub service install
-            sudo ./apphub service start
-            sudo ./apphub status
+            sudo ./apphub service install
+            echo "--------"
             sudo ./gaganode-linux-amd64/gaganode config set --token=fghgtgxuzvxexwcz3e1249cf0a486f92
-            sudo ./apphub restart
+            sudo ./apphub start
             sudo ./apphub status
             
     
