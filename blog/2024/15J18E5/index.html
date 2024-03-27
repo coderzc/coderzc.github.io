@@ -136,10 +136,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="https://coderzc.github.io/blog/blog/archives/2023/10/">
+  <link rel="canonical" href="https://coderzc.github.io/blog/blog/2024/15J18E5/">
   <title>
     
-      coderzc blog
+      New Delayed Message In Pulsar 3 - coderzc blog
     
   </title>
 <!-- hexo injector head_end start -->
@@ -343,8 +343,8 @@
       --intro-header-background-image-url-home: url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
        
       
-      --intro-header-background-image-url-post: url('');
-      --intro-header-background-image-url-page: url('');
+      --intro-header-background-image-url-post: url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
       
     }
     .body--dark {
@@ -352,15 +352,15 @@
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
        
       
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
       
     }
 
     header.intro-header {
-       /*page*/
-        background-image: var(--intro-header-background-image-url-page);
-        /* background-image: url('/blog/'); */
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('/blog/https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim'); */
       
     }
 
@@ -382,10 +382,35 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
-          <div class="site-heading">
-            <h1>Coderzc&#39;s Blog</h1>
-            <!--<hr class="small">-->
-            <span class="subheading">Write the code. Change the world.</span>
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
+              
+              <a class="tag" href="/blog/tags/#数据库" title="数据库">数据库</a>
+              
+              <a class="tag" href="/blog/tags/#消息队列" title="消息队列">消息队列</a>
+              
+              <a class="tag" href="/blog/tags/#Pulsar" title="Pulsar">Pulsar</a>
+              
+            </div>
+            <h1>New Delayed Message In Pulsar 3</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by coderzc on
+              2024-03-27
+            </span>
+
+            
+            
+            <!-- 不蒜子统计 start -->
+            <!-- <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span> -->
+            <!-- 不蒜子统计 end -->
+            
+
+
           </div>
           
         </div>
@@ -426,579 +451,254 @@
 	Friends Blog、
 	anchorjs、
 	) -->
-		<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
 
-    <!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+        <h1 id="New-Delayed-Message-In-Pulsar-3-0"><a class="header-anchor" href="#New-Delayed-Message-In-Pulsar-3-0">❡</a>New Delayed Message In Pulsar 3.0</h1>
+<h1 id="什么是延迟消息"><a class="header-anchor" href="#什么是延迟消息">❡</a>什么是延迟消息</h1>
+<p>我们先考虑这样一个场景，在电商系统中，当用户下单后我们希望如果30分钟未支付自动关闭订单，那么我应该如何实现这个需求呢，一个很容易想到的方案是轮询，我们可以创建一个定时任务每隔1分钟去扫描订单表，查出那些超过30分钟未支付的订单，然后关闭它们。这个方案有两个问题，一是定时任务有一个1分钟的时间间隔，所有关闭订单的时间不够精准，二是我们需要频繁的对订单表进行扫描订单表，这对数据库的压力比较大，那有没有不需要扫表就可以实现这个功能的方法呢。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292220321.png" alt="image-20231029222027410" style="zoom:50%;" />
+<p>我们其实可以考虑使用消息队列的delayed message的功能，用户下单后向MQ中发送一条delay 30 分钟的延迟消息其中包含订单ID，订单服务在30分钟后将收到这条消息，并从该消息中解析出订单ID，然后判断该订单是否已经完成了支付，如果还未完成了支付则关闭该订单。这就是delayed message 一个常见的应用。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221006.png" alt="Untitled" style="zoom:50%;" />
+<p>Pulsar 在 2.4.0 中首次引入了延迟消息传递的功能，Pulsar中的延迟delayed message功能与上面的提到的消息队列中的延迟消息基本一致，但是有两点需要注意。</p>
+<ol>
+<li>
+<p>Pulsar 支持的是任意时间粒度的延迟消息投递，它可以跨度很大，1s或半年，这不同于开源 RocketMQ 只支持固定时间粒度的延迟消息；</p>
+</li>
+<li>
+<p>Pulsar支持在一个Topic中，既有延迟消息，也有非延迟消息。</p>
+</li>
+</ol>
+<p>下图展示了 Pulsar 中延迟消息的具体过程：Producer 发送了m1-m5 5条消息，其中m2是普通消息，m1/m3/m4/m5 是具有不同延迟时间的延迟消息，Consumer 将立即收到m2这条普通消息。然后在10s后收到m5, 2分钟后收到m1和m4，然后在1年后收到m1。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221083.png" alt="Untitled" style="zoom:50%;" />
+<h1 id="如何使用-Pulsar-延迟消息"><a class="header-anchor" href="#如何使用-Pulsar-延迟消息">❡</a>如何使用 Pulsar 延迟消息</h1>
+<p>首先，在 Pulsar 中发送延迟消息也比较简单，Producer 在发送消息时可以使用 deliverAfter 和 deliverAt 两种方式来发送延迟消息。其中 deliverAt 可以指定具体的时间戳表示延迟到未来某一时刻交付该消息；deliverAfter 可以指定在当前多长时间后交付该消息。两种方式的本质是一样的，对于deliverAfter，Client 会计算出到期的时间戳送到 Broker。</p>
+<ol>
+<li>
+<p><strong>deliverAt send</strong></p>
 
-      <!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">producer.newMessage()<br>				.deliverAt(<span class="hljs-type">long</span> timestamp)<br>				.send();<br></code></pre></td></tr></table></figure>
+          </div>
+          
+</li>
+<li>
+<p><strong>deliverAfter send</strong></p>
 
-      
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">producer.newMessage()<br>				.deliverAfter(<span class="hljs-type">long</span> time, TimeUnit unit)<br>				.send();<br></code></pre></td></tr></table></figure>
+          </div>
+          
+</li>
+</ol>
+<p>此外，对于 Consumer 端使用方法则与接受普通消息一样，但有一点需要注意 Consumer 的 subscriptionType 必须是 Shared，这是由于delayed message 将破坏消息的交付顺序，而 Exclusive/Failover 模式需要保证消息的顺序性。</p>
 
-      <!-- 归档列表 -->
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2023">
-          <span class="tag-text">2023</span>
-        </span>
-        <ul>
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Consumer&lt;<span class="hljs-type">byte</span>[]&gt; Consumer = newPulsarClient.newConsumer();<br>		.topic(<span class="hljs-string">&quot;my-topic&quot;</span>)<br>		.subscriptionType(SubscriptionType.Shared)<br>		.subscribe();<br></code></pre></td></tr></table></figure>
+          </div>
           
-          <li>
-            10-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2023/15J18E5/" style="color: #0085a1">
-              <span>
-                New Delayed Message In Pulsar 3
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
-          <span class="tag-text">2021</span>
-        </span>
-        <ul>
-          
-          <li>
-            08-17
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2021/3HR80D1/" style="color: #0085a1">
-              <span>
-                Google论文、开源与云计算
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-01
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2021/2DCNJR0/" style="color: #0085a1">
-              <span>
-                Kubernetes
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            07-18
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2021/3TZKYMV/" style="color: #0085a1">
-              <span>
-                Docker
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2020">
-          <span class="tag-text">2020</span>
-        </span>
-        <ul>
-          
-          <li>
-            06-01
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2020/2KZ34QF/" style="color: #0085a1">
-              <span>
-                TCP RST 相关理解
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            06-01
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2020/1JFQ5HA/" style="color: #0085a1">
-              <span>
-                EPOLL 执行过程
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            04-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2020/24D45T0/" style="color: #0085a1">
-              <span>
-                计算机编码
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-02
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2020/SG7KWP/" style="color: #0085a1">
-              <span>
-                使用 Logistic 增长模型拟合感染人数
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2019">
-          <span class="tag-text">2019</span>
-        </span>
-        <ul>
-          
-          <li>
-            06-24
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2019/32AM12Q/" style="color: #0085a1">
-              <span>
-                实现 NIO Socket
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            01-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2019/GG8C81/" style="color: #0085a1">
-              <span>
-                机器学习简介
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            01-04
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2019/2YN1BBW/" style="color: #0085a1">
-              <span>
-                机器学习利器之Numpy
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2018">
-          <span class="tag-text">2018</span>
-        </span>
-        <ul>
-          
-          <li>
-            11-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/329MKZ0/" style="color: #0085a1">
-              <span>
-                常用Linux命令
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            10-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/26EK0PC/" style="color: #0085a1">
-              <span>
-                Python-数据类型
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/Z24PA1/" style="color: #0085a1">
-              <span>
-                Java并发编程
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/1DH5E51/" style="color: #0085a1">
-              <span>
-                数据结构-线性表
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/297HGTR/" style="color: #0085a1">
-              <span>
-                数据结构-排序
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/E4XA1K/" style="color: #0085a1">
-              <span>
-                数据结构-基本概念
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-03
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/24PYFWQ/" style="color: #0085a1">
-              <span>
-                什么是微服务
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-03
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/1P6JEC4/" style="color: #0085a1">
-              <span>
-                SpringCloud-服务的注册与发现Eureka
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-03
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/WFZWKG/" style="color: #0085a1">
-              <span>
-                SpringCloud-服务消费者（rest+ribbon-Feign）
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            08-03
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/3SFB1K1/" style="color: #0085a1">
-              <span>
-                Dubbo+Zookeeper-使用-SpringBoot-(dubbo-spring-boot-starter)-快速搭建RPC分布式
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            07-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/2SD06TA/" style="color: #0085a1">
-              <span>
-                按值传递、按指针传递、按引用传递
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            06-18
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/blog/2018/J7QVYJ/" style="color: #0085a1">
-              <span>
-                c 编译过程
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
+<h1 id="延迟消息在Pulsar中是如何工作的"><a class="header-anchor" href="#延迟消息在Pulsar中是如何工作的">❡</a>延迟消息在Pulsar中是如何工作的</h1>
+<p>当 Broker 收到一条延迟消息，broker 不会立即投递它而是先把它加入到 Delayed Delivery Tracker 中，Delayed Delivery Tracker 使用堆外内存维护了一个优先级队列，这个优先级队列中存放的是延迟消息的索引，index由三个 Long 值组成，分别是 Timestamp｜LedgerId | EntryId, 这些 delayed index 在优先级队列中根据到期时间进行堆排序，到期时间最短的会放在头上，时间越长越靠后。</p>
+<p>当 Consumer 在消费时， Dispacter 会先去 Delayed Delivery Tracker 检查是否有到期需要投递的消息，如果有到期的消息，则从 Tracker 中拿出对应的 index，然后根据index中的 LedgerID 和 EntryID 读取到对应的消息发送给消费者；如果没有到期的消息，则直接交付后面的正常的消息。</p>
+<p>此外，如果集群出现 Broker 宕机或者 Topic 的 ownership 转移，Pulsar 会重建 DelayedDeliveryTracker 中的 delayed index 队列，来保证延迟投递的消息能够正常工作。</p>
+<p><img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221687.png" alt="Untitled"></p>
+<h1 id="Pulsar-延迟消息的挑战"><a class="header-anchor" href="#Pulsar-延迟消息的挑战">❡</a>Pulsar 延迟消息的挑战</h1>
+<p>尽管 Pulsar 的延迟消息实现方法在简单性和效率方面表现出色，并且对 Pulsar 内核的侵入性较小，但我们也发现了Pulsar之前的延迟消息实现方法无法支持大规模的延迟消息使用。主要有以下两个原因：</p>
+<ol>
+<li>delayed index 优先级队列被内存限制</li>
+</ol>
+<p>Pulsar 的延迟消息实现存在内存限制。由于 delayed index 是维护在内存中的，这对于大规模的延迟消息使用来说可能会成为一个瓶颈。随着延迟消息数量的增加，需要消耗更多的内存资源来维护delayed index，最终中会导致 broker 内存不足发生 out of memory 异常。尽管我们可以通过增加 Topic 的 Partition 数量来使得这些 delayed index 分发到多个 Broker 中，但这并不能改变使用大量 Broker 内存的事实。</p>
+<ol start="2">
+<li>高昂的 delayed index 重建开销</li>
+</ol>
+<p>当集群出现 Broker 宕机或者 Topic 的 ownership 转移时，Pulsar 需要重建 delayed index 队列，这需要读取Topic上的所有延迟消息，对于持有大规模延迟消息Topic，它的重建时间可能会非常长，甚至达到小时级别。只要订阅处于延迟重建索引的情况下，消费者就无法消费该Topic的消息；这将带来更多的消费者不可用时间。</p>
+<p>为了解决这些限制，社区在 Pulsar 3.0 中引入了一种新的延迟消息机制。 对于新延迟消息设计有两个目标：</p>
+<ol>
+<li>使得延迟消息的规模可以不受内存限制。</li>
+<li>支持 delayed index 快照来避免高昂的 delayed index 重建开销。</li>
+</ol>
+<h1 id="新版延迟消息的设计"><a class="header-anchor" href="#新版延迟消息的设计">❡</a>新版延迟消息的设计</h1>
+<p>首先，为了保持兼容性和平滑的升级/降级，新的延迟消息机制将尽可能不破坏之前生产和消息流程，但是重新设计并实现了一个 Bucket-Based Delayed Delivery Tracker 来代替之前的 In-Memory Delayed Delivery Tracker，我们来看一下这个 Bucket-Based Delayed Delivery Tracker 里都做了什么。</p>
+<p>在新的实现中，Bucket-Based Delayed Delivery Tracker 将根据 Ledger 的维度将所有的 delayed index 拆分成多个 Bucket，一个 Bucket 包含1个或多个 Ledger的延迟消息的索引，并将这些 Bucket 存储到 Bookkeeper 上， 一个 Bucket 将存储在一个 Ledger 上。需要注意的是生成的这些 Bucket 和 Ledger一样是不可变的，一旦 Bucket 封闭将其将变为只读模式，不可以在写入或更新里面的数据。这将使得我们不需要频繁的修改 Bucket 内的数据来减少IO操作带来的开销。当一个 Bucket 封闭后它将生成一个 Bucket Snapshot 保存到 Bookkeeper 中，并将 Bucket 的存储位置信息放到这个订阅所关联的 Cursor Properties 中，例如 <code>BUCKET_1_2:90</code> 表示 Ledger1-Ledger2 这个范围内的delayed index存放在Ledger90 这个 Ledger 上。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221594.png" alt="image-20231020192645388" style="zoom: 33%;" />
+<p>然后我们再来看一下每个 Bucket 内部的结构，Tracker 将每一个 bucket 中的 delayed index 按照时间范围拆分为多个 segment, 每个 segment 只包含这个Bucket 所持有的 index 的一小段，Tracker 只需加载每一个Bucket 中最先到期的那个segment到内存中，而把其余的 index 保留在磁盘上。与之前的实现类似在 Tacker 中存在一个共享的优先级队列，每一个 Bukctet 的 segment 会加载到这个共享的优先级队列中进行排序，当 Consumer 消费时， Dispacter 则会从这个共享的索引优先级队列中获取到期的delayed index。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221796.png" alt="image-20231020194025388" style="zoom:33%;" />
+<p>那么每一个Bucket是如何生成的呢，在 Tracker 中还存在一个特殊的 Bucket - LastMutableBucket, 所有加入 Tracker 的 delayed index 会先放入到 LastMutableBucket 中的优先级队列中，当 LastMutableBucket 存放的 delayed index 数量达到阈值后，Tracker 将生成一个不可变的 Bucket，并将  LastMutableBucket 中的 delayed index 按照时间范围拆分成多个 segment 后移动到新的 Bucket 中，然后将这个 Bucket 持久化到 Bookkeeper 中。</p>
+<p>后面 Tracker 还可以继续复用这个 LastMutableBucket 来接受新产生的 delayed index。不过这里有一点需要注意的是，在 LastMutableBucket 未封闭前，如果有到期的消息该怎么，因为 Dispacter 只会从共享的索引优先级队列中检查是否有到期的消息。为了使得这些到期的消息可以及时交付，Tracker 会在 Dispacter 获取到期的 delayed index 之前，将 LastMutableBucket 中所有已经到期的 delayed index 移动到共享的索引优先级队列中。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222439.png" alt="image-20231024102326915" style="zoom:33%;" />
+<p>我们再来看一下 Bucket 在 Bookkeeper 上的存储格式，如下图所示一个 Bucket Snapshot 将使用一个 Ledger，Ledger 的第一个 Entry 存放的是这个 Bucket 的 metadata_list， list中的每一条对应一个 segment 的 metadata，这个 metadata 由 delayed_index_bit_map、max_schedule_timestamp、max_schedule_timestamp组成，其中 max_schedule_timestamp 用于查找第一个快照段，在恢复延迟消息索引时，如果快照段中的所有消息都达到传递时间，则存储桶将跳过快照段（因为代理可以将消息直接分发给消费者）。delayed_index_bit_map 用于检查消息 ID 是否存在于存储桶中。它记录每个快照段的延迟消息索引的 BitSet。当 Dispatcher 重放消息时，它将根据 delayed_index_bit_map 根据来跳过那些已经存在 Tracker 中的消息</p>
+<p>从 Entry 1开始每一个Entry 存放一个 segment，每一个Entry内是由delayed index 组成的有序列表，最前面的 Entry 存放的最先到期的 segment，越往后到期时间则越长。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222600.png" alt="image-20231024160419020" style="zoom:33%;" />
+<p>我们还应该清理掉不需要的 Bucket Snapshot ，当发生以下情况时，我们应该删除存 Bucket Snapshot:</p>
+<ol>
+<li>
+<p>当 Bucket 中快照的所有延迟消息都被调度时，Tracker 将删除该Bucket Snapshot。</p>
+</li>
+<li>
+<p>Merge Bukcets， Tracker 将删除旧的 Buckets。</p>
+</li>
+<li>
+<p>当订阅被删除或Topic被删除时。</p>
+</li>
+</ol>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222220.png" alt="image-20231027145722890" style="zoom:33%;" />
+<p>此外，如果不限制 Bucket 的数量的话，由于每一个 Bucket 都将消耗掉一个 Ledger，最终 Ledger 将变得非常多这将使得 Bookkeeper 的 Compaction 变得困难，所以我们也需要去 merge Buckets，当一个新的 Bucket 被创建后 Tracker 将检查当前 Bucket 的数量是否达到上限，如果达到上限则将选取两个相邻的 Bucket 进行 merge 并在merge 后删除旧的 Bucket 同时更新 Cursor Properties 中的 Bucket list 信息。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222153.png" alt="image-20231027150151406" style="zoom:33%;" />
+<h1 id="延迟消息性能测试"><a class="header-anchor" href="#延迟消息性能测试">❡</a>延迟消息性能测试</h1>
+<h3 id="测试环境"><a class="header-anchor" href="#测试环境">❡</a>测试环境</h3>
+<p>为了表明新版延迟消息相较于之前的版本提升了多少，我们还对两个版本的延迟消息的实现做了性能测试。我们使用了 <a target="_blank" rel="noopener" href="https://streamnative.io/book-a-demo">StreamNative Cloud</a> 最小规格的集群作为测试环境并使用 Apache Pulsar 3.0.4 作为测试镜像。将单位转换为标准单位后的显示如下：</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222859.png" alt="image-20231027151630258" style="zoom:33%;" />
+<h3 id="测试步骤"><a class="header-anchor" href="#测试步骤">❡</a>测试步骤</h3>
+<p>使用 Pulsar-Perf Producer 向同一个 Topic 中发送了 100 Mil 延迟时间随机的的延迟消息 (最短的延迟时间是48h)，同时使用 Pulsar-Perf Consumer 从该 Topic 中消费消息，并记录 Direct Memory 内存使用量。下面是我们使用的测试命令。</p>
+<p><strong>Command Producer</strong>:</p>
 
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/pulsar-perf produce persistent://public/default/delayed-message -dr 172800,173400 -m 100000000 -r 1000<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p><strong>Command Consumer</strong>:</p>
 
-      <!-- 如果开启评论功能 -->
-      
-    </div>
-
-    <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Visitors -->
-<h5><a href="/blog/">VISITORS</a></h5>
-
-<div class="widget">
-  <span>
-    Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
-  </span>
-  <br />
-  <span>
-    <b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
-  </span>
-</div>
-
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/pulsar-perf consume persistent://public/default/delayed-message -ss subs -st Shared -r 10000<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<h3 id="测试结果"><a class="header-anchor" href="#测试结果">❡</a>测试结果</h3>
+<h5 id="Direct-Memory-Usage"><a class="header-anchor" href="#Direct-Memory-Usage">❡</a>Direct Memory Usage</h5>
+<p>随着 Topic 中持有的延迟消息数量增加，我们注意到 In-Memory 延迟消息的实现会消耗大量的 Direct Memory。当延迟消息数量达到 35Mil 时，Direct Memory 的消耗量已经达到了 847MB，并导致了 Out of Memory (OOM) 错误。这导致 Broker 无法再承载更多的延迟消息。相比之下，Bucket-Based 的延迟消息实现在 Direct Memory 的消耗方面表现更好，始终保持较低的水平，并且可以容纳全部的 100Mil 延迟消息。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225269.png" alt="image-20231027152113812" style="zoom:33%;" />
+<h5 id="Recovery-Time"><a class="header-anchor" href="#Recovery-Time">❡</a>Recovery Time</h5>
+<p>我们在 Topic 延迟消息达到最大值时，主动 Kill了Broker Pod，来观察延迟消息的恢复时间，我们发现在 In-Memory 的延迟消息的实现中Broker 恢复 <strong>35Mil</strong> 的延迟消息用了 <strong>6120s</strong>, 而在 Bucket-Based 的延迟消息的实现中，Broker 恢复 <strong>100Mil</strong> 的延迟消息只用了 <strong>90s</strong>, Bucket-Based 的实现相较于之前的 In-Memory 实现大约有2个数量级的加速作用。</p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225266.png" alt="image-20231027153120056" style="zoom:33%;" />
+<h3 id="结论"><a class="header-anchor" href="#结论">❡</a>结论</h3>
+<p>从测试结果我们可以得到两个结论</p>
+<ol>
+<li>
+<p>全新的 Bucket-Based 的延迟消息机制不受内存限制，它允许用户持有大规模延迟消息。</p>
+</li>
+<li>
+<p>当集群出现 Broker 宕机或者 Topic 的 ownership 转移时，Bucket-Based 的新延迟消息机制显着减少了延迟消息的恢复时间，从而大大缩短了Consumer不可用的时间。</p>
+</li>
+</ol>
+<h1 id="如何在Pulsar中开启新版延迟消息"><a class="header-anchor" href="#如何在Pulsar中开启新版延迟消息">❡</a>如何在Pulsar中开启新版延迟消息</h1>
+<p>如果你想使用新版延迟消息功能，首先你需要升级到Pulsar 3.0+，然后只需要将 <code>delayedDeliveryTrackerFactoryClassName</code> 设置为 <code>org.apache.pulsar.broker.delayed.BucketDelayedDeliveryTrackerFactory</code> 即可.</p>
+<p>关于新版延迟消息还有一些参数需要调优详细请参看考 PIP-195: <a target="_blank" rel="noopener" href="https://github.com/apache/pulsar/issues/16763">https://github.com/apache/pulsar/issues/16763</a></p>
+<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225799.png" alt="image-20231027155213510" style="zoom:33%;" />
 
         <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          <li class="previous" style="visibility:hidden;">
+            <a><span></span></a>
+          
+          </li>
+          
+          <li class="next">
+            <a href="/blog/2021/3HR80D1/"  data-placement="top" title="Google论文、开源与云计算">Next &rarr;
+              <br/>
+              <span>Google论文、开源与云计算</span>
+            </a>
+          
+          </li>
+        </ul>
+
+        
+
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
     
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#New-Delayed-Message-In-Pulsar-3-0"><span class="toc-nav-text">New Delayed Message In Pulsar 3.0</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">什么是延迟消息</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Pulsar-%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">如何使用 Pulsar 延迟消息</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E5%9C%A8Pulsar%E4%B8%AD%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="toc-nav-text">延迟消息在Pulsar中是如何工作的</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Pulsar-%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-nav-text">Pulsar 延迟消息的挑战</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%96%B0%E7%89%88%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-nav-text">新版延迟消息的设计</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-nav-text">延迟消息性能测试</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-nav-text">测试环境</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="toc-nav-text">测试步骤</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-nav-text">测试结果</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Direct-Memory-Usage"><span class="toc-nav-text">Direct Memory Usage</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Recovery-Time"><span class="toc-nav-text">Recovery Time</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-nav-text">结论</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Pulsar%E4%B8%AD%E5%BC%80%E5%90%AF%E6%96%B0%E7%89%88%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">如何在Pulsar中开启新版延迟消息</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+
+      <!-- Sidebar Container -->
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
+       
+        <div class="categorieTag">
+          
+          <a href="/blog/categories/#消息队列" title="消息队列">
+            <i class="fa fa-bookmark"></i> 消息队列</a>
+        </div>
         <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/blog/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
+            
+            <a class="tag" href="/blog/tags/#数据库" title="数据库">数据库</a>
+            
+            <a class="tag" href="/blog/tags/#消息队列" title="消息队列">消息队列</a>
+            
+            <a class="tag" href="/blog/tags/#Pulsar" title="Pulsar">Pulsar</a>
+            
+          </div>
+        </section>
+        
 
-<section>
-  <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
-  <div class="tags">
-    
-    
-    <a href="/blog/tags/#Linux" title="Linux" rel="5">Linux</a>
-    
-    
-    
-    <a href="/blog/tags/#Java" title="Java" rel="11">Java</a>
-    
-    
-    
-    <a href="/blog/tags/#分布式" title="分布式" rel="3">分布式</a>
-    
-    
-    
-    <a href="/blog/tags/#网络" title="网络" rel="4">网络</a>
-    
-    
-    
-    <a href="/blog/tags/#数据库" title="数据库" rel="3">数据库</a>
-    
-    
-    
-    <a href="/blog/tags/#云计算" title="云计算" rel="2">云计算</a>
-    
-    
-    
-    <a href="/blog/tags/#大数据" title="大数据" rel="1">大数据</a>
-    
-    
-    
-    <a href="/blog/tags/#容器化" title="容器化" rel="1">容器化</a>
-    
-    
-    
-    <a href="/blog/tags/#高并发" title="高并发" rel="2">高并发</a>
-    
-    
-    
-    <a href="/blog/tags/#微服务" title="微服务" rel="3">微服务</a>
-    
-    
-    
-    <a href="/blog/tags/#Python" title="Python" rel="3">Python</a>
-    
-    
-    
-    <a href="/blog/tags/#机器学习" title="机器学习" rel="2">机器学习</a>
-    
-    
-    
-    <a href="/blog/tags/#消息队列" title="消息队列" rel="1">消息队列</a>
-    
-    
-    
-    <a href="/blog/tags/#Pulsar" title="Pulsar" rel="1">Pulsar</a>
-    
-    
-    
-    <a href="/blog/tags/#数据结构" title="数据结构" rel="1">数据结构</a>
-    
-    
+        <hr>
+        
+        
+
+        <!-- Friends Blog -->
+        
+      </div>
+    </div>
   </div>
-</section>
+</article>
 
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-  <h5><a href="/blog/about/">ABOUT ME</a></h5>
-  <div class="short-about">
 
-    
-    <img id="avatar_pic" src="/blog/img/avatar/coderzc.png" alt="avatar_pic" style="box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);" />
-    
-
-    
-    <p>Write the code. Change the world.</p>
-    
-
-    <!-- SNS Link -->
-    <ul class="list-inline">
-      
-
-      
-      <li>
-        <a target="_blank" href="https://github.com/coderzc">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-    </ul>
-  </div>
-</section>
-
-        <hr>
-    
-        <!-- RECENT POSTS -->
-
-<h5><a href="/blog/">RECENT POSTS</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="/blog/2023/15J18E5/">
-      <li>New Delayed Message In Pulsar 3</li>
-    </a>
-    
-    <a href="/blog/2021/3HR80D1/">
-      <li>Google论文、开源与云计算</li>
-    </a>
-    
-    <a href="/blog/2021/2DCNJR0/">
-      <li>Kubernetes</li>
-    </a>
-    
-    <a href="/blog/2021/3TZKYMV/">
-      <li>Docker</li>
-    </a>
-    
-    <a href="/blog/2020/1JFQ5HA/">
-      <li>EPOLL 执行过程</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
-        <!-- Archives -->
-
-<h5><a href="/blog/archives/">archives</a></h5>
-<div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/06/">June 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/04/">April 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/02/">February 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li></ul>
-</div>
-
-
-        <hr>
-    
-        <!-- Categories -->
-
-<h5><a href="/blog/categories/">categories</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="/blog/categories/#Linux">
-      <li>Linux</li>
-    </a>
-    
-    <a href="/blog/categories/#分布式系统">
-      <li>分布式系统</li>
-    </a>
-    
-    <a href="/blog/categories/#容器化">
-      <li>容器化</li>
-    </a>
-    
-    <a href="/blog/categories/#并发编程">
-      <li>并发编程</li>
-    </a>
-    
-    <a href="/blog/categories/#微服务">
-      <li>微服务</li>
-    </a>
-    
-    <a href="/blog/categories/#机器学习">
-      <li>机器学习</li>
-    </a>
-    
-    <a href="/blog/categories/#消息队列">
-      <li>消息队列</li>
-    </a>
-    
-    <a href="/blog/categories/#网络编程">
-      <li>网络编程</li>
-    </a>
-    
-    <a href="/blog/categories/#计算机基础">
-      <li>计算机基础</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
-</div>
-
-
-    
-  </div>
-</div>
 
 
 		<!-- Footer (contains ThemeColor、viewer) -->
@@ -1037,7 +737,7 @@
         <p class="copyright text-muted">
           Copyright &copy;
           coderzc
-          2023
+          2024
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="https://huangxuan.me">Hux Blog</a>
