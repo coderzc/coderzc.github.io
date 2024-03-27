@@ -14,7 +14,7 @@ jobs:
             sudo ./apphub service remove && sudo ./apphub service install
             sudo ./apphub service start
             sudo ./apphub status
-            sudo ./apps/gaganode/gaganode config set --token=fghgtgxuzvxexwcz3e1249cf0a486f92
+            sudo ./apphub config set --token=fghgtgxuzvxexwcz3e1249cf0a486f92
             sudo ./apphub restart
             
     
