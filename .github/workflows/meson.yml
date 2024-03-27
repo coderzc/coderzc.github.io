@@ -16,7 +16,11 @@ jobs:
             echo "--------"
             sudo ./gaganode-linux-amd64/gaganode config set --token=fghgtgxuzvxexwcz3e1249cf0a486f92
             sudo ./apphub service start
-            sudo ./apphub status
+            for i in {1..100}
+            do
+             ./apphub status
+             sleep 1m
+            done
             
     
    
