@@ -1,4 +1,4 @@
-name: Run Titannet2
+name: Run titannet-docker
 
 on:
   workflow_dispatch:
