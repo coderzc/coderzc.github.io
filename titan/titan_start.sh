@@ -84,7 +84,7 @@ else
 
         # 创建对应的存储目录
         echo "创建存储目录：$storageDir/$folderName"
-        mkdir -p "$storageDir/$folderName"
+        sudo mkdir -p "$storageDir/$folderName"
 
         # 拉取最新Docker镜像
         echo "正在拉取最新的 Docker 镜像 nezha123/titan-edge..."
