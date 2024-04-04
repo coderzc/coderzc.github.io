@@ -18,4 +18,5 @@ jobs:
               cd titan/ 
               sudo chmod +x ./titan_start.sh
               ./titan_start.sh ${{ vars.TITAN_CODE }}
+              docker logs -f titan1 titan2 titan3 titan4 titan5
               while true; do sleep 10000; done
