@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://coderzc.github.io/blog/2020/24D45T0/</loc>
+    <loc>https://coderzc.github.io/blog/about/index.html</loc>
     
     <lastmod>2024-04-04</lastmod>
     
@@ -21,15 +21,6 @@
   
   <url>
     <loc>https://coderzc.github.io/blog/archive/index.html</loc>
-    
-    <lastmod>2024-04-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://coderzc.github.io/blog/about/index.html</loc>
     
     <lastmod>2024-04-04</lastmod>
     
@@ -237,6 +228,15 @@
   
   <url>
     <loc>https://coderzc.github.io/blog/2018/1DH5E51/</loc>
+    
+    <lastmod>2024-04-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderzc.github.io/blog/2020/24D45T0/</loc>
     
     <lastmod>2024-04-04</lastmod>
     
