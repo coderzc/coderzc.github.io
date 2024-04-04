@@ -5,6 +5,11 @@ containerCount="5"
 identityCode="$1"
 storageSizeGB="12"
 
+echo "storageDir: $storageDir"
+echo "containerCount: $containerCount"
+echo "identityCode: $identityCode"
+echo "storageSizeGB: $storageSizeGB"
+
 
 ## 检查并安装 Docker
 #if ! command -v docker &> /dev/null; then
