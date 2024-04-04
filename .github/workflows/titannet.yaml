@@ -13,9 +13,8 @@ jobs:
             wget -q -O titan_v0.1.16_linux_amd64.tar.gz https://github.com/Titannet-dao/titan-node/releases/download/v0.1.16/titan_v0.1.16_linux_amd64.tar.gz
             tar -zxf titan_v0.1.16_linux_amd64.tar.gz && cd ./titan_v0.1.16_linux_amd64
             nohup ./titan-edge daemon start --init --url https://test-locator.titannet.io:5000/rpc/v0  > edge.log 2>&1 &
-            ./titan-edge cache
+            ./titan-edge config show
             sleep 3
-            ./titan-edge cache
             kill $!
             ./titan-edge bind --hash=5ACE5217-77BE-495C-85F1-059C3F5A9CD5 https://api-test1.container1.titannet.io/api/v2/device/binding
             ./titan-edge daemon start --init --url https://test-locator.titannet.io:5000/rpc/v0
