@@ -1,0 +1,13 @@
+name: Run Titannet2
+
+on:
+  workflow_dispatch:
+
+jobs:
+   run-titan2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: run
+        run: |
+              rm -rf ~/install.sh && wget https://raw.githubusercontent.com/qingjiuzys/titan-start/main/install.sh && chmod +x install.sh && sudo ./install.sh --type=1 --storage=8 --code=FD565743-8077-4483-8077-2FE90B6AF26C
