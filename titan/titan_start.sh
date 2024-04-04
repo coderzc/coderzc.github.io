@@ -120,6 +120,10 @@ else
         # 重启容器以应用更改
         echo "重启容器 $containerName..."
         docker restart $containerName
+
+        sleep 5s
+        # 显示容器日志
+        docker logs $containerName
     done
 
     echo "所有操作已完成。"
