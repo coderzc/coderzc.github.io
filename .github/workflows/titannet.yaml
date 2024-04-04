@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: run
         run: |
-              rm -rf ~/install.sh && wget https://raw.githubusercontent.com/qingjiuzys/titan-start/main/install.sh && chmod +x install.sh && sudo ./install.sh --type=1 --storage=128 --code=805533B6-0079-4CF8-AD21-8D85A8B81892
+              rm -rf ~/install.sh && wget https://raw.githubusercontent.com/qingjiuzys/titan-start/main/install.sh && chmod +x install.sh && sudo ./install.sh --type=1 --container_count=1 --storage=320 --code=805533B6-0079-4CF8-AD21-8D85A8B81892
               while :; do sleep 2073600; done
             
             
