@@ -20,37 +20,37 @@ storageSizeGB="12"
 # 列出所有titan相关的容器
 #titanContainers=$(docker ps -a --filter "name=titan" --format "{{.Names}}")
 
-## 如果存在titan容器，则删除并拉取最新镜像
-#if [ -n "$titanContainers" ]; then
-#    # 提示用户输入存储目录
-#    read -p "请输入原先设置的存储目录: " storageDir
-#
-#    # 检查存储目录下是否存在按脚本规则命名的存储文件夹
-#    for containerName in $titanContainers; do
-#        if [ ! -d "$storageDir/$containerName" ]; then
-#            echo "在存储目录下未找到与容器名称相对应的文件夹：$containerName"
-#            exit 1
-#        fi
-#    done
-#
-#    echo "检测到现有的 titan 容器，正在删除..."
-#    docker rm -f $titanContainers
-#    echo "现有的 titan 容器已删除。"
-#
-#    # 拉取最新Docker镜像
-#    echo "正在拉取最新的 Docker 镜像 nezha123/titan-edge..."
-#    docker pull nezha123/titan-edge
-#    echo "镜像拉取完成。"
-#
-#    # 重新创建之前的titan容器
-#    for containerName in $titanContainers; do
-#        echo "重新创建容器：$containerName"
-#        # 运行容器，并设置自动重启
-#        docker run -d --restart unless-stopped -v "$storageDir/$containerName:/root/.titanedge" --name $containerName nezha123/titan-edge
-#    done
-#else
-#    # 没有检测到titan容器，请求用户输入信息来创建新的容器
-#    echo "没有检测到现有的 titan 容器。"
+# 如果存在titan容器，则删除并拉取最新镜像
+if [ -n "$titanContainers" ]; then
+    # 提示用户输入存储目录
+    read -p "请输入原先设置的存储目录: " storageDir
+
+    # 检查存储目录下是否存在按脚本规则命名的存储文件夹
+    for containerName in $titanContainers; do
+        if [ ! -d "$storageDir/$containerName" ]; then
+            echo "在存储目录下未找到与容器名称相对应的文件夹：$containerName"
+            exit 1
+        fi
+    done
+
+    echo "检测到现有的 titan 容器，正在删除..."
+    docker rm -f $titanContainers
+    echo "现有的 titan 容器已删除。"
+
+    # 拉取最新Docker镜像
+    echo "正在拉取最新的 Docker 镜像 nezha123/titan-edge..."
+    docker pull nezha123/titan-edge
+    echo "镜像拉取完成。"
+
+    # 重新创建之前的titan容器
+    for containerName in $titanContainers; do
+        echo "重新创建容器：$containerName"
+        # 运行容器，并设置自动重启
+        docker run -d --restart unless-stopped -v "$storageDir/$containerName:/root/.titanedge" --name $containerName nezha123/titan-edge
+    done
+else
+    # 没有检测到titan容器，请求用户输入信息来创建新的容器
+    echo "没有检测到现有的 titan 容器。"
 
     # 提示用户输入存储目录
 #    read -p "请输入存储目录的完整路径: " storageDir
