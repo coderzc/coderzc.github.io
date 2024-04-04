@@ -2,7 +2,7 @@
 
 storageDir="/root/.titanedge"
 containerCount="5"
-identityCode="FD565743-8077-4483-8077-2FE90B6AF26C"
+identityCode="$1"
 storageSizeGB="12"
 
 
