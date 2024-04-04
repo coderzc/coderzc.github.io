@@ -15,8 +15,7 @@ jobs:
 
       - name: run
         run: |
-              cd titan/
+              cd titan/ 
               sudo chmod +x ./titan_start.sh
-              echo ${{ env.TITAN_CODE }}
-              ./titan_start.sh ${{ env.TITAN_CODE }}
+              ./titan_start.sh ${{ vars.TITAN_CODE }}
               while true; do sleep 10000; done
