@@ -16,6 +16,6 @@ jobs:
       - name: run
         run: |
               cd titan/
-              sudo chmod+x ./titan_start.sh
+              sudo chmod +x ./titan_start.sh
               ./titan_start.sh
               while true; do sleep 10000; done
