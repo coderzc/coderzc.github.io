@@ -65,17 +65,17 @@ else
     fi
 
     # 提示用户输入身份码，允许为空
-    read -p "请输入身份码（如果不需要绑定身份，请留空）: " identityCode
+#    read -p "请输入身份码（如果不需要绑定身份，请留空）: " identityCode
 
     # 提示用户输入存储空间大小（单位：GB），并确保输入是一个整数
-    while :; do
-        read -p "请输入每个容器的存储空间大小（单位：GB，必须为整数）: " storageSizeGB
-        if [[ "$storageSizeGB" =~ ^[0-9]+$ ]]; then
-            break
-        else
-            echo "错误：存储空间大小必须是一个整数。"
-        fi
-    done
+#    while :; do
+#        read -p "请输入每个容器的存储空间大小（单位：GB，必须为整数）: " storageSizeGB
+#        if [[ "$storageSizeGB" =~ ^[0-9]+$ ]]; then
+#            break
+#        else
+#            echo "错误：存储空间大小必须是一个整数。"
+#        fi
+#    done
 
     # 循环创建容器和对应的存储目录
     for ((i=1; i<=containerCount; i++)); do
