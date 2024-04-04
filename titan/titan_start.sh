@@ -102,7 +102,7 @@ else
 
         # 等待容器启动
         echo "等待容器启动..."
-        sleep 5
+        sleep 10s
 
         # 如果提供了身份码，则执行绑定操作
         if [ -n "$identityCode" ]; then
@@ -121,9 +121,6 @@ else
         echo "重启容器 $containerName..."
         docker restart $containerName
 
-        sleep 5s
-        # 显示容器日志
-        docker logs $containerName
     done
 
     echo "所有操作已完成。"

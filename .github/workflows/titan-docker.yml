@@ -19,5 +19,5 @@ jobs:
               sudo chmod +x ./titan_start.sh
               ./titan_start.sh ${{ vars.TITAN_CODE }}
               docker ps
-              docker logs -f "titan1" "titan2" "titan3" "titan4" "titan5"
+              docker logs -f titan1 & docker logs -f titan2 & docker logs -f titan3 & docker logs -f titan4 & docker logs -f titan5
               while true; do sleep 10000; done
