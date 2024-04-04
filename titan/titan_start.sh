@@ -123,4 +123,7 @@ else
     done
 
     echo "所有操作已完成。"
+
+    # shellcheck disable=SC2046
+    docker logs -f $(docker ps -a --filter "name=titan" --format "{{.Names}}")
 fi
