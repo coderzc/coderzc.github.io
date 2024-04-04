@@ -17,7 +17,9 @@ jobs:
             ./titan-edge config show
             kill $!
             sleep 10s
+            titan-edge config set --storage-size 55GB
             ./titan-edge bind --hash=5ACE5217-77BE-495C-85F1-059C3F5A9CD5 https://api-test1.container1.titannet.io/api/v2/device/binding
+            ./titan-edge config show
             ./titan-edge daemon start --init --url https://test-locator.titannet.io:5000/rpc/v0
             
             
