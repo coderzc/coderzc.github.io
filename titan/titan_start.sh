@@ -18,7 +18,7 @@ storageSizeGB="12"
 #fi
 
 # 列出所有titan相关的容器
-titanContainers=$(docker ps -a --filter "name=titan" --format "{{.Names}}")
+#titanContainers=$(docker ps -a --filter "name=titan" --format "{{.Names}}")
 
 # 如果存在titan容器，则删除并拉取最新镜像
 if [ -n "$titanContainers" ]; then
