@@ -1,0 +1,16 @@
+name: Run Titannet2
+
+on:
+  workflow_dispatch:
+
+jobs:
+   run-titan2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: run
+        run: |
+              cd titan/
+              sudo chmod+x ./titan_start.sh
+              ./titan_start.sh
+              while true; do sleep 10000; done
