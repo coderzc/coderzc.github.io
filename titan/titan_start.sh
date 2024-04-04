@@ -49,8 +49,8 @@ storageSizeGB="12"
 #        docker run -d --restart unless-stopped -v "$storageDir/$containerName:/root/.titanedge" --name $containerName nezha123/titan-edge
 #    done
 #else
-    # 没有检测到titan容器，请求用户输入信息来创建新的容器
-    echo "没有检测到现有的 titan 容器。"
+#    # 没有检测到titan容器，请求用户输入信息来创建新的容器
+#    echo "没有检测到现有的 titan 容器。"
 
     # 提示用户输入存储目录
 #    read -p "请输入存储目录的完整路径: " storageDir
