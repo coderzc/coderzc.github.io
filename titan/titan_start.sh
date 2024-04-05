@@ -102,7 +102,7 @@ else
 
         # 等待容器启动
         echo "等待容器启动..."
-        sleep 30s
+        sleep 10s
 
         docker logs $containerName
 
