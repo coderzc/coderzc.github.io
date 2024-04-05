@@ -2,10 +2,7 @@ name: Run titannet-docker
 
 on:
   schedule:
-    - cron: '41,42,43,44,45 4,10,16,22 * * *'
-    - cron: '41,42,43,44,45 4,10,16,22 * * *'
-    - cron: '41,42,43,44,45 4,10,16,22 * * *'
-    - cron: '41,42,43,44,45 4,10,16,22 * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
