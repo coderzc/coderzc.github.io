@@ -1,6 +1,6 @@
 #!/bin/bash
 
-storageDir="/root/.titanedge"
+storageDir="/home/runner/.titanedge"
 containerCount="5"
 identityCode="$1"
 storageSizeGB="12"
@@ -89,7 +89,7 @@ else
 
         # 创建对应的存储目录
         echo "创建存储目录：$storageDir/$folderName"
-        sudo mkdir -p "$storageDir/$folderName"
+        mkdir -p "$storageDir/$folderName"
 
         # 拉取最新Docker镜像
         echo "正在拉取最新的 Docker 镜像 nezha123/titan-edge..."
@@ -120,6 +120,9 @@ else
         # 重启容器以应用更改
         echo "重启容器 $containerName..."
         docker restart $containerName
+
+        sleep 5s
+        docker exec $containerName titan-edge info
 
     done
 
