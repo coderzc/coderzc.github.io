@@ -1,9 +1,9 @@
 #!/bin/bash
 
-storageDir="/tmp/.titanedge"
-containerCount="1"
+storageDir="/home/runner/.titanedge"
+containerCount="5"
 identityCode="$1"
-storageSizeGB="2"
+storageSizeGB="12"
 
 echo "storageDir: $storageDir"
 echo "containerCount: $containerCount"
