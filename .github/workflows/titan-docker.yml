@@ -1,9 +1,13 @@
 name: Run titannet-docker
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:
+ # schedule:
+    # - cron: '*/30 * * * *'
+ workflow_dispatch:
+   inputs:
+        node_id:
+          required: true
+          default: '0'
 
 jobs:
    run-titan-docker:
@@ -15,11 +19,21 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Cache Primes
+        id: cache-data
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/.titanedge
+          key: ${{ runner.os }}-titan-${{ inputs.node_id }}          
+              
       - name: run
         run: |
               cd titan/ 
               sudo chmod +x ./titan_start.sh
               ./titan_start.sh ${{ vars.TITAN_CODE }}
               docker ps
-              docker logs -f titan1 & docker logs -f titan2 & docker logs -f titan3 & docker logs -f titan4 & docker logs -f titan5
-              while true; do sleep 10000; done
+              sleep 20880s
+
+      - name: Auth
+        run: |
+              sudo chmod -R 777 /home/runner/.titanedge
