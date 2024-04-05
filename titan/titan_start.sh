@@ -1,9 +1,9 @@
 #!/bin/bash
 
-storageDir="/home/runner/.titanedge"
-containerCount="5"
+storageDir="/tmp/.titanedge"
+containerCount="1"
 identityCode="$1"
-storageSizeGB="12"
+storageSizeGB="2"
 
 echo "storageDir: $storageDir"
 echo "containerCount: $containerCount"
@@ -98,7 +98,7 @@ else
 
         # 运行容器，并设置自动重启
         echo "运行容器：$containerName"
-        docker run -e TITAN_BANDWIDTH_BANDWIDTHUP=200 -e TITAN_BANDWIDTH_BANDWIDTHDOWN=10240 -d --restart unless-stopped -v "$storageDir/$folderName:/root/.titanedge" --name $containerName nezha123/titan-edge
+        docker run -e TITAN_BANDWIDTH_BANDWIDTHUP=100 -e TITAN_BANDWIDTH_BANDWIDTHDOWN=10240 -d --restart unless-stopped -v "$storageDir/$folderName:/root/.titanedge" --name $containerName nezha123/titan-edge
 
         # 等待容器启动
         echo "等待容器启动..."
