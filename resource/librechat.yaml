@@ -72,9 +72,9 @@ endpoints:
       summaryModel: "deepseek-chat"
       modelDisplayLabel: "DeepSeek"
 
-    # deepseek
-    # https://platform.deepseek.com/api_keys
-    # Model list: https://platform.deepseek.com/api-docs/pricing
+    # SiliconFlow
+    # https://cloud.siliconflow.cn/models
+    # Model list: https://cloud.siliconflow.cn/models
     - name: "SiliconFlow"
       apiKey: "user_provided"
       baseURL: "https://api.siliconflow.cn"
