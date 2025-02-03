@@ -238,9 +238,9 @@
           
           
           <li>
-            <a href="/blog/archive/">
+            <a href="/blog/about/">
               
-              ARCHIVES
+              ABOUT
               
               
             </a>
@@ -249,9 +249,9 @@
           
           
           <li>
-            <a href="/blog/about/">
+            <a href="/blog/archive/">
               
-              ABOUT
+              ARCHIVES
               
               
             </a>
@@ -509,7 +509,7 @@
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EurekaclientApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-built_in">String</span>[] args</span>) &#123;<br>        <span class="hljs-title class_">SpringApplication</span>.<span class="hljs-title function_">run</span>(<span class="hljs-title class_">EurekaclientApplication</span>.<span class="hljs-property">class</span>, args);<br>    &#125;<br><br><br>    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;$&#123;server.port&#125;&quot;</span>)<br>    <span class="hljs-title class_">String</span> port;<br><br>    <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">&quot;/hi&quot;</span>)<br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">home</span>(<span class="hljs-params"><span class="hljs-meta">@RequestParam</span>(value = <span class="hljs-string">&quot;name&quot;</span>, defaultValue = <span class="hljs-string">&quot;forezp&quot;</span>) <span class="hljs-built_in">String</span> name</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hi &quot;</span> + name + <span class="hljs-string">&quot; ,i am from port:&quot;</span> + port;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EurekaclientApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-title class_">String</span>[] args</span>) &#123;<br>        <span class="hljs-title class_">SpringApplication</span>.<span class="hljs-title function_">run</span>(<span class="hljs-title class_">EurekaclientApplication</span>.<span class="hljs-property">class</span>, args);<br>    &#125;<br><br><br>    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;$&#123;server.port&#125;&quot;</span>)<br>    <span class="hljs-title class_">String</span> port;<br><br>    <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">&quot;/hi&quot;</span>)<br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">home</span>(<span class="hljs-params"><span class="hljs-meta">@RequestParam</span>(value = <span class="hljs-string">&quot;name&quot;</span>, defaultValue = <span class="hljs-string">&quot;forezp&quot;</span>) <span class="hljs-title class_">String</span> name</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hi &quot;</span> + name + <span class="hljs-string">&quot; ,i am from port:&quot;</span> + port;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
           </div>
           
 <p>最后完成配置，将自己注册到eureka服务注册中心，application.yml配置文件如下：</p>
@@ -666,7 +666,7 @@
         <p class="copyright text-muted">
           Copyright &copy;
           coderzc
-          2024
+          2025
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="https://huangxuan.me">Hux Blog</a>

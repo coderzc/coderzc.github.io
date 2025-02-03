@@ -238,9 +238,9 @@
           
           
           <li>
-            <a href="/blog/archive/">
+            <a href="/blog/about/">
               
-              ARCHIVES
+              ABOUT
               
               
             </a>
@@ -249,9 +249,9 @@
           
           
           <li>
-            <a href="/blog/about/">
+            <a href="/blog/archive/">
               
-              ABOUT
+              ARCHIVES
               
               
             </a>
@@ -499,7 +499,7 @@
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">RestTemplate</span> restTemplate;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">hiService</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> name</span>)&#123;<br>        <span class="hljs-keyword">return</span> restTemplate.<span class="hljs-title function_">getForObject</span>(<span class="hljs-string">&quot;http://service-hi/hi?name=&quot;</span>+name,<span class="hljs-title class_">String</span>.<span class="hljs-property">class</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">RestTemplate</span> restTemplate;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">hiService</span>(<span class="hljs-params"><span class="hljs-title class_">String</span> name</span>)&#123;<br>        <span class="hljs-keyword">return</span> restTemplate.<span class="hljs-title function_">getForObject</span>(<span class="hljs-string">&quot;http://service-hi/hi?name=&quot;</span>+name,<span class="hljs-title class_">String</span>.<span class="hljs-property">class</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
           </div>
           
 <p><strong>2.5</strong> 最后写一个controller测试，在controller中用调用HelloService 的方法，代码如下：</p>
@@ -508,7 +508,7 @@
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">HelloService</span> helloService;<br><br>    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">&quot;/hi_ribbon&quot;</span>)<br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">hi_ribbon</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> name</span>)&#123;<br>        <span class="hljs-keyword">return</span> helloService.<span class="hljs-title function_">hiService</span>(name);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">HelloService</span> helloService;<br><br>    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">&quot;/hi_ribbon&quot;</span>)<br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">hi_ribbon</span>(<span class="hljs-params"><span class="hljs-title class_">String</span> name</span>)&#123;<br>        <span class="hljs-keyword">return</span> helloService.<span class="hljs-title function_">hiService</span>(name);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
           </div>
           
 <p>在浏览器上多次访问<a target="_blank" rel="noopener" href="http://localhost:8083/hi_ribbon?name=springcloud">http://localhost: 8083/hi_ribbon?name= springcloud</a>，浏览器交替显示：</p>
@@ -659,7 +659,7 @@ hi springcloud,i am from port:8082</p>
         <p class="copyright text-muted">
           Copyright &copy;
           coderzc
-          2024
+          2025
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="https://huangxuan.me">Hux Blog</a>
