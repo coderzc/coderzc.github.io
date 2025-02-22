@@ -44,7 +44,7 @@ Pulsar 在 2.4.0 中首次引入了延迟消息传递的功能，Pulsar中的延
 
    
 
-此外，对于 Consumer 端使用方法则与接受普通消息一样，但有一点需要注意 Consumer 的 subscriptionType 必须是 Shared，这是由于delayed message 将破坏消息的交付顺序，而 Exclusive/Failover 模式需要保证消息的顺序性。
+此外，对于 Consumer 端使用方法则与接受普通消息一样，但有一点需要注意 Consumer 的 subscriptionType 必须是 Shared/Key Shared，这是由于delayed message 将破坏消息的交付顺序，而 Exclusive/Failover 模式需要保证消息的顺序性。
 
 ```java
 Consumer<byte[]> Consumer = newPulsarClient.newConsumer();
@@ -82,9 +82,7 @@ Pulsar 的延迟消息实现存在内存限制。由于 delayed index 是维护�
 
 # 新版延迟消息的设计
 
-首先，为了保持兼容性和平滑的升级/降级，新的延迟消息机制将尽可能不破坏之前生产和消息流程，但是重新设计并实现了一个 Bucket-Based Delayed Delivery Tracker 来代替之前的 In-Memory Delayed Delivery Tracker，我们来看一下这个 Bucket-Based Delayed Delivery Tracker 里都做了什么。
-
-在新的实现中，Bucket-Based Delayed Delivery Tracker 将根据 Ledger 的维度将所有的 delayed index 拆分成多个 Bucket，一个 Bucket 包含1个或多个 Ledger的延迟消息的索引，并将这些 Bucket 存储到 Bookkeeper 上， 一个 Bucket 将存储在一个 Ledger 上。需要注意的是生成的这些 Bucket 和 Ledger一样是不可变的，一旦 Bucket 封闭将其将变为只读模式，不可以在写入或更新里面的数据。这将使得我们不需要频繁的修改 Bucket 内的数据来减少IO操作带来的开销。当一个 Bucket 封闭后它将生成一个 Bucket Snapshot 保存到 Bookkeeper 中，并将 Bucket 的存储位置信息放到这个订阅所关联的 Cursor Properties 中，例如 `BUCKET_1_2:90` 表示 Ledger1-Ledger2 这个范围内的delayed index存放在Ledger90 这个 Ledger 上。
+首先，为了保持兼容性和平滑的升级/降级，新的延迟消息机制将尽可能不破坏之前生产和消息流程，但是重新设计并实现了一个 Bucket-Based Delayed Delivery Tracker 来代替之前的 In-Memory Delayed Delivery Tracker，我们来看一下这个 Bucket-Based Delayed Delivery Tracker 里都做了什么。在新的实现中，Bucket-Based Delayed Delivery Tracker 将根据 Ledger 的维度将所有的 delayed index 拆分成多个 Bucket，一个 Bucket 包含1个或多个 Ledger的延迟消息的索引，并将这些 Bucket 存储到 Bookkeeper 上， 一个 Bucket 将存储在一个 Ledger 上。需要注意的是生成的这些 Bucket 和 Ledger一样是不可变的，一旦 Bucket 封闭将其将变为只读模式，不可以在写入或更新里面的数据。这将使得我们不需要频繁的修改 Bucket 内的数据来减少IO操作带来的开销。当一个 Bucket 封闭后它将生成一个 Bucket Snapshot 保存到 Bookkeeper 中，并将 Bucket 的存储位置信息放到这个订阅所关联的 Cursor Properties 中，例如 `BUCKET_1_2:90` 表示 Ledger1-Ledger2 这个范围内的delayed index存放在Ledger90 这个 Ledger 上。
 
 <img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221594.png" alt="image-20231020192645388" style="zoom: 33%;" />
 

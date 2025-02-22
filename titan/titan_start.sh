@@ -102,7 +102,7 @@ else
 
         # 等待容器启动
         echo "等待容器启动..."
-        sleep 10s
+        sleep 20s
 
         # 如果提供了身份码，则执行绑定操作
         if [ -n "$identityCode" ]; then
