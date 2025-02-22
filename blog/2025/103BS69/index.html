@@ -136,10 +136,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="https://coderzc.github.io/blog/blog/2025/15J18E5/">
+  <link rel="canonical" href="https://coderzc.github.io/blog/blog/2025/103BS69/">
   <title>
     
-      New Delayed Message In Pulsar 3 - coderzc blog
+      How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger - coderzc blog
     
   </title>
 <!-- hexo injector head_end start -->
@@ -343,8 +343,8 @@
       --intro-header-background-image-url-home: url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
        
       
-      --intro-header-background-image-url-post: url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
-      --intro-header-background-image-url-page: url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-post: url('http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: url('http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim');
       
     }
     .body--dark {
@@ -352,15 +352,15 @@
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('http://h2.ioliu.cn/bing/PingganVillage_ZH-CN10035092925_1920x1080.jpg?imageslim');
        
       
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim');
       
     }
 
     header.intro-header {
        /*post*/
         background-image: var(--intro-header-background-image-url-post);
-        /* background-image: url('/blog/https://h2.ioliu.cn/bing/TrilliumLake_ZH-CN4079462365_1920x1080.jpg?imageslim'); */
+        /* background-image: url('/blog/http://h2.ioliu.cn/bing/RainierMilkyWay_ZH-CN9404321904_1920x1080.jpg?imageslim'); */
       
     }
 
@@ -387,14 +387,10 @@
               
               <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
               
-              <a class="tag" href="/blog/tags/#数据库" title="数据库">数据库</a>
-              
               <a class="tag" href="/blog/tags/#Pulsar" title="Pulsar">Pulsar</a>
               
-              <a class="tag" href="/blog/tags/#消息队列" title="消息队列">消息队列</a>
-              
             </div>
-            <h1>New Delayed Message In Pulsar 3</h1>
+            <h1>How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger</h1>
             <h2 class="subheading"></h2>
             <span class="meta">
               Posted by coderzc on
@@ -459,166 +455,184 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="New-Delayed-Message-In-Pulsar-3-0"><a class="header-anchor" href="#New-Delayed-Message-In-Pulsar-3-0">❡</a>New Delayed Message In Pulsar 3.0</h1>
-<h1 id="什么是延迟消息"><a class="header-anchor" href="#什么是延迟消息">❡</a>什么是延迟消息</h1>
-<p>我们先考虑这样一个场景，在电商系统中，当用户下单后我们希望如果30分钟未支付自动关闭订单，那么我应该如何实现这个需求呢，一个很容易想到的方案是轮询，我们可以创建一个定时任务每隔1分钟去扫描订单表，查出那些超过30分钟未支付的订单，然后关闭它们。这个方案有两个问题，一是定时任务有一个1分钟的时间间隔，所有关闭订单的时间不够精准，二是我们需要频繁的对订单表进行扫描订单表，这对数据库的压力比较大，那有没有不需要扫表就可以实现这个功能的方法呢。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292220321.png" alt="image-20231029222027410" style="zoom:50%;" />
-<p>我们其实可以考虑使用消息队列的delayed message的功能，用户下单后向MQ中发送一条delay 30 分钟的延迟消息其中包含订单ID，订单服务在30分钟后将收到这条消息，并从该消息中解析出订单ID，然后判断该订单是否已经完成了支付，如果还未完成了支付则关闭该订单。这就是delayed message 一个常见的应用。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221006.png" alt="Untitled" style="zoom:50%;" />
-<p>Pulsar 在 2.4.0 中首次引入了延迟消息传递的功能，Pulsar中的延迟delayed message功能与上面的提到的消息队列中的延迟消息基本一致，但是有两点需要注意。</p>
+        <h1 id="How-to-trace-Pulsar-messages-with-OpenTelemetry-Instrumentation-and-Jaeger"><a class="header-anchor" href="#How-to-trace-Pulsar-messages-with-OpenTelemetry-Instrumentation-and-Jaeger">❡</a>How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger</h1>
+<p><a target="_blank" rel="noopener" href="https://opentelemetry.io/">OpenTelemetry</a> is an observability framework – an API, SDK, and tools that are designed to aid in the generation and collection of application telemetry data such as metrics, logs, and traces.</p>
+<p>This blog guides you through every step of how to trace Pulsar messages by Jaeger through the OpenTelemetry Instrumentation Java agent.</p>
+<h2 id="Prerequisite"><a class="header-anchor" href="#Prerequisite">❡</a>Prerequisite</h2>
+<p>Before getting started, make sure you have installed JDK 8, Maven 3, and Pulsar (cluster or standalone). If you do not have an available Pulsar, follow the <a target="_blank" rel="noopener" href="http://pulsar.apache.org/docs/en/standalone/">instructions</a> to install one.</p>
+<h2 id="Step-1-Start-a-Jaeger-backend"><a class="header-anchor" href="#Step-1-Start-a-Jaeger-backend">❡</a>Step 1: Start a Jaeger backend</h2>
 <ol>
-<li>
-<p>Pulsar 支持的是任意时间粒度的延迟消息投递，它可以跨度很大，1s或半年，这不同于开源 RocketMQ 只支持固定时间粒度的延迟消息；</p>
-</li>
-<li>
-<p>Pulsar支持在一个Topic中，既有延迟消息，也有非延迟消息。</p>
-</li>
+<li>Start a Jaeger backend in Docker.</li>
 </ol>
-<p>下图展示了 Pulsar 中延迟消息的具体过程：Producer 发送了m1-m5 5条消息，其中m2是普通消息，m1/m3/m4/m5 是具有不同延迟时间的延迟消息，Consumer 将立即收到m2这条普通消息。然后在10s后收到m5, 2分钟后收到m1和m4，然后在1年后收到m1。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221083.png" alt="Untitled" style="zoom:50%;" />
-<h1 id="如何使用-Pulsar-延迟消息"><a class="header-anchor" href="#如何使用-Pulsar-延迟消息">❡</a>如何使用 Pulsar 延迟消息</h1>
-<p>首先，在 Pulsar 中发送延迟消息也比较简单，Producer 在发送消息时可以使用 deliverAfter 和 deliverAt 两种方式来发送延迟消息。其中 deliverAt 可以指定具体的时间戳表示延迟到未来某一时刻交付该消息；deliverAfter 可以指定在当前多长时间后交付该消息。两种方式的本质是一样的，对于deliverAfter，Client 会计算出到期的时间戳送到 Broker。</p>
-<ol>
-<li>
-<p><strong>deliverAt send</strong></p>
-
-          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
-          <div class="btn-copy">
-          <i class="fa fa-copy"> Copy</i>
-          </div>
-          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">producer.newMessage()<br>				.deliverAt(<span class="hljs-type">long</span> timestamp)<br>				.send();<br></code></pre></td></tr></table></figure>
-          </div>
-          
-</li>
-<li>
-<p><strong>deliverAfter send</strong></p>
-
-          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
-          <div class="btn-copy">
-          <i class="fa fa-copy"> Copy</i>
-          </div>
-          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">producer.newMessage()<br>				.deliverAfter(<span class="hljs-type">long</span> time, TimeUnit unit)<br>				.send();<br></code></pre></td></tr></table></figure>
-          </div>
-          
-</li>
-</ol>
-<p>此外，对于 Consumer 端使用方法则与接受普通消息一样，但有一点需要注意 Consumer 的 subscriptionType 必须是 Shared/Key Shared，这是由于delayed message 将破坏消息的交付顺序，而 Exclusive/Failover 模式需要保证消息的顺序性。</p>
-
-          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
-          <div class="btn-copy">
-          <i class="fa fa-copy"> Copy</i>
-          </div>
-          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Consumer&lt;<span class="hljs-type">byte</span>[]&gt; Consumer = newPulsarClient.newConsumer();<br>		.topic(<span class="hljs-string">&quot;my-topic&quot;</span>)<br>		.subscriptionType(SubscriptionType.Shared)<br>		.subscribe();<br></code></pre></td></tr></table></figure>
-          </div>
-          
-<h1 id="延迟消息在Pulsar中是如何工作的"><a class="header-anchor" href="#延迟消息在Pulsar中是如何工作的">❡</a>延迟消息在Pulsar中是如何工作的</h1>
-<p>当 Broker 收到一条延迟消息，broker 不会立即投递它而是先把它加入到 Delayed Delivery Tracker 中，Delayed Delivery Tracker 使用堆外内存维护了一个优先级队列，这个优先级队列中存放的是延迟消息的索引，index由三个 Long 值组成，分别是 Timestamp｜LedgerId | EntryId, 这些 delayed index 在优先级队列中根据到期时间进行堆排序，到期时间最短的会放在头上，时间越长越靠后。</p>
-<p>当 Consumer 在消费时， Dispacter 会先去 Delayed Delivery Tracker 检查是否有到期需要投递的消息，如果有到期的消息，则从 Tracker 中拿出对应的 index，然后根据index中的 LedgerID 和 EntryID 读取到对应的消息发送给消费者；如果没有到期的消息，则直接交付后面的正常的消息。</p>
-<p>此外，如果集群出现 Broker 宕机或者 Topic 的 ownership 转移，Pulsar 会重建 DelayedDeliveryTracker 中的 delayed index 队列，来保证延迟投递的消息能够正常工作。</p>
-<p><img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221687.png" alt="Untitled"></p>
-<h1 id="Pulsar-延迟消息的挑战"><a class="header-anchor" href="#Pulsar-延迟消息的挑战">❡</a>Pulsar 延迟消息的挑战</h1>
-<p>尽管 Pulsar 的延迟消息实现方法在简单性和效率方面表现出色，并且对 Pulsar 内核的侵入性较小，但我们也发现了Pulsar之前的延迟消息实现方法无法支持大规模的延迟消息使用。主要有以下两个原因：</p>
-<ol>
-<li>delayed index 优先级队列被内存限制</li>
-</ol>
-<p>Pulsar 的延迟消息实现存在内存限制。由于 delayed index 是维护在内存中的，这对于大规模的延迟消息使用来说可能会成为一个瓶颈。随着延迟消息数量的增加，需要消耗更多的内存资源来维护delayed index，最终中会导致 broker 内存不足发生 out of memory 异常。尽管我们可以通过增加 Topic 的 Partition 数量来使得这些 delayed index 分发到多个 Broker 中，但这并不能改变使用大量 Broker 内存的事实。</p>
-<ol start="2">
-<li>高昂的 delayed index 重建开销</li>
-</ol>
-<p>当集群出现 Broker 宕机或者 Topic 的 ownership 转移时，Pulsar 需要重建 delayed index 队列，这需要读取Topic上的所有延迟消息，对于持有大规模延迟消息Topic，它的重建时间可能会非常长，甚至达到小时级别。只要订阅处于延迟重建索引的情况下，消费者就无法消费该Topic的消息；这将带来更多的消费者不可用时间。</p>
-<p>为了解决这些限制，社区在 Pulsar 3.0 中引入了一种新的延迟消息机制。 对于新延迟消息设计有两个目标：</p>
-<ol>
-<li>使得延迟消息的规模可以不受内存限制。</li>
-<li>支持 delayed index 快照来避免高昂的 delayed index 重建开销。</li>
-</ol>
-<h1 id="新版延迟消息的设计"><a class="header-anchor" href="#新版延迟消息的设计">❡</a>新版延迟消息的设计</h1>
-<p>首先，为了保持兼容性和平滑的升级/降级，新的延迟消息机制将尽可能不破坏之前生产和消息流程，但是重新设计并实现了一个 Bucket-Based Delayed Delivery Tracker 来代替之前的 In-Memory Delayed Delivery Tracker，我们来看一下这个 Bucket-Based Delayed Delivery Tracker 里都做了什么。在新的实现中，Bucket-Based Delayed Delivery Tracker 将根据 Ledger 的维度将所有的 delayed index 拆分成多个 Bucket，一个 Bucket 包含1个或多个 Ledger的延迟消息的索引，并将这些 Bucket 存储到 Bookkeeper 上， 一个 Bucket 将存储在一个 Ledger 上。需要注意的是生成的这些 Bucket 和 Ledger一样是不可变的，一旦 Bucket 封闭将其将变为只读模式，不可以在写入或更新里面的数据。这将使得我们不需要频繁的修改 Bucket 内的数据来减少IO操作带来的开销。当一个 Bucket 封闭后它将生成一个 Bucket Snapshot 保存到 Bookkeeper 中，并将 Bucket 的存储位置信息放到这个订阅所关联的 Cursor Properties 中，例如 <code>BUCKET_1_2:90</code> 表示 Ledger1-Ledger2 这个范围内的delayed index存放在Ledger90 这个 Ledger 上。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221594.png" alt="image-20231020192645388" style="zoom: 33%;" />
-<p>然后我们再来看一下每个 Bucket 内部的结构，Tracker 将每一个 bucket 中的 delayed index 按照时间范围拆分为多个 segment, 每个 segment 只包含这个Bucket 所持有的 index 的一小段，Tracker 只需加载每一个Bucket 中最先到期的那个segment到内存中，而把其余的 index 保留在磁盘上。与之前的实现类似在 Tacker 中存在一个共享的优先级队列，每一个 Bukctet 的 segment 会加载到这个共享的优先级队列中进行排序，当 Consumer 消费时， Dispacter 则会从这个共享的索引优先级队列中获取到期的delayed index。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292221796.png" alt="image-20231020194025388" style="zoom:33%;" />
-<p>那么每一个Bucket是如何生成的呢，在 Tracker 中还存在一个特殊的 Bucket - LastMutableBucket, 所有加入 Tracker 的 delayed index 会先放入到 LastMutableBucket 中的优先级队列中，当 LastMutableBucket 存放的 delayed index 数量达到阈值后，Tracker 将生成一个不可变的 Bucket，并将  LastMutableBucket 中的 delayed index 按照时间范围拆分成多个 segment 后移动到新的 Bucket 中，然后将这个 Bucket 持久化到 Bookkeeper 中。</p>
-<p>后面 Tracker 还可以继续复用这个 LastMutableBucket 来接受新产生的 delayed index。不过这里有一点需要注意的是，在 LastMutableBucket 未封闭前，如果有到期的消息该怎么，因为 Dispacter 只会从共享的索引优先级队列中检查是否有到期的消息。为了使得这些到期的消息可以及时交付，Tracker 会在 Dispacter 获取到期的 delayed index 之前，将 LastMutableBucket 中所有已经到期的 delayed index 移动到共享的索引优先级队列中。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222439.png" alt="image-20231024102326915" style="zoom:33%;" />
-<p>我们再来看一下 Bucket 在 Bookkeeper 上的存储格式，如下图所示一个 Bucket Snapshot 将使用一个 Ledger，Ledger 的第一个 Entry 存放的是这个 Bucket 的 metadata_list， list中的每一条对应一个 segment 的 metadata，这个 metadata 由 delayed_index_bit_map、max_schedule_timestamp、max_schedule_timestamp组成，其中 max_schedule_timestamp 用于查找第一个快照段，在恢复延迟消息索引时，如果快照段中的所有消息都达到传递时间，则存储桶将跳过快照段（因为代理可以将消息直接分发给消费者）。delayed_index_bit_map 用于检查消息 ID 是否存在于存储桶中。它记录每个快照段的延迟消息索引的 BitSet。当 Dispatcher 重放消息时，它将根据 delayed_index_bit_map 根据来跳过那些已经存在 Tracker 中的消息</p>
-<p>从 Entry 1开始每一个Entry 存放一个 segment，每一个Entry内是由delayed index 组成的有序列表，最前面的 Entry 存放的最先到期的 segment，越往后到期时间则越长。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222600.png" alt="image-20231024160419020" style="zoom:33%;" />
-<p>我们还应该清理掉不需要的 Bucket Snapshot ，当发生以下情况时，我们应该删除存 Bucket Snapshot:</p>
-<ol>
-<li>
-<p>当 Bucket 中快照的所有延迟消息都被调度时，Tracker 将删除该Bucket Snapshot。</p>
-</li>
-<li>
-<p>Merge Bukcets， Tracker 将删除旧的 Buckets。</p>
-</li>
-<li>
-<p>当订阅被删除或Topic被删除时。</p>
-</li>
-</ol>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222220.png" alt="image-20231027145722890" style="zoom:33%;" />
-<p>此外，如果不限制 Bucket 的数量的话，由于每一个 Bucket 都将消耗掉一个 Ledger，最终 Ledger 将变得非常多这将使得 Bookkeeper 的 Compaction 变得困难，所以我们也需要去 merge Buckets，当一个新的 Bucket 被创建后 Tracker 将检查当前 Bucket 的数量是否达到上限，如果达到上限则将选取两个相邻的 Bucket 进行 merge 并在merge 后删除旧的 Bucket 同时更新 Cursor Properties 中的 Bucket list 信息。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222153.png" alt="image-20231027150151406" style="zoom:33%;" />
-<h1 id="延迟消息性能测试"><a class="header-anchor" href="#延迟消息性能测试">❡</a>延迟消息性能测试</h1>
-<h3 id="测试环境"><a class="header-anchor" href="#测试环境">❡</a>测试环境</h3>
-<p>为了表明新版延迟消息相较于之前的版本提升了多少，我们还对两个版本的延迟消息的实现做了性能测试。我们使用了 <a target="_blank" rel="noopener" href="https://streamnative.io/book-a-demo">StreamNative Cloud</a> 最小规格的集群作为测试环境并使用 Apache Pulsar 3.0.4 作为测试镜像。将单位转换为标准单位后的显示如下：</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292222859.png" alt="image-20231027151630258" style="zoom:33%;" />
-<h3 id="测试步骤"><a class="header-anchor" href="#测试步骤">❡</a>测试步骤</h3>
-<p>使用 Pulsar-Perf Producer 向同一个 Topic 中发送了 100 Mil 延迟时间随机的的延迟消息 (最短的延迟时间是48h)，同时使用 Pulsar-Perf Consumer 从该 Topic 中消费消息，并记录 Direct Memory 内存使用量。下面是我们使用的测试命令。</p>
-<p><strong>Command Producer</strong>:</p>
 
           <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/pulsar-perf produce persistent://public/default/delayed-message -dr 172800,173400 -m 100000000 -r 1000<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d -p 6831:6831/udp -p 16686:16686 -p 14250:14250 jaegertracing/all-in-one:latest<br></code></pre></td></tr></table></figure>
           </div>
           
-<p><strong>Command Consumer</strong>:</p>
+<p>If you have successfully started Jaeger, you can open the Jaeger UI website successfully.</p>
+<blockquote>
+<p>If you do not have a Docker environment, you can <a target="_blank" rel="noopener" href="https://www.jaegertracing.io/download/">download the binaries</a><br>
+or <a target="_blank" rel="noopener" href="https://www.jaegertracing.io/docs/1.17/getting-started/#from-source">build from source</a>.</p>
+</blockquote>
+<ol>
+<li>
+<p>Visit <a target="_blank" rel="noopener" href="http://localhost:16686">http://localhost:16686</a> to open the Jaeger UI website without a username or password.</p>
+<p>![image-20230329203753594.png](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/image-20230329203753594.png)</p>
+</li>
+</ol>
+<h2 id="Step-2-Start-a-opentelemetry-collector-and-download-opentelemetry-javaagent"><a class="header-anchor" href="#Step-2-Start-a-opentelemetry-collector-and-download-opentelemetry-javaagent">❡</a>**<strong>Step 2: Start a <code>opentelemetry-collector</code> and download <code>opentelemetry-javaagent</code></strong></h2>
+<ol>
+<li>Start a <a target="_blank" rel="noopener" href="https://opentelemetry.io/docs/collector/">opentelemetry-collector</a> with Jaeger exporter in Docker.</li>
+</ol>
+<blockquote>
+<p>If you do not have a Docker environment, you also can use other way to start opentelemetry-collector: <a target="_blank" rel="noopener" href="https://opentelemetry.io/docs/collector/getting-started/">https://opentelemetry.io/docs/collector/getting-started/</a></p>
+</blockquote>
 
           <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
           <div class="btn-copy">
           <i class="fa fa-copy"> Copy</i>
           </div>
-          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/pulsar-perf consume persistent://public/default/delayed-message -ss subs -st Shared -r 10000<br></code></pre></td></tr></table></figure>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -v $(<span class="hljs-built_in">pwd</span>)/config.yaml:/etc/otelcol-contrib/config.yaml otel/opentelemetry-collector:0.74.0<br></code></pre></td></tr></table></figure>
           </div>
           
-<h3 id="测试结果"><a class="header-anchor" href="#测试结果">❡</a>测试结果</h3>
-<h5 id="Direct-Memory-Usage"><a class="header-anchor" href="#Direct-Memory-Usage">❡</a>Direct Memory Usage</h5>
-<p>随着 Topic 中持有的延迟消息数量增加，我们注意到 In-Memory 延迟消息的实现会消耗大量的 Direct Memory。当延迟消息数量达到 35Mil 时，Direct Memory 的消耗量已经达到了 847MB，并导致了 Out of Memory (OOM) 错误。这导致 Broker 无法再承载更多的延迟消息。相比之下，Bucket-Based 的延迟消息实现在 Direct Memory 的消耗方面表现更好，始终保持较低的水平，并且可以容纳全部的 100Mil 延迟消息。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225269.png" alt="image-20231027152113812" style="zoom:33%;" />
-<h5 id="Recovery-Time"><a class="header-anchor" href="#Recovery-Time">❡</a>Recovery Time</h5>
-<p>我们在 Topic 延迟消息达到最大值时，主动 Kill了Broker Pod，来观察延迟消息的恢复时间，我们发现在 In-Memory 的延迟消息的实现中Broker 恢复 <strong>35Mil</strong> 的延迟消息用了 <strong>6120s</strong>, 而在 Bucket-Based 的延迟消息的实现中，Broker 恢复 <strong>100Mil</strong> 的延迟消息只用了 <strong>90s</strong>, Bucket-Based 的实现相较于之前的 In-Memory 实现大约有2个数量级的加速作用。</p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225266.png" alt="image-20231027153120056" style="zoom:33%;" />
-<h3 id="结论"><a class="header-anchor" href="#结论">❡</a>结论</h3>
-<p>从测试结果我们可以得到两个结论</p>
+<p><code>config.yaml</code>:</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='YAML'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">processors:</span><br>  <span class="hljs-attr">batch:</span><br><br><span class="hljs-attr">receivers:</span><br>  <span class="hljs-attr">otlp:</span><br>    <span class="hljs-attr">protocols:</span><br>      <span class="hljs-attr">grpc:</span><br><br><span class="hljs-attr">exporters:</span><br>  <span class="hljs-attr">jaeger:</span><br>    <span class="hljs-attr">endpoint:</span> <span class="hljs-string">localhost:14250</span><br>    <span class="hljs-attr">tls:</span><br>      <span class="hljs-attr">insecure:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># Disable security certification</span><br><br><span class="hljs-attr">service:</span><br>  <span class="hljs-attr">pipelines:</span><br>    <span class="hljs-attr">traces:</span><br>      <span class="hljs-attr">receivers:</span> [<span class="hljs-string">otlp</span>]<br>      <span class="hljs-attr">processors:</span> [<span class="hljs-string">batch</span>]<br>      <span class="hljs-attr">exporters:</span> [<span class="hljs-string">jaeger</span>]<br></code></pre></td></tr></table></figure>
+          </div>
+          
 <ol>
-<li>
-<p>全新的 Bucket-Based 的延迟消息机制不受内存限制，它允许用户持有大规模延迟消息。</p>
-</li>
-<li>
-<p>当集群出现 Broker 宕机或者 Topic 的 ownership 转移时，Bucket-Based 的新延迟消息机制显着减少了延迟消息的恢复时间，从而大大缩短了Consumer不可用的时间。</p>
-</li>
+<li>Download <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar">opentelemetry-javaagent.jar</a> from <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases">Releases</a> of the <code>opentelemetry-java-instrumentation</code> repo and place the JAR in your preferred directory. The JAR file contains the agent and instrumentation libraries.</li>
 </ol>
-<h1 id="如何在Pulsar中开启新版延迟消息"><a class="header-anchor" href="#如何在Pulsar中开启新版延迟消息">❡</a>如何在Pulsar中开启新版延迟消息</h1>
-<p>如果你想使用新版延迟消息功能，首先你需要升级到Pulsar 3.0+，然后只需要将 <code>delayedDeliveryTrackerFactoryClassName</code> 设置为 <code>org.apache.pulsar.broker.delayed.BucketDelayedDeliveryTrackerFactory</code> 即可.</p>
-<p>关于新版延迟消息还有一些参数需要调优详细请参看考 PIP-195: <a target="_blank" rel="noopener" href="https://github.com/apache/pulsar/issues/16763">https://github.com/apache/pulsar/issues/16763</a></p>
-<img src="https://gitee.com/coderzc/blogimage/raw/master/202310292225799.png" alt="image-20231027155213510" style="zoom:33%;" />
+<h2 id="Step-3-Write-sample-code"><a class="header-anchor" href="#Step-3-Write-sample-code">❡</a>Step 3: Write sample code</h2>
+<p>For easier understanding, this blog takes a usage scenario as an example. Suppose that you have three jobs and two topics. Job-1 publishes messages to the topic-A and Job-2 consumes messages from the topic-A. When Job-2 receives a message from topic-A, Job-2 sends a message to the topic-B, and then Job-3 consumes messages from topic-B. So there are two topics, two producers and two consumers in this scenario.</p>
+<p>According to the scenario described previously, you need to start three applications to finish this job.</p>
+<ul>
+<li>Job-1: publish messages to topic-A</li>
+<li>Job-2: consume messages from topic-A and publish messages to topic-B</li>
+<li>Job-3: consume messages from topic-B</li>
+</ul>
+<h3 id="Job-1"><a class="header-anchor" href="#Job-1">❡</a>Job-1</h3>
+<p>This example shows how to publish messages to topic-A in Java.</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PulsarClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> PulsarClient.builder()<br>        .serviceUrl(<span class="hljs-string">&quot;pulsar://localhost:6650&quot;</span>)<br>        .build();<br><br>Producer&lt;String&gt; producerA = client.newProducer(Schema.STRING)<br>        .topic(<span class="hljs-string">&quot;topic-A&quot;</span>)<br>        .create();<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>    producerA.newMessage().value(String.format(<span class="hljs-string">&quot;[%d] Hello&quot;</span>, i)).send();<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<h3 id="Job-2"><a class="header-anchor" href="#Job-2">❡</a>Job-2</h3>
+<p>This example shows how to consume messages from topic-A and publish messages to topic-B in Java.</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PulsarClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> PulsarClient.builder()<br>                .serviceUrl(<span class="hljs-string">&quot;pulsar://localhost:6650&quot;</span>)<br>          .build();<br><br>Producer&lt;String&gt; producerB = client.newProducer(Schema.STRING)<br>    .topic(<span class="hljs-string">&quot;topic-B&quot;</span>)<br>    .create();<br><br>Consumer&lt;String&gt; consumer = client.newConsumer(Schema.STRING)<br>        .topic(<span class="hljs-string">&quot;topic-A&quot;</span>)<br>        .subscriptionName(<span class="hljs-string">&quot;open-telemetry&quot;</span>)<br>        .subscriptionType(SubscriptionType.Shared)<br>        .messageListener((MessageListener&lt;String&gt;) (consumer0, msg) -&gt; &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                TypedMessageBuilder&lt;String&gt; messageBuilder = producerB.newMessage();<br>                messageBuilder.value(msg.getValue() + <span class="hljs-string">&quot; Pulsar and OpenTelemetry!&quot;</span>);<br>                messageBuilder.send();<br>                consumer0.acknowledge(msg);<br>            &#125; <span class="hljs-keyword">catch</span> (PulsarClientException e) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>            &#125;<br>        &#125;)<br>        .subscribe();<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<h3 id="Job-3"><a class="header-anchor" href="#Job-3">❡</a>Job-3</h3>
+<p>This example shows how to consume messages from topic-B in Java.</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PulsarClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> PulsarClient.builder()<br>                .serviceUrl(<span class="hljs-string">&quot;pulsar://localhost:6650&quot;</span>)<br>                .build();<br><br>Consumer&lt;String&gt; consumer = client.newConsumer(Schema.STRING)<br>        .topic(<span class="hljs-string">&quot;topic-B&quot;</span>)<br>        .subscriptionName(<span class="hljs-string">&quot;open-telemetry&quot;</span>)<br>        .subscriptionType(SubscriptionType.Shared)<br>        .subscribe();<br><br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    Message&lt;String&gt; received = consumer.receive(<span class="hljs-number">5</span>, TimeUnit.MINUTES);<br>    <span class="hljs-keyword">if</span> (received == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>    System.out.println(received.getValue());<br>    consumer.acknowledge(received);<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<h2 id="Step-4-Use-opentelemetry-javaagent-to-start-your-app"><a class="header-anchor" href="#Step-4-Use-opentelemetry-javaagent-to-start-your-app">❡</a><strong><strong>Step 4: Use opentelemetry-javaagent to start your app</strong></strong></h2>
+<p>Please compile and package Job-1, Job-2 and Job-3 into the executable JAR file, get three JAR files Job-1.jar, Job-2.jar, Job-3.jar.</p>
+<p><strong>Now, add <code>-javaagent:path/to/opentelemetry-javaagent.jar</code> and other config to your JVM’s startup arguments and launch your app:</strong></p>
+<blockquote>
+<p>For more agent config, please see: <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#opentelemetry-sdk-autoconfigure">opentelemetry_sdk_autoconfigure</a></p>
+</blockquote>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -javaagent:path/opentelemetry-javaagent.jar \<br>     -Dotel.resource.attributes=service.name=<span class="hljs-variable">$&#123;JobName&#125;</span> \<br>     -Dotel.traces.exporter=otlp \<br>     -jar <span class="hljs-variable">$&#123;JobName&#125;</span>.jar<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p>You can see the Job-3 receives logs in the console as below:</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">[<span class="hljs-number">0</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">1</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">2</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">3</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">4</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">5</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">6</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">7</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">8</span>] Hello Pulsar and OpenTelemetry!<br>[<span class="hljs-number">9</span>] Hello Pulsar and OpenTelemetry!<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p>Congratulations, your jobs work well. Now you can open the Jaeger UI again and there are ten traces in the Jaeger.</p>
+<p>![Untitled](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/Untitled.png)</p>
+<p>You can click a job name to view the details of a trace.</p>
+<p>![Untitled](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/Untitled 1.png)</p>
+<p>![Untitled](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/Untitled 2.png)</p>
+<p>The span name is formatted as <code>send</code> and <code>receive</code>, which makes it easy to tell whether it is a producer or a consumer.</p>
+<blockquote>
+<p>For more message system semantic conventions please see: <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/semantic_conventions/messaging.md">semantic_conventions/messaging</a></p>
+</blockquote>
+<h2 id="Extensions-How-to-generate-the-trace-ID-manually"><a class="header-anchor" href="#Extensions-How-to-generate-the-trace-ID-manually">❡</a>Extensions**: How to generate the trace ID manually**</h2>
+<p>First, you need to introduce the <code>opentelemetry-api</code> dependency in your project.</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='XML'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.opentelemetry<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>opentelemetry-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.25.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p>Replace Job-1 with the following code</p>
+<blockquote>
+<p>Note: the manually generated traceId/spanId must be valid traceId/spanId, please see: <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java/blob/47ee573f07c9025547d494608863d9314b29df4b/api/all/src/main/java/io/opentelemetry/api/trace/TraceId.java#L55-L66">TraceId#isValid</a> and <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java/blob/47ee573f07c9025547d494608863d9314b29df4b/api/all/src/main/java/io/opentelemetry/api/trace/SpanId.java#L51-L62">SpanId#isValid</a></p>
+</blockquote>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='JAVA'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Job1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> PulsarClientException, ClassNotFoundException &#123;<br>        <span class="hljs-type">PulsarClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> PulsarClient.builder()<br>                .serviceUrl(<span class="hljs-string">&quot;pulsar://localhost:6650&quot;</span>)<br>                .build();<br><br>        Producer&lt;String&gt; producerA = client.newProducer(Schema.STRING)<br>                .topic(<span class="hljs-string">&quot;topic-A&quot;</span>)<br>                .create();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">traceId</span> <span class="hljs-operator">=</span> generateTraceId();<br>            System.out.printf(<span class="hljs-string">&quot;traceId: %s, isValid: %s\n&quot;</span>, traceId, TraceId.isValid(traceId));<br>            <span class="hljs-type">Span</span> <span class="hljs-variable">span</span> <span class="hljs-operator">=</span> createSpanLinkedToParent(traceId);<br>            <span class="hljs-keyword">try</span> (<span class="hljs-type">Scope</span> <span class="hljs-variable">__</span> <span class="hljs-operator">=</span> span.makeCurrent()) &#123;<br>                producerA.newMessage().value(String.format(<span class="hljs-string">&quot;[%d] Hello&quot;</span>, i)).send();<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>                span.end();<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Span <span class="hljs-title function_">createSpanLinkedToParent</span><span class="hljs-params">(String traceId)</span> &#123;<br>        <span class="hljs-type">SpanContext</span> <span class="hljs-variable">remoteContext</span> <span class="hljs-operator">=</span> SpanContext.createFromRemoteParent(<br>                traceId,<br>                generateSpanId(),<br>                TraceFlags.getSampled(),<br>                TraceState.getDefault());<br><br>        <span class="hljs-keyword">return</span> GlobalOpenTelemetry.getTracer(<span class="hljs-string">&quot;Job-1&quot;</span>)<br>                .spanBuilder(<span class="hljs-string">&quot;root span&quot;</span>)<br>                .setParent(Context.current().with(Span.wrap(remoteContext)))<br>                .startSpan();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateSpanId</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> ThreadLocalRandom.current();<br><br>        <span class="hljs-type">long</span> id;<br>        <span class="hljs-keyword">do</span> &#123;<br>            id = random.nextLong();<br>        &#125; <span class="hljs-keyword">while</span>(id == <span class="hljs-number">0L</span>);<br><br>        <span class="hljs-keyword">return</span> SpanId.fromLong(id);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateTraceId</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> ThreadLocalRandom.current();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">idHi</span> <span class="hljs-operator">=</span> random.nextLong();<br><br>        <span class="hljs-type">long</span> idLo;<br>        <span class="hljs-keyword">do</span> &#123;<br>            idLo = random.nextLong();<br>        &#125; <span class="hljs-keyword">while</span>(idLo == <span class="hljs-number">0L</span>);<br><br>        <span class="hljs-keyword">return</span> TraceId.fromLongs(idHi, idLo);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p>Then start Job-1, Job-2, Job-3 as in <code>step-4</code>.</p>
+<p>You can see that Job-1 outputs the manually generated traceID.</p>
+
+          <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel='BASH'>
+          <div class="btn-copy">
+          <i class="fa fa-copy"> Copy</i>
+          </div>
+          <figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">traceId: 346198ae5ce064e0c39db27f71c96ad7, isValid: <span class="hljs-literal">true</span><br>traceId: ffa22326aef6a062766bd28913999dec, isValid: <span class="hljs-literal">true</span><br>traceId: b08a78ca2a7b67c7377413d941d6b24a, isValid: <span class="hljs-literal">true</span><br>traceId: 7749c82c6b1496e3842226cb74ffffe1, isValid: <span class="hljs-literal">true</span><br>traceId: 7092dd140b14e55f200fc5612e57acd5, isValid: <span class="hljs-literal">true</span><br>traceId: 2bb13755a34d2fa3108b4a548463b757, isValid: <span class="hljs-literal">true</span><br>traceId: ade8a50fd3edff776b0d562019687788, isValid: <span class="hljs-literal">true</span><br>traceId: 334ec20b06c3209cf681be9e1e40d8b9, isValid: <span class="hljs-literal">true</span><br>traceId: 4c9c234466b081b88ea0ca7846749993, isValid: <span class="hljs-literal">true</span><br>traceId: 9ad50fcb0029148c983ff492357f5e28, isValid: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+          </div>
+          
+<p>Open the Jaeger UI again and there are ten traces in the Jaeger.</p>
+<p>![Untitled](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/Untitled 3.png)</p>
+<p>![Untitled](/Users/zc/Downloads/79cde5f0-f42f-466b-813c-bcac2ba846d1_Export-3fd12ec6-fba4-4e92-b6a4-a754048a0585/How to trace Pulsar messages with OpenTelemetry In d52f65184dd14e62bc62dfb047ab9825/Untitled 4.png)</p>
+<p>Now, you can see that the traceID displayed is the same as the traceID you generated manually!</p>
+<h2 id="Summary"><a class="header-anchor" href="#Summary">❡</a>Summary</h2>
+<p>As you can see, <a target="_blank" rel="noopener" href="https://github.com/open-telemetry/opentelemetry-java-instrumentation">OpenTelemetry Instrumentation</a> integrates Pulsar client and Jaeger to trace Pulsar messages easily. If you are using Pulsar and OpenTelemetry in your application, do not hesitate to try it out!</p>
+
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
-          <li class="previous">
-            <a href="/blog/2025/103BS69/"  data-placement="top" title="How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger">&larr; Previous
-              <br/>
-              <span>How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger</span>
-            </a>
+          <li class="previous" style="visibility:hidden;">
+            <a><span></span></a>
           
           </li>
           
           <li class="next">
-            <a href="/blog/2021/3HR80D1/"  data-placement="top" title="Google论文、开源与云计算">Next &rarr;
+            <a href="/blog/2025/15J18E5/"  data-placement="top" title="New Delayed Message In Pulsar 3">Next &rarr;
               <br/>
-              <span>Google论文、开源与云计算</span>
+              <span>New Delayed Message In Pulsar 3</span>
             </a>
           
           </li>
@@ -650,7 +664,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#New-Delayed-Message-In-Pulsar-3-0"><span class="toc-nav-text">New Delayed Message In Pulsar 3.0</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">什么是延迟消息</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Pulsar-%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">如何使用 Pulsar 延迟消息</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E5%9C%A8Pulsar%E4%B8%AD%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="toc-nav-text">延迟消息在Pulsar中是如何工作的</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Pulsar-%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-nav-text">Pulsar 延迟消息的挑战</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%96%B0%E7%89%88%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-nav-text">新版延迟消息的设计</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-nav-text">延迟消息性能测试</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-nav-text">测试环境</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="toc-nav-text">测试步骤</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-nav-text">测试结果</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Direct-Memory-Usage"><span class="toc-nav-text">Direct Memory Usage</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Recovery-Time"><span class="toc-nav-text">Recovery Time</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-nav-text">结论</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Pulsar%E4%B8%AD%E5%BC%80%E5%90%AF%E6%96%B0%E7%89%88%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="toc-nav-text">如何在Pulsar中开启新版延迟消息</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#How-to-trace-Pulsar-messages-with-OpenTelemetry-Instrumentation-and-Jaeger"><span class="toc-nav-text">How to trace Pulsar messages with OpenTelemetry Instrumentation and Jaeger</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Prerequisite"><span class="toc-nav-text">Prerequisite</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Step-1-Start-a-Jaeger-backend"><span class="toc-nav-text">Step 1: Start a Jaeger backend</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Step-2-Start-a-opentelemetry-collector-and-download-opentelemetry-javaagent"><span class="toc-nav-text">**Step 2: Start a opentelemetry-collector and download opentelemetry-javaagent</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Step-3-Write-sample-code"><span class="toc-nav-text">Step 3: Write sample code</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Job-1"><span class="toc-nav-text">Job-1</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Job-2"><span class="toc-nav-text">Job-2</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Job-3"><span class="toc-nav-text">Job-3</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Step-4-Use-opentelemetry-javaagent-to-start-your-app"><span class="toc-nav-text">Step 4: Use opentelemetry-javaagent to start your app</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Extensions-How-to-generate-the-trace-ID-manually"><span class="toc-nav-text">Extensions**: How to generate the trace ID manually**</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Summary"><span class="toc-nav-text">Summary</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -678,11 +692,7 @@
             
             <a class="tag" href="/blog/tags/#Java" title="Java">Java</a>
             
-            <a class="tag" href="/blog/tags/#数据库" title="数据库">数据库</a>
-            
             <a class="tag" href="/blog/tags/#Pulsar" title="Pulsar">Pulsar</a>
-            
-            <a class="tag" href="/blog/tags/#消息队列" title="消息队列">消息队列</a>
             
           </div>
         </section>
