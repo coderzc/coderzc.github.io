@@ -98,10 +98,14 @@ else
 
         # 运行容器，并设置自动重启
         echo "运行容器：$containerName"
+        docker run -d --restart unless-stopped -v "$storageDir/$folderName:/root/.titanedge" --name $containerName nezha123/titan-edge
         docker run -e TITAN_BANDWIDTH_BANDWIDTHUP=100 -e TITAN_BANDWIDTH_BANDWIDTHDOWN=10240 -d --restart unless-stopped -v "$storageDir/$folderName:/root/.titanedge" --name $containerName nezha123/titan-edge
 
         # 等待容器启动
         echo "等待容器启动..."
+        sleep 10s
+
+        docker logs $containerName
         sleep 20s
 
         # 如果提供了身份码，则执行绑定操作
